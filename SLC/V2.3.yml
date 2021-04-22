@@ -160,7 +160,11 @@ paths:
                     format: uint32
                     #minimum: 0
                     #maximum: 1
-                    description: The number of times the lamp has been tuned on
+                    description: The number of times the lamp has been turned on
+                  n_reset:
+                    type: integer
+                    format: uint32
+                    description: The number of times the system has been restarted
     delete:
       tags:
       - lamp
@@ -428,7 +432,7 @@ paths:
                       type: integer
                       format: uint32
                       minimum: 0
-                      maximum: 262080
+                      maximum: 8386560
                       description: Current iluminance in centilux
 
   /sensors/gps : 
@@ -470,6 +474,17 @@ paths:
                       #minimum: -180.0
                       #maximum: 180
                       description: Number of satellites in use
+                    quality:
+                      type: integer
+                      format: uint8
+                      #minimum: 0
+                      #maximum: 4
+                      description: "GPS Quality indicator:\n\n  
+                                    0 - Fix not valid\n\n
+                                    1 - GPS fix\n\n
+                                    2 - Differential GPS fix, OmniSTAR VBS\n\n
+                                    3 - Real-Time Kinematic, fixed integers\n\n
+                                    4 - Real-Time Kinematic, float integers, OmniSTAR XP/HP or Location RTK\n\n"
 
   /system/state : 
     get:
@@ -688,6 +703,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/spa'
+        204:
+          description: No signal
+          content: {}
 
   /system/alarm :
     put:
@@ -914,42 +932,42 @@ components:
           type: integer
           format: uint32
           minimum: 0
-          maximum: 50000
+          maximum: 10000
           description: "overcurrent threshold in milliamperes (default: 1000)"
 
         unT:
           type: integer
           format: uint32
-          minimum: 0
-          maximum: 50000
+          minimum: -40
+          maximum: 85
           description: "undertemperature threshold in degree Celsius (default: 0)"
 
         ovT:
           type: integer
           format: uint32
-          minimum: 0
-          maximum: 50000
+          minimum: -40
+          maximum: 85
           description: "overtemperature threshold in degree Celsius (default: 45)"
 
         opCirc:
           type: integer
           format: uint32
           minimum: 0
-          maximum: 50000
+          maximum: 10000
           description: "open circuit current threshold in milliamperes (default: 70)"
 
         shCirc:
           type: integer
           format: uint32
           minimum: 0
-          maximum: 50000
+          maximum: 10000
           description: "short circuit current threshold in milliamperes (default: 70)"
 
         unPfa:
           type: integer
           format: uint32
           minimum: 0
-          maximum: 50000
+          maximum: 1000
           description: "under power factor threshold (multiplied by 1000) (default: 920)"
 
     schedule:
