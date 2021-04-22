@@ -160,11 +160,11 @@ paths:
                     format: uint32
                     #minimum: 0
                     #maximum: 1
-                    description: The number of times the lamp has been tuned on
+                    description: The number of times the lamp has been turned on
                   n_reset:
                     type: integer
                     format: uint32
-                    description: The number of system was reset
+                    description: The number of times the system has been restarted
     delete:
       tags:
       - lamp
