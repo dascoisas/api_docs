@@ -1,0 +1,1527 @@
+openapi: 3.0.1
+info:
+  title: Nouvenn Smart Lighting Controller
+  description: 'This documentation describes the high level REST interface that can be used for 
+  controlling the Nouvenn Smart Lighting Controller using CoAP. It is possible to access a node 
+  directly via CoAP throught a request to its IPv6 address, however we provide an HTTP/JSON to
+  CoAP proxy controller. This documentation assumes that the proxy controller is accessible by 
+  the given url address.'
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: External Docs
+  url: http://swagger.io
+
+servers:
+- url: https://petstore.swagger.io/v2
+- url: http://petstore.swagger.io/v2
+
+tags:
+- name: gpio
+  description: Access to gpio parameters
+- name: uart0
+  description: Access to uart0 parameters
+- name: uart1
+  description: Access to uart1 parameters
+- name: spi
+  description: Access to spi parameters
+- name: i2c
+  description: Access to i2c parameters
+- name: system
+  description: Access to system parameters and cli
+
+paths:
+  /gpio/led/data :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'usr_led' pin state
+      operationId: updateGpioState
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_state'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'usr_led' pin state
+      description: ""
+      operationId: getGpioState
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_state'
+
+  /gpio/led/config/mode :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'usr_led' pin configuration
+      operationId: updateGpioMode
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_control'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'usr_led' pin configuration
+      description: ""
+      operationId: getGpioMode
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_control'
+
+/gpio/sw/data :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'sw' pin state
+      operationId: updateGpioState
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_state'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'sw' pin state
+      description: ""
+      operationId: getGpioState
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_state'
+
+/gpio/sw/config/mode :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'sw' pin configuration
+      operationId: updateGpioMode
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_control'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'sw' pin configuration
+      description: ""
+      operationId: getGpioMode
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_control'
+
+/gpio/io0/data :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io0' pin state
+      operationId: updateGpioState
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_state'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io0' pin state
+      description: ""
+      operationId: getGpioState
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_state'
+
+/gpio/io0/config/mode :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io0' pin configuration
+      operationId: updateGpioMode
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_control'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io0' pin configuration
+      description: ""
+      operationId: getGpioMode
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_control'
+
+/gpio/io1/data :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io1' pin state
+      operationId: updateGpioState
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_state'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io1' pin state
+      description: ""
+      operationId: getGpioState
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_state'
+
+/gpio/io1/config/mode :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io1' pin configuration
+      operationId: updateGpioMode
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_control'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io1' pin configuration
+      description: ""
+      operationId: getGpioMode
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_control'
+
+/gpio/io2/data :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io2' pin state
+      operationId: updateGpioState
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_state'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io2' pin state
+      description: ""
+      operationId: getGpioState
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_state'
+
+/gpio/io2/config/mode :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io2' pin configuration
+      operationId: updateGpioMode
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_control'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io2' pin configuration
+      description: ""
+      operationId: getGpioMode
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_control'
+
+/gpio/io3/data :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io3' pin state
+      operationId: updateGpioState
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_state'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io3' pin state
+      description: ""
+      operationId: getGpioState
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_state'
+
+/gpio/io3/config/mode :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io3' pin configuration
+      operationId: updateGpioMode
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_control'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io3' pin configuration
+      description: ""
+      operationId: getGpioMode
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_control'
+
+/gpio/io4/data :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io4' pin state
+      operationId: updateGpioState
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_state'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io4' pin state
+      description: ""
+      operationId: getGpioState
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_state'
+
+/gpio/io4/config/mode :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io4' pin configuration
+      operationId: updateGpioMode
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_control'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io4' pin configuration
+      description: ""
+      operationId: getGpioMode
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_control'
+
+/gpio/io5/data :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io5' pin state
+      operationId: updateGpioState
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_state'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io5' pin state
+      description: ""
+      operationId: getGpioState
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_state'
+
+/gpio/io5/config/mode :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io5' pin configuration
+      operationId: updateGpioMode
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_control'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io5' pin configuration
+      description: ""
+      operationId: getGpioMode
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_control'
+
+/gpio/io6/data :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io6' pin state
+      operationId: updateGpioState
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_state'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io6' pin state
+      description: ""
+      operationId: getGpioState
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_state'
+
+/gpio/io6/config/mode :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io6' pin configuration
+      operationId: updateGpioMode
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_control'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io6' pin configuration
+      description: ""
+      operationId: getGpioMode
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_control'
+
+/uart0/data :
+    put:
+      tags:
+      - uart0
+      summary: This route allows one to send data via uart0 serial bus
+      operationId: dataUart0
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_state'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - uart0
+      summary: This route allows one to monitor data reception via uart0 serial bus
+      description: ""
+      operationId: dataUart0
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_state'
+
+/uart0/config :
+    put:
+      tags:
+      - uart0
+      summary: This route allows one to update the 'io6' pin configuration
+      operationId: updateGpioMode
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_control'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - uart0
+      summary: This route provides access to the 'io6' pin configuration
+      description: ""
+      operationId: getGpioMode
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_control'
+  /sensors/energy/acc : 
+    get:
+        tags:
+        - sensors
+        summary: Get accumulated energy
+        description: ""
+        operationId: getAccSens
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    active:
+                      type: integer
+                      format: uint32
+                      #minimum: 0
+                      #maximum: 65535
+                      description: Accummulated active energy in centi watts-hour
+                    reactive:
+                      type: integer
+                      format: uint32
+                      #minimum: 0
+                      #maximum: 65535
+                      description: Accummulated reactive energy in centi volt-amperes reactive hour
+    delete:
+      tags:
+      - sensors
+      summary: Reset accumulated active/reactive energy
+      description: ""
+      operationId: resetLampStat
+      responses:
+        202:
+          description: Success
+
+  /sensors/mic : 
+    get:
+        tags:
+        - sensors
+        summary: Get the microphone measures
+        description: ""
+        operationId: getMicSens
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    mean:
+                      type: integer
+                      format: uint32
+                      #minimum: 0
+                      #maximum: 65535
+                      description: Mean sound pressure level in dBSPL
+
+  /sensors/acc : 
+    get:
+        tags:
+        - sensors
+        summary: Get the Acelerometer Sensor measures
+        description: ""
+        operationId: getAcelSens
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    x:
+                      type: integer
+                      format: int16
+                      minimum: -2000
+                      maximum: 2000
+                      description: x-axis acceleration in milli-G
+                    y:
+                      type: integer
+                      format: int16
+                      minimum: -2000
+                      maximum: 2000
+                      description: y-axis acceleration in milli-G
+                    z:
+                      type: integer
+                      format: int16
+                      minimum: -2000
+                      maximum: 2000
+                      description: z-axis acceleration in milli-G
+
+  /sensors/mag : 
+    get:
+        tags:
+        - sensors
+        summary: Get the Magnetometer Sensor measures
+        description: ""
+        operationId: getMagSens
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    x:
+                      type: integer
+                      format: int32
+                      minimum: -160000
+                      maximum: 160000
+                      description: x-axis magnetic field strength in milligauss
+                    y:
+                      type: integer
+                      format: int32
+                      minimum: -160000
+                      maximum: 160000
+                      description: y-axis magnetic field strength in milligauss
+                    z:
+                      type: integer
+                      format: int32
+                      minimum: -160000
+                      maximum: 160000
+                      description: z-axis magnetic field strength in milligauss
+
+  /sensors/bar : 
+    get:
+        tags:
+        - sensors
+        summary: Get the Barometer Sensor measures
+        description: ""
+        operationId: getBarSens
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    mBar:
+                      type: integer
+                      format: uint16
+                      minimum: 10
+                      maximum: 2000
+                      description: Barometric pressure in millibars
+
+  /sensors/tmp : 
+    get:
+        tags:
+        - sensors
+        summary: Get the Termometer Sensor measures
+        description: ""
+        operationId: getTmpSens
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    tmp:
+                      type: integer
+                      format: int8
+                      minimum: -40
+                      maximum: 85
+                      description: Current system temperature in degree Celsius
+
+  /sensors/lux : 
+    get:
+        tags:
+        - sensors
+        summary: Get the Luxmeter Sensor measures
+        description: ""
+        operationId: getTmpSens
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    lux:
+                      type: integer
+                      format: uint32
+                      minimum: 0
+                      maximum: 8386560
+                      description: Current iluminance in centilux
+
+  /sensors/gps : 
+    get:
+        tags:
+        - sensors
+        summary: Get the GPS fix data
+        description: ""
+        operationId: getGpsSens
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    lat:
+                      type: number
+                      #format: float
+                      minimum: -90.0
+                      maximum: 90.0
+                      description: Latitude in decimal degrees
+                    lng:
+                      type: number
+                      #format: float
+                      minimum: -180.0
+                      maximum: 180
+                      description: Longitude in decimal degrees
+                    hei:
+                      type: number
+                      #format: float
+                      #minimum: -180.0
+                      #maximum: 180
+                      description: Orthometric height 
+                    sats:
+                      type: integer
+                      format: uint8
+                      #minimum: -180.0
+                      #maximum: 180
+                      description: Number of satellites in use
+                    quality:
+                      type: integer
+                      format: uint8
+                      #minimum: 0
+                      #maximum: 4
+                      description: "GPS Quality indicator:\n\n  
+                                    0 - Fix not valid\n\n
+                                    1 - GPS fix\n\n
+                                    2 - Differential GPS fix, OmniSTAR VBS\n\n
+                                    3 - Real-Time Kinematic, fixed integers\n\n
+                                    4 - Real-Time Kinematic, float integers, OmniSTAR XP/HP or Location RTK\n\n"
+
+  /system/state : 
+    get:
+        tags:
+        - system
+        summary: Get the system state variables
+        description: ""
+        operationId: getState
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    uptime:
+                      type: integer
+                      format: uint32
+                      #minimum: 0
+                      #maximum: 4294967295
+                      description: The time for which the system has been running in seconds
+                    hmeter:
+                      type: integer
+                      format: uint32
+                      #minimum: 0
+                      #maximum: 4294967295
+                      description: Accumulated operation time in minutes
+                    state:
+                      type: integer
+                      format: uint32
+                      #minimum: 0
+                      #maximum: 4294967295
+                      description: "System state bit mask in the format b31|b30|...|b0,
+                                    same meaning as the Alarm bit mask (see /system/alarm) 
+                                    but the bits are set WHILE a specific cause is detected." 
+
+  /system/datetime : 
+    get:
+        tags:
+        - system
+        summary: Get the system date and time
+        description: ""
+        operationId: getDateTime
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/date_time'
+          204:
+            description: No time set
+            content: {}
+    put:
+      tags:
+      - system
+      summary: Update the system date and time
+      operationId: updateDateTime
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/date_time'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+
+  /system/ver : 
+    get:
+      tags:
+      - system
+      summary: Get the system HW/FW version
+      description: ""
+      operationId: getVer
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  model:
+                    type: string
+                    description: Model 
+                  fwVer:
+                    type: string
+                    description: Firmware version
+                  hwVer:
+                    type: string
+                    description: Hardware version 
+
+  /system/eui64 : 
+      get:
+        tags:
+        - system
+        summary: Get the system 64 bits Extended Unique Identifier
+        description: ""
+        operationId: getVer
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    eui64:
+                      type: string
+                      description: Hexadecimal representation EUI-64 
+                      
+  /lamp/reboot_adv :
+    put:
+      tags:
+      - system
+      summary: Schedule a delayed reboot 
+      operationId: updateReboot
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+            type: object
+            properties:
+              time:
+                type: integer
+                format: uint8
+                description: Time to reboot in minutes (255 to cancel)
+              inst:
+                type: integer
+                format: uint8
+                minimum: 0
+                maximum: 1
+                description: 1 to install the previous installed firmware
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+
+  /system/lastgasp : 
+    get:
+        tags:
+        - system
+        summary: Monitor 'last gasp' events
+        description: "It generates an event every time the system is shut down due to power failure"
+        operationId: getLastgasp
+        parameters:
+        - name: observe
+          in: query
+          description: "Observe the resource \n\n
+                        (none: keep last mode; true: start observing; false: stop observing)"
+          required: false
+          schema:
+            type: boolean
+            default: false
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    uptime:
+                      type: integer
+                      format: uint32
+                      #minimum: 0
+                      #maximum: 4294967295
+                      description: The time for which the system has been running in seconds 
+
+  /system/astronomic :
+    put:
+      tags:
+      - system
+      summary: Update the Solar Position Algorithm parameters 
+      operationId: updateAstro
+      requestBody:
+        description: "Solar Position Algorithm infers between day and night from 
+                      geographical coordinates and current date and time"
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/spa'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - system
+      summary: Get the Solar Position Algorithm parameters
+      description: ""
+      operationId: getAstro
+      responses:
+        200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/spa'
+        204:
+          description: No signal
+          content: {}
+
+  /system/alarm :
+    put:
+      tags:
+      - system
+      summary:  Update the Alarm bitmask and thresholds
+      operationId: updateAlarm
+      requestBody:
+        description: "The Alarm State is saved in a non-volatile memory, which means that
+                      if a fault condition is detected, the equivalent bit will be set until
+                      it is explicitly reset; this route can be used to do that and set each fault threshold\n\n
+                      'alarm' bit masks the current Alarm State\n\n
+                      E.g. Alarm State = 272, alarm = 16, new Alarm State = 16"
+        content:
+          application/json:
+           schema:
+              $ref: '#/components/schemas/alarm'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - system
+      summary: Get the system faults log
+      description: "The system faults log is coded in a bit mask (Alarm State), 
+                    each bit is set when a specific fault is detected. The thresholds are configurable\n\n"
+      operationId: getAlarm
+      parameters:
+        - name: observe
+          in: query
+          description: "Observe the resource \n\n
+                        (none: keep last mode; true: start observing; false: stop observing)"
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alarm'
+
+components:
+  schemas:
+    gpio_control:
+      type: object
+      properties:
+        type:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 1
+          description: Gpio func (0 for input, 1 for output)
+        mode:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 3
+          description: "Gpio mode:\n\n  
+                        0 - gpioModeDisabled: Input disabled. Pull-up if DOUT is set\n\n
+                        1 - gpioModeInput: Input enabled. Filter if DOUT is set\n\n
+                        2 - gpioModeInputPull: Input enabled. DOUT determines pull direction\n\n
+                        3 - gpioModeInputPullFilter: Input enabled with filter. DOUT determines pull direction\n\n
+                        4 - gpioModePushPull: Push-pull output"
+        initIn:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 5
+          description: "Initialization interrupt mode :\n\n  
+                        0 - RISINGEDGE: AUTO LUX mode and ON state\n\n
+                        1 - FALLINGEDGE: AUTO LUX mode and OFF state\n\n
+                        2 - RISIN_AND_FALLIN: AUTO ASTRO mode and ON state\n\n
+                        3 - DISABLED: AUTO ASTRO mode and OFF state\n\n"
+        adc:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 1
+          description: Set gpio to adc (0 for disable, 1 enable)
+
+    gpio_state:
+      type: object
+      properties:
+        state:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 1
+          description: Gpio state (0 for off)
+   
+    spa:
+      type: object
+      properties:
+        src:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 1
+          description: "Coordinates source:\n\n
+                        0 - From GPS\n\n
+                        1 - Manually configured"
+        lat:
+          type: number
+          #format: float
+          minimum: -90.0
+          maximum: 90.0
+          description: Latitude in decimal degrees
+        lng:
+          type: number
+          #format: float
+          minimum: -180.0
+          maximum: 180
+          description: Longitude in decimal degrees
+
+    alarm:
+      type: object
+      properties:
+        alarm:
+          type: integer
+          format: uint32
+          #minimum: 0
+          #maximum: 4294967295
+          description: "Bit mask in the format b31|b30|...|b0:\n\n
+                        b0: [undervoltage] line voltage below the threshold\n\n
+                        b1: [overvoltage] line voltage above the threshold\n\n
+                        b2: [overcurrent] input current above the threshold\n\n
+                        b3: [undertemperature] system temperature below the threshold\n\n
+                        b4: [overtemperature] system temperature above the threshold\n\n
+                        b5: [reset] system was reset\n\n
+                        b6: [open circuit] lamp switched on and its current below the threshold\n\n
+                        b7: [short circuit] lamp switched off and its current above the threshold\n\n
+                        b8: [RTC error] RTC date/time was reset\n\n
+                        b9: [sub power factor] load power factor below the threshold\n\n
+                        b10: [lamp off night] lamp off and the system infers that it is at night (see /system/astronomic)\n\n
+                        b11: [lamp on day] lamp on and the system infers that it is at day (see /system/astronomic)\n\n
+                        b12: [lamp off dark] lamp off and the (luximeter measured) brightness is below the day/night threshold 
+                            (see /control/lamp)\n\n
+                        b13: [lamp on light] lamp on and the (luximeter measured) brightness is above the night/day threshold 
+                            (see /control/lamp)\n\n
+                        b14: [lamp blinking] the lamp is blinking\n\n
+                        b15: [no schedule] lamp control is in SCHEDULER mode and there are no scheduled actions\n\n
+                        b16: [no location] Solar Position Algotithm coordinates are invalids (for more than 90 seconds when in GPS mode) 
+                            (see /system/astronomic)\n\n
+                        b17: [end of life] consider replacing the device within the next 3 months\n\n
+                        b18: [reverse energy] line current flow in reverse\n\n
+                        b19 to b31: reserved\n\n
+                        E.g. 272 means 'overtemperature' and 'RTC error' conditions detected\n\n" 
+        unV:
+          type: integer
+          format: uint32
+          minimum: 0
+          maximum: 50000
+          description: "undervoltage threshold in centivolts (default: 9000)"
+          
+        ovV:
+          type: integer
+          format: uint32
+          minimum: 0
+          maximum: 50000
+          description: "overvoltage threshold in centivolts (default: 48000)"
+
+        ovC:
+          type: integer
+          format: uint32
+          minimum: 0
+          maximum: 10000
+          description: "overcurrent threshold in milliamperes (default: 1000)"
+
+        unT:
+          type: integer
+          format: uint32
+          minimum: -40
+          maximum: 85
+          description: "undertemperature threshold in degree Celsius (default: 0)"
+
+        ovT:
+          type: integer
+          format: uint32
+          minimum: -40
+          maximum: 85
+          description: "overtemperature threshold in degree Celsius (default: 45)"
+
+        opCirc:
+          type: integer
+          format: uint32
+          minimum: 0
+          maximum: 10000
+          description: "open circuit current threshold in milliamperes (default: 70)"
+
+        shCirc:
+          type: integer
+          format: uint32
+          minimum: 0
+          maximum: 10000
+          description: "short circuit current threshold in milliamperes (default: 70)"
+
+        unPfa:
+          type: integer
+          format: uint32
+          minimum: 0
+          maximum: 1000
+          description: "under power factor threshold (multiplied by 1000) (default: 920)"
+
+    schedule:
+      type: object
+      properties:
+        cron:
+          type: string
+          description: cron schedule expression (32 characters maximum length) (see https://crontab.guru)
+        state:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 1
+          description: Lamp state (see /lamp/control)
+        dim:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 100
+          description: Dimmer value in percentage (see /lamp/control)
+        mode:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 3
+          description: "Lamp operation mode (see /lamp/control)"
