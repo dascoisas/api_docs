@@ -67,6 +67,42 @@ paths:
           description: Invalid parameters
           content: {}
       x-codegen-request-body-name: body # Pra que serve isso??
+
+  /network/config/disc :
+    get:
+      tags:
+      - network
+      summary: Get network configuration info
+      description: ""
+      operationId: getDisc
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netDisc'
+
+    put:
+      tags:
+      - network
+      summary: Update network configuration info
+      operationId: updateDisc
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/netDisc'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
       
   /lamp/control :
     put:
@@ -814,6 +850,28 @@ components:
         NetworkName:
           type: string
           description: Wi-SUN Network Name - MAX 32 characters 
+
+    netDisc:
+      type: object
+      properties:
+        DISC_Imin:
+          type: integer
+          format: uint8
+          minimum: 1
+          maximum: 255
+          description: PAN Discovery Trickle Timer Imin
+        DISC_Imax:
+          type: integer
+          format: uint8
+          minimum: 1
+          maximum: 8
+          description: PAN Discovery Trickle timer Imax
+        DISC_k:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 10
+          description: PAN Discovery Trickle timer redundancy constant
 
     lamp_control:
       type: object
