@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: Nouvenn EVB - Starter kit
+  title: Nouvenn EVB - Starter kit 2020
   description: 'This documentation describes the high level REST interface that can be used for 
   controlling the Nouvenn Smart Lighting Controller using CoAP. It is possible to access a node 
   directly via CoAP throught a request to its IPv6 address, however we provide an HTTP/JSON to
@@ -47,7 +47,7 @@ paths:
         content:
           application/json:
            schema:
-             $ref: '#/components/schemas/gpio_state'
+             $ref: '#/components/schemas/gpio_state_set'
         required: true
       responses:
         205:
@@ -56,7 +56,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
     get:
       tags:
       - gpio
@@ -78,7 +78,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/gpio_state'
+                $ref: '#/components/schemas/gpio_state_get'
 
   /gpio/led/config/mode :
     put:
@@ -100,7 +100,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
     get:
       tags:
       - gpio
@@ -126,7 +126,7 @@ paths:
         content:
           application/json:
            schema:
-             $ref: '#/components/schemas/gpio_state'
+             $ref: '#/components/schemas/ gpio_state_set'
         required: true
       responses:
         205:
@@ -135,7 +135,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
     get:
       tags:
       - gpio
@@ -157,7 +157,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/gpio_state'
+                $ref: '#/components/schemas/gpio_state_get'
 
   /gpio/sw/config/mode :
     put:
@@ -179,7 +179,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
     get:
       tags:
       - gpio
@@ -205,7 +205,7 @@ paths:
         content:
           application/json:
            schema:
-             $ref: '#/components/schemas/gpio_state'
+             $ref: '#/components/schemas/ gpio_state_set'
         required: true
       responses:
         205:
@@ -214,7 +214,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
     get:
       tags:
       - gpio
@@ -236,7 +236,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/gpio_state'
+                $ref: '#/components/schemas/gpio_state_get'
 
   /gpio/io0/config/mode :
     put:
@@ -258,7 +258,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
     get:
       tags:
       - gpio
@@ -284,7 +284,7 @@ paths:
         content:
           application/json:
            schema:
-             $ref: '#/components/schemas/gpio_state'
+             $ref: '#/components/schemas/ gpio_state_set'
         required: true
       responses:
         205:
@@ -293,7 +293,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
     get:
       tags:
       - gpio
@@ -315,7 +315,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/gpio_state'
+                $ref: '#/components/schemas/gpio_state_get'
 
   /gpio/io1/config/mode :
     put:
@@ -337,7 +337,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
     get:
       tags:
       - gpio
@@ -363,7 +363,7 @@ paths:
         content:
           application/json:
            schema:
-             $ref: '#/components/schemas/gpio_state'
+             $ref: '#/components/schemas/ gpio_state_set'
         required: true
       responses:
         205:
@@ -372,7 +372,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
     get:
       tags:
       - gpio
@@ -394,7 +394,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/gpio_state'
+                $ref: '#/components/schemas/gpio_state_get'
 
   /gpio/io2/config/mode :
     put:
@@ -416,7 +416,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
     get:
       tags:
       - gpio
@@ -442,7 +442,7 @@ paths:
         content:
           application/json:
            schema:
-             $ref: '#/components/schemas/gpio_state'
+             $ref: '#/components/schemas/ gpio_state_set'
         required: true
       responses:
         205:
@@ -451,7 +451,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
     get:
       tags:
       - gpio
@@ -473,7 +473,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/gpio_state'
+                $ref: '#/components/schemas/gpio_state_get'
 
   /gpio/io3/config/mode :
     put:
@@ -495,7 +495,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
     get:
       tags:
       - gpio
@@ -521,7 +521,7 @@ paths:
         content:
           application/json:
            schema:
-             $ref: '#/components/schemas/gpio_state'
+             $ref: '#/components/schemas/ gpio_state_set'
         required: true
       responses:
         205:
@@ -530,7 +530,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
     get:
       tags:
       - gpio
@@ -552,7 +552,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/gpio_state'
+                $ref: '#/components/schemas/gpio_state_get'
 
   /gpio/io4/config/mode :
     put:
@@ -574,7 +574,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
     get:
       tags:
       - gpio
@@ -600,7 +600,7 @@ paths:
         content:
           application/json:
            schema:
-             $ref: '#/components/schemas/gpio_state'
+             $ref: '#/components/schemas/ gpio_state_set'
         required: true
       responses:
         205:
@@ -609,7 +609,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
     get:
       tags:
       - gpio
@@ -631,7 +631,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/gpio_state'
+                $ref: '#/components/schemas/gpio_state_get'
 
   /gpio/io5/config/mode :
     put:
@@ -653,7 +653,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
     get:
       tags:
       - gpio
@@ -679,7 +679,7 @@ paths:
         content:
           application/json:
            schema:
-             $ref: '#/components/schemas/gpio_state'
+             $ref: '#/components/schemas/ gpio_state_set'
         required: true
       responses:
         205:
@@ -688,7 +688,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
     get:
       tags:
       - gpio
@@ -710,7 +710,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/gpio_state'
+                $ref: '#/components/schemas/gpio_state_get'
 
   /gpio/io6/config/mode :
     put:
@@ -732,7 +732,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
     get:
       tags:
       - gpio
@@ -758,8 +758,13 @@ paths:
         content:
           application/json:
            schema:
-            type: string
-            description:  "Buffer in hex separeted space. Ex: 01 02 03"
+              type: object
+              properties:
+                tx:
+                  type: string
+                  minimum: 0
+                  maximum: 127
+                  description:  "Buffer in hex separeted space. Ex: 01 02 03"
         required: true
       responses:
         205:
@@ -768,7 +773,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
     get:
       tags:
       - uart0
@@ -790,8 +795,13 @@ paths:
           content:
             application/json:
               schema:
-                type: string
-                description:  "Buffer in hex separeted space. Ex: 01 02 03"
+                type: object
+                properties:
+                  rx:
+                    type: string
+                    minimum: 0
+                    maximum: 127
+                    description:  "Buffer in hex separeted space. Ex: 01 02 03"
 
   /uart0/config :
     put:
@@ -813,7 +823,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
     get:
       tags:
       - uart0
@@ -839,11 +849,14 @@ paths:
         content:
           application/json:
            schema:
-              type: integer
-              format: uint32
-              minimum: 0
-              maximum: 1
-              description: todo
+                type: object
+                properties:
+                  break:
+                    type: integer
+                    format: uint32
+                    minimum: 0
+                    maximum: 1
+                    description: todo
         required: true
       responses:
         205:
@@ -852,7 +865,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??  
+      x-codegen-request-body-name: body   
 
   /uart1/data :
     put:
@@ -865,8 +878,13 @@ paths:
         content:
           application/json:
            schema:
-            type: string
-            description:  "Buffer in hex separeted space. Ex: 01 02 03"
+            type: object
+            properties:
+              tx:
+                type: string
+                minimum: 0
+                maximum: 127
+                description:  "Buffer in hex separeted space. Ex: 01 02 03"
         required: true
       responses:
         205:
@@ -875,7 +893,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
     get:
       tags:
       - uart1
@@ -897,8 +915,13 @@ paths:
           content:
             application/json:
               schema:
-                type: string
-                description:  "Buffer in hex separeted space. Ex: 01 02 03"
+                type: object
+                properties:
+                  rx:
+                    type: string
+                    minimum: 0
+                    maximum: 127
+                    description:  "Buffer in hex separeted space. Ex: 01 02 03"
 
   /uart1/config :
     put:
@@ -920,7 +943,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
     get:
       tags:
       - uart1
@@ -946,11 +969,14 @@ paths:
         content:
           application/json:
            schema:
-              type: integer
-              format: uint32
-              minimum: 0
-              maximum: 1
-              description: todo
+                type: object
+                properties:
+                  break:
+                    type: integer
+                    format: uint32
+                    minimum: 0
+                    maximum: 1
+                    description: todo
         required: true
       responses:
         205:
@@ -959,7 +985,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??  
+      x-codegen-request-body-name: body   
 
   /spi/clock: 
     get:
@@ -1008,7 +1034,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
 
   /spi/transfer :
     put:
@@ -1028,12 +1054,21 @@ paths:
         required: true
       responses:
         205:
-          description: Success
-          content: {}
+          description: Response spi
+          content: 
+            application/json:
+              schema:
+                  type: object
+                  properties:
+                    tx:
+                      type: string
+                      minimum: 0
+                      maximum: 127
+                      description:  "Buffer in hex separeted space. Ex: 01 02 03"
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
   /i2c/clock: 
     get:
         tags:
@@ -1081,7 +1116,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
 
   /i2c/transfer :
     put:
@@ -1126,12 +1161,21 @@ paths:
         required: true
       responses:
         205:
-          description: Success
-          content: {}
+          description: Response i2c
+          content: 
+            application/json:
+              schema:
+                  type: object
+                  properties:
+                    tx:
+                      type: string
+                      minimum: 0
+                      maximum: 127
+                      description:  "Buffer in hex separeted space. Ex: 01 02 03"
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
 
   /system/cli: 
     get:
@@ -1148,9 +1192,9 @@ paths:
                 schema:
                   type: object
                   properties:
-                    type:
+                    cli:
                       type: integer
-                      format: uint8
+                      format: uint32
                       minimum: 0
                       maximum: 1
                       description: CLI state (0 for disable, 1 enable)
@@ -1164,11 +1208,14 @@ paths:
         content:
           application/json:
             schema:
-              type: integer
-              format: uint8
-              minimum: 0
-              maximum: 1
-              description: CLI state (0 for disable, 1 enable)
+              type: object
+              properties:
+                cli:
+                  type: integer
+                  format: uint32
+                  minimum: 0
+                  maximum: 1
+                  description: CLI state (0 for disable, 1 enable)
         required: true
       responses:
         205:
@@ -1177,7 +1224,7 @@ paths:
         400:
           description: Invalid parameters
           content: {}
-      x-codegen-request-body-name: body # Pra que serve isso??
+      x-codegen-request-body-name: body 
 
 components:
   schemas:
@@ -1196,10 +1243,10 @@ components:
           minimum: 0
           maximum: 4
           description: "Gpio mode:\n\n  
-                        0 - gpioModeDisabled: Input disabled. Pull-up if DOUT is set\n\n
-                        1 - gpioModeInput: Input enabled. Filter if DOUT is set\n\n
-                        2 - gpioModeInputPull: Input enabled. DOUT determines pull direction\n\n
-                        3 - gpioModeInputPullFilter: Input enabled with filter. DOUT determines pull direction\n\n
+                        0 - gpioModeDisabled: Input disabled\n\n
+                        1 - gpioModeInput: Input enabled\n\n
+                        2 - gpioModeInputPull: Input enabled\n\n
+                        3 - gpioModeInputPullFilter: Input enabled with filter\n\n
                         4 - gpioModePushPull: Push-pull output"
         initIn:
           type: integer
@@ -1209,8 +1256,8 @@ components:
           description: "Initialization interrupt mode :\n\n  
                         0 - risingEdge: Set the interrupt will be enabled on the rising edge\n\n
                         1 - fallingEdge: Set the interrupt will be enabled on the falling edge\n\n
-                        2 - risingfallingEdge: et the interrupt will be enabled on the rising edge and falling edge\n\n
-                        3 - disable: Interrupt leave disabled\n\n"
+                        2 - risingfallingEdge: Set the interrupt will be enabled on the rising edge and falling edge\n\n
+                        3 - disable: GPIO interrupt sources to disable\n\n"
         adc:
           type: integer
           format: uint8
@@ -1218,16 +1265,28 @@ components:
           maximum: 1
           description: Set gpio to adc (0 for disable, 1 enable)
 
-    gpio_state:
+    gpio_state_set:
       type: object
       properties:
-        state:
+        val:
           type: integer
           format: uint8
           minimum: 0
           maximum: 1
-          description: Gpio state (0 for off)
-   
+          description: Gpio state (0 for off, only set digital funcition)
+
+    gpio_state_get:
+      type: object
+      properties:
+        val:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 1
+          description: "Gpio state :\n\n  
+                        - If gpio digital:  0 is off \n\n
+                        - If gpio analog: read adc bits"
+
     uart0_config:
       type: object
       properties:
