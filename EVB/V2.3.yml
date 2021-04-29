@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: Nouvenn Smart Lighting Controller
+  title: Nouvenn EVB - Starter kit
   description: 'This documentation describes the high level REST interface that can be used for 
   controlling the Nouvenn Smart Lighting Controller using CoAP. It is possible to access a node 
   directly via CoAP throught a request to its IPv6 address, however we provide an HTTP/JSON to
@@ -33,7 +33,7 @@ tags:
 - name: i2c
   description: Access to i2c parameters
 - name: system
-  description: Access to system parameters and cli
+  description: Access to cli
 
 paths:
   /gpio/led/data :
@@ -41,7 +41,7 @@ paths:
       tags:
       - gpio
       summary: This route allows one to update the 'usr_led' pin state
-      operationId: updateGpioState
+      operationId: updateLedData
       requestBody:
         description: ""
         content:
@@ -62,7 +62,7 @@ paths:
       - gpio
       summary: This route provides access to the 'usr_led' pin state
       description: ""
-      operationId: getGpioState
+      operationId: getLedData
       parameters:
       - name: observe
         in: query
@@ -85,7 +85,7 @@ paths:
       tags:
       - gpio
       summary: This route allows one to update the 'usr_led' pin configuration
-      operationId: updateGpioMode
+      operationId: updateLedMode
       requestBody:
         description: ""
         content:
@@ -106,7 +106,7 @@ paths:
       - gpio
       summary: This route provides access to the 'usr_led' pin configuration
       description: ""
-      operationId: getGpioMode
+      operationId: getLedMode
       responses:
         200:
           description: Success
@@ -115,12 +115,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/gpio_control'
 
-/gpio/sw/data :
+  /gpio/sw/data :
     put:
       tags:
       - gpio
       summary: This route allows one to update the 'sw' pin state
-      operationId: updateGpioState
+      operationId: updateSwData
       requestBody:
         description: ""
         content:
@@ -141,7 +141,7 @@ paths:
       - gpio
       summary: This route provides access to the 'sw' pin state
       description: ""
-      operationId: getGpioState
+      operationId: getSwMode
       parameters:
       - name: observe
         in: query
@@ -159,12 +159,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/gpio_state'
 
-/gpio/sw/config/mode :
+  /gpio/sw/config/mode :
     put:
       tags:
       - gpio
       summary: This route allows one to update the 'sw' pin configuration
-      operationId: updateGpioMode
+      operationId: updateSwMode
       requestBody:
         description: ""
         content:
@@ -185,7 +185,7 @@ paths:
       - gpio
       summary: This route provides access to the 'sw' pin configuration
       description: ""
-      operationId: getGpioMode
+      operationId: getSwMode
       responses:
         200:
           description: Success
@@ -194,12 +194,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/gpio_control'
 
-/gpio/io0/data :
+  /gpio/io0/data :
     put:
       tags:
       - gpio
       summary: This route allows one to update the 'io0' pin state
-      operationId: updateGpioState
+      operationId: updateI0Data
       requestBody:
         description: ""
         content:
@@ -220,7 +220,7 @@ paths:
       - gpio
       summary: This route provides access to the 'io0' pin state
       description: ""
-      operationId: getGpioState
+      operationId: getI0Data
       parameters:
       - name: observe
         in: query
@@ -238,12 +238,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/gpio_state'
 
-/gpio/io0/config/mode :
+  /gpio/io0/config/mode :
     put:
       tags:
       - gpio
       summary: This route allows one to update the 'io0' pin configuration
-      operationId: updateGpioMode
+      operationId: updateI0Mode
       requestBody:
         description: ""
         content:
@@ -264,7 +264,7 @@ paths:
       - gpio
       summary: This route provides access to the 'io0' pin configuration
       description: ""
-      operationId: getGpioMode
+      operationId: getI0Mode
       responses:
         200:
           description: Success
@@ -273,12 +273,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/gpio_control'
 
-/gpio/io1/data :
+  /gpio/io1/data :
     put:
       tags:
       - gpio
       summary: This route allows one to update the 'io1' pin state
-      operationId: updateGpioState
+      operationId: updateI1Data
       requestBody:
         description: ""
         content:
@@ -299,7 +299,7 @@ paths:
       - gpio
       summary: This route provides access to the 'io1' pin state
       description: ""
-      operationId: getGpioState
+      operationId: getI1Data
       parameters:
       - name: observe
         in: query
@@ -317,12 +317,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/gpio_state'
 
-/gpio/io1/config/mode :
+  /gpio/io1/config/mode :
     put:
       tags:
       - gpio
       summary: This route allows one to update the 'io1' pin configuration
-      operationId: updateGpioMode
+      operationId: updateI1Mode
       requestBody:
         description: ""
         content:
@@ -343,7 +343,7 @@ paths:
       - gpio
       summary: This route provides access to the 'io1' pin configuration
       description: ""
-      operationId: getGpioMode
+      operationId: getI1Mode
       responses:
         200:
           description: Success
@@ -352,12 +352,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/gpio_control'
 
-/gpio/io2/data :
+  /gpio/io2/data :
     put:
       tags:
       - gpio
       summary: This route allows one to update the 'io2' pin state
-      operationId: updateGpioState
+      operationId: updateI2Data
       requestBody:
         description: ""
         content:
@@ -378,7 +378,7 @@ paths:
       - gpio
       summary: This route provides access to the 'io2' pin state
       description: ""
-      operationId: getGpioState
+      operationId: getI2Data
       parameters:
       - name: observe
         in: query
@@ -396,12 +396,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/gpio_state'
 
-/gpio/io2/config/mode :
+  /gpio/io2/config/mode :
     put:
       tags:
       - gpio
       summary: This route allows one to update the 'io2' pin configuration
-      operationId: updateGpioMode
+      operationId: updateI2Mode
       requestBody:
         description: ""
         content:
@@ -422,7 +422,7 @@ paths:
       - gpio
       summary: This route provides access to the 'io2' pin configuration
       description: ""
-      operationId: getGpioMode
+      operationId: getI2Mode
       responses:
         200:
           description: Success
@@ -431,12 +431,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/gpio_control'
 
-/gpio/io3/data :
+  /gpio/io3/data :
     put:
       tags:
       - gpio
       summary: This route allows one to update the 'io3' pin state
-      operationId: updateGpioState
+      operationId: updateI3Data
       requestBody:
         description: ""
         content:
@@ -457,7 +457,7 @@ paths:
       - gpio
       summary: This route provides access to the 'io3' pin state
       description: ""
-      operationId: getGpioState
+      operationId: getI3Data
       parameters:
       - name: observe
         in: query
@@ -475,12 +475,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/gpio_state'
 
-/gpio/io3/config/mode :
+  /gpio/io3/config/mode :
     put:
       tags:
       - gpio
       summary: This route allows one to update the 'io3' pin configuration
-      operationId: updateGpioMode
+      operationId: updateI3Mode
       requestBody:
         description: ""
         content:
@@ -501,7 +501,7 @@ paths:
       - gpio
       summary: This route provides access to the 'io3' pin configuration
       description: ""
-      operationId: getGpioMode
+      operationId: getI3Mode
       responses:
         200:
           description: Success
@@ -510,12 +510,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/gpio_control'
 
-/gpio/io4/data :
+  /gpio/io4/data :
     put:
       tags:
       - gpio
       summary: This route allows one to update the 'io4' pin state
-      operationId: updateGpioState
+      operationId: updateI4Data
       requestBody:
         description: ""
         content:
@@ -536,7 +536,7 @@ paths:
       - gpio
       summary: This route provides access to the 'io4' pin state
       description: ""
-      operationId: getGpioState
+      operationId: getI4Data
       parameters:
       - name: observe
         in: query
@@ -554,12 +554,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/gpio_state'
 
-/gpio/io4/config/mode :
+  /gpio/io4/config/mode :
     put:
       tags:
       - gpio
       summary: This route allows one to update the 'io4' pin configuration
-      operationId: updateGpioMode
+      operationId: updateI4Mode
       requestBody:
         description: ""
         content:
@@ -580,7 +580,7 @@ paths:
       - gpio
       summary: This route provides access to the 'io4' pin configuration
       description: ""
-      operationId: getGpioMode
+      operationId: getI4Mode
       responses:
         200:
           description: Success
@@ -589,12 +589,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/gpio_control'
 
-/gpio/io5/data :
+  /gpio/io5/data :
     put:
       tags:
       - gpio
       summary: This route allows one to update the 'io5' pin state
-      operationId: updateGpioState
+      operationId: updateI5Data
       requestBody:
         description: ""
         content:
@@ -615,7 +615,7 @@ paths:
       - gpio
       summary: This route provides access to the 'io5' pin state
       description: ""
-      operationId: getGpioState
+      operationId: getI5Data
       parameters:
       - name: observe
         in: query
@@ -633,12 +633,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/gpio_state'
 
-/gpio/io5/config/mode :
+  /gpio/io5/config/mode :
     put:
       tags:
       - gpio
       summary: This route allows one to update the 'io5' pin configuration
-      operationId: updateGpioMode
+      operationId: updateI5Mode
       requestBody:
         description: ""
         content:
@@ -659,7 +659,7 @@ paths:
       - gpio
       summary: This route provides access to the 'io5' pin configuration
       description: ""
-      operationId: getGpioMode
+      operationId: getI5Mode
       responses:
         200:
           description: Success
@@ -668,12 +668,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/gpio_control'
 
-/gpio/io6/data :
+  /gpio/io6/data :
     put:
       tags:
       - gpio
       summary: This route allows one to update the 'io6' pin state
-      operationId: updateGpioState
+      operationId: updateI6Data
       requestBody:
         description: ""
         content:
@@ -694,7 +694,7 @@ paths:
       - gpio
       summary: This route provides access to the 'io6' pin state
       description: ""
-      operationId: getGpioState
+      operationId: getI6Data
       parameters:
       - name: observe
         in: query
@@ -712,12 +712,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/gpio_state'
 
-/gpio/io6/config/mode :
+  /gpio/io6/config/mode :
     put:
       tags:
       - gpio
       summary: This route allows one to update the 'io6' pin configuration
-      operationId: updateGpioMode
+      operationId: updateI6Mode
       requestBody:
         description: ""
         content:
@@ -738,7 +738,7 @@ paths:
       - gpio
       summary: This route provides access to the 'io6' pin configuration
       description: ""
-      operationId: getGpioMode
+      operationId: getI6Mode
       responses:
         200:
           description: Success
@@ -747,18 +747,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/gpio_control'
 
-/uart0/data :
+  /uart0/data :
     put:
       tags:
       - uart0
       summary: This route allows one to send data via uart0 serial bus
-      operationId: dataUart0
+      operationId: updateUart0Data
       requestBody:
         description: ""
         content:
           application/json:
            schema:
-             $ref: '#/components/schemas/gpio_state'
+            type: string
+            description:  "Buffer in hex separeted space. Ex: 01 02 03"
         required: true
       responses:
         205:
@@ -773,7 +774,7 @@ paths:
       - uart0
       summary: This route allows one to monitor data reception via uart0 serial bus
       description: ""
-      operationId: dataUart0
+      operationId: getUart0Data
       parameters:
       - name: observe
         in: query
@@ -789,20 +790,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/gpio_state'
+                type: string
+                description:  "Buffer in hex separeted space. Ex: 01 02 03"
 
-/uart0/config :
+  /uart0/config :
     put:
       tags:
       - uart0
-      summary: This route allows one to update the 'io6' pin configuration
-      operationId: updateGpioMode
+      summary: This route allows one to update the uart0 configuration
+      operationId: updateUart0Config
       requestBody:
         description: ""
         content:
           application/json:
            schema:
-             $ref: '#/components/schemas/gpio_control'
+             $ref: '#/components/schemas/uart0_config'
         required: true
       responses:
         205:
@@ -815,60 +817,157 @@ paths:
     get:
       tags:
       - uart0
-      summary: This route provides access to the 'io6' pin configuration
+      summary: This route provides access to the uart0 configuration
       description: ""
-      operationId: getGpioMode
+      operationId: getUart0Config
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/gpio_control'
-  /sensors/energy/acc : 
-    get:
-        tags:
-        - sensors
-        summary: Get accumulated energy
-        description: ""
-        operationId: getAccSens
-        responses:
-          200:
-            description: Success
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    active:
-                      type: integer
-                      format: uint32
-                      #minimum: 0
-                      #maximum: 65535
-                      description: Accummulated active energy in centi watts-hour
-                    reactive:
-                      type: integer
-                      format: uint32
-                      #minimum: 0
-                      #maximum: 65535
-                      description: Accummulated reactive energy in centi volt-amperes reactive hour
-    delete:
+                $ref: '#/components/schemas/uart0_config'
+
+  /uart0/break :
+    put:
       tags:
-      - sensors
-      summary: Reset accumulated active/reactive energy
-      description: ""
-      operationId: resetLampStat
+      - uart0
+      summary: This route allows one to send a break condition on uart0 serial bus
+      operationId: breakUart0
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+              type: integer
+              format: uint32
+              minimum: 0
+              maximum: 1
+              description: todo
+        required: true
       responses:
-        202:
+        205:
           description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??  
 
-  /sensors/mic : 
+  /uart1/data :
+    put:
+      tags:
+      - uart1
+      summary: This route allows one to send data via uart0 serial bus
+      operationId: updateUart1Data
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+            type: string
+            description:  "Buffer in hex separeted space. Ex: 01 02 03"
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - uart1
+      summary: This route allows one to monitor data reception via uart0 serial bus
+      description: ""
+      operationId: getUart1Data
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: string
+                description:  "Buffer in hex separeted space. Ex: 01 02 03"
+
+  /uart1/config :
+    put:
+      tags:
+      - uart1
+      summary: This route allows one to update the uart0 configuration
+      operationId: updateUart1Config
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/uart1_config'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - uart1
+      summary: This route provides access to the uart0 configuration
+      description: ""
+      operationId: getUart1Config
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/uart1_config'
+
+  /uart1/break :
+    put:
+      tags:
+      - uart1
+      summary: This route allows one to send a break condition on uart0 serial bus
+      operationId: breakUart1
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+              type: integer
+              format: uint32
+              minimum: 0
+              maximum: 1
+              description: todo
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??  
+
+  /spi/clock: 
     get:
         tags:
-        - sensors
-        summary: Get the microphone measures
+        - spi
+        summary: This route provides access to the SPI bus clock
         description: ""
-        operationId: getMicSens
+        operationId: getSpiClock
         responses:
           200:
             description: Success
@@ -877,262 +976,30 @@ paths:
                 schema:
                   type: object
                   properties:
-                    mean:
-                      type: integer
-                      format: uint32
-                      #minimum: 0
-                      #maximum: 65535
-                      description: Mean sound pressure level in dBSPL
-
-  /sensors/acc : 
-    get:
-        tags:
-        - sensors
-        summary: Get the Acelerometer Sensor measures
-        description: ""
-        operationId: getAcelSens
-        responses:
-          200:
-            description: Success
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    x:
-                      type: integer
-                      format: int16
-                      minimum: -2000
-                      maximum: 2000
-                      description: x-axis acceleration in milli-G
-                    y:
-                      type: integer
-                      format: int16
-                      minimum: -2000
-                      maximum: 2000
-                      description: y-axis acceleration in milli-G
-                    z:
-                      type: integer
-                      format: int16
-                      minimum: -2000
-                      maximum: 2000
-                      description: z-axis acceleration in milli-G
-
-  /sensors/mag : 
-    get:
-        tags:
-        - sensors
-        summary: Get the Magnetometer Sensor measures
-        description: ""
-        operationId: getMagSens
-        responses:
-          200:
-            description: Success
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    x:
-                      type: integer
-                      format: int32
-                      minimum: -160000
-                      maximum: 160000
-                      description: x-axis magnetic field strength in milligauss
-                    y:
-                      type: integer
-                      format: int32
-                      minimum: -160000
-                      maximum: 160000
-                      description: y-axis magnetic field strength in milligauss
-                    z:
-                      type: integer
-                      format: int32
-                      minimum: -160000
-                      maximum: 160000
-                      description: z-axis magnetic field strength in milligauss
-
-  /sensors/bar : 
-    get:
-        tags:
-        - sensors
-        summary: Get the Barometer Sensor measures
-        description: ""
-        operationId: getBarSens
-        responses:
-          200:
-            description: Success
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    mBar:
-                      type: integer
-                      format: uint16
-                      minimum: 10
-                      maximum: 2000
-                      description: Barometric pressure in millibars
-
-  /sensors/tmp : 
-    get:
-        tags:
-        - sensors
-        summary: Get the Termometer Sensor measures
-        description: ""
-        operationId: getTmpSens
-        responses:
-          200:
-            description: Success
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    tmp:
-                      type: integer
-                      format: int8
-                      minimum: -40
-                      maximum: 85
-                      description: Current system temperature in degree Celsius
-
-  /sensors/lux : 
-    get:
-        tags:
-        - sensors
-        summary: Get the Luxmeter Sensor measures
-        description: ""
-        operationId: getTmpSens
-        responses:
-          200:
-            description: Success
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    lux:
+                    clock:
                       type: integer
                       format: uint32
                       minimum: 0
-                      maximum: 8386560
-                      description: Current iluminance in centilux
-
-  /sensors/gps : 
-    get:
-        tags:
-        - sensors
-        summary: Get the GPS fix data
-        description: ""
-        operationId: getGpsSens
-        responses:
-          200:
-            description: Success
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    lat:
-                      type: number
-                      #format: float
-                      minimum: -90.0
-                      maximum: 90.0
-                      description: Latitude in decimal degrees
-                    lng:
-                      type: number
-                      #format: float
-                      minimum: -180.0
-                      maximum: 180
-                      description: Longitude in decimal degrees
-                    hei:
-                      type: number
-                      #format: float
-                      #minimum: -180.0
-                      #maximum: 180
-                      description: Orthometric height 
-                    sats:
-                      type: integer
-                      format: uint8
-                      #minimum: -180.0
-                      #maximum: 180
-                      description: Number of satellites in use
-                    quality:
-                      type: integer
-                      format: uint8
-                      #minimum: 0
-                      #maximum: 4
-                      description: "GPS Quality indicator:\n\n  
-                                    0 - Fix not valid\n\n
-                                    1 - GPS fix\n\n
-                                    2 - Differential GPS fix, OmniSTAR VBS\n\n
-                                    3 - Real-Time Kinematic, fixed integers\n\n
-                                    4 - Real-Time Kinematic, float integers, OmniSTAR XP/HP or Location RTK\n\n"
-
-  /system/state : 
-    get:
-        tags:
-        - system
-        summary: Get the system state variables
-        description: ""
-        operationId: getState
-        responses:
-          200:
-            description: Success
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    uptime:
-                      type: integer
-                      format: uint32
-                      #minimum: 0
-                      #maximum: 4294967295
-                      description: The time for which the system has been running in seconds
-                    hmeter:
-                      type: integer
-                      format: uint32
-                      #minimum: 0
-                      #maximum: 4294967295
-                      description: Accumulated operation time in minutes
-                    state:
-                      type: integer
-                      format: uint32
-                      #minimum: 0
-                      #maximum: 4294967295
-                      description: "System state bit mask in the format b31|b30|...|b0,
-                                    same meaning as the Alarm bit mask (see /system/alarm) 
-                                    but the bits are set WHILE a specific cause is detected." 
-
-  /system/datetime : 
-    get:
-        tags:
-        - system
-        summary: Get the system date and time
-        description: ""
-        operationId: getDateTime
-        responses:
-          200:
-            description: Success
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/date_time'
-          204:
-            description: No time set
-            content: {}
+                      maximum: 32000000
+                      description: todo
     put:
       tags:
-      - system
-      summary: Update the system date and time
-      operationId: updateDateTime
+      - spi
+      summary: This route allows onte to update the SPI bus clock
+      operationId: updateSpiClock
       requestBody:
         description: ""
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/date_time'
+              type: object
+              properties:
+                clock:
+                  type: integer
+                  format: uint32
+                  minimum: 0
+                  maximum: 32000000
+                  description: todo
         required: true
       responses:
         205:
@@ -1143,73 +1010,21 @@ paths:
           content: {}
       x-codegen-request-body-name: body # Pra que serve isso??
 
-  /system/ver : 
-    get:
-      tags:
-      - system
-      summary: Get the system HW/FW version
-      description: ""
-      operationId: getVer
-      responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  model:
-                    type: string
-                    description: Model 
-                  fwVer:
-                    type: string
-                    description: Firmware version
-                  hwVer:
-                    type: string
-                    description: Hardware version 
-
-  /system/eui64 : 
-      get:
-        tags:
-        - system
-        summary: Get the system 64 bits Extended Unique Identifier
-        description: ""
-        operationId: getVer
-        responses:
-          200:
-            description: Success
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    eui64:
-                      type: string
-                      description: Hexadecimal representation EUI-64 
-                      
-  /lamp/reboot_adv :
+  /spi/transfer :
     put:
       tags:
-      - system
-      summary: Schedule a delayed reboot 
-      operationId: updateReboot
+      - spi
+      summary: This route allows one to execute a read/write SPI openration
+      operationId: updateSpiData 
       requestBody:
-        description: ""
+        description: "todo"
         content:
           application/json:
            schema:
-            type: object
-            properties:
-              time:
-                type: integer
-                format: uint8
-                description: Time to reboot in minutes (255 to cancel)
-              inst:
-                type: integer
-                format: uint8
-                minimum: 0
-                maximum: 1
-                description: 1 to install the previous installed firmware
+            type: string
+            minimum: 0
+            maximum: 127
+            description:  "Buffer in hex separeted space. Ex: 01 02 03"
         required: true
       responses:
         205:
@@ -1219,23 +1034,13 @@ paths:
           description: Invalid parameters
           content: {}
       x-codegen-request-body-name: body # Pra que serve isso??
-
-  /system/lastgasp : 
+  /i2c/clock: 
     get:
         tags:
-        - system
-        summary: Monitor 'last gasp' events
-        description: "It generates an event every time the system is shut down due to power failure"
-        operationId: getLastgasp
-        parameters:
-        - name: observe
-          in: query
-          description: "Observe the resource \n\n
-                        (none: keep last mode; true: start observing; false: stop observing)"
-          required: false
-          schema:
-            type: boolean
-            default: false
+        - i2c
+        summary: This route provides access to the I2C bus clock
+        description: ""
+        operationId: getSI2cClock
         responses:
           200:
             description: Success
@@ -1244,26 +1049,30 @@ paths:
                 schema:
                   type: object
                   properties:
-                    uptime:
+                    clock:
                       type: integer
                       format: uint32
-                      #minimum: 0
-                      #maximum: 4294967295
-                      description: The time for which the system has been running in seconds 
-
-  /system/astronomic :
+                      minimum: 0
+                      maximum: 100000
+                      description: todo
     put:
       tags:
-      - system
-      summary: Update the Solar Position Algorithm parameters 
-      operationId: updateAstro
+      - i2c
+      summary: This route allows onte to update the I2C bus clock
+      operationId: updateSI2cClock
       requestBody:
-        description: "Solar Position Algorithm infers between day and night from 
-                      geographical coordinates and current date and time"
+        description: ""
         content:
           application/json:
-           schema:
-             $ref: '#/components/schemas/spa'
+            schema:
+              type: object
+              properties:
+                clock:
+                  type: integer
+                  format: uint32
+                  minimum: 0
+                  maximum: 100000
+                  description: todo
         required: true
       responses:
         205:
@@ -1273,39 +1082,47 @@ paths:
           description: Invalid parameters
           content: {}
       x-codegen-request-body-name: body # Pra que serve isso??
-    get:
-      tags:
-      - system
-      summary: Get the Solar Position Algorithm parameters
-      description: ""
-      operationId: getAstro
-      responses:
-        200:
-          description: Successful
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/spa'
-        204:
-          description: No signal
-          content: {}
 
-  /system/alarm :
+  /i2c/transfer :
     put:
       tags:
-      - system
-      summary:  Update the Alarm bitmask and thresholds
-      operationId: updateAlarm
+      - i2c
+      summary: This route allows one to execute a read/write I2C operation 
+      operationId: updateI2cData
       requestBody:
-        description: "The Alarm State is saved in a non-volatile memory, which means that
-                      if a fault condition is detected, the equivalent bit will be set until
-                      it is explicitly reset; this route can be used to do that and set each fault threshold\n\n
-                      'alarm' bit masks the current Alarm State\n\n
-                      E.g. Alarm State = 272, alarm = 16, new Alarm State = 16"
+        description: "todo"
         content:
           application/json:
            schema:
-              $ref: '#/components/schemas/alarm'
+              type: object
+              properties:
+                type:
+                  type: integer
+                  format: uint8
+                  minimum: 0
+                  maximum: 4
+                  description: "I2c mode:\n\n  
+                                0 - i2c write\n\n
+                                1 - i2c read"
+                devaddr:
+                  type: integer
+                  format: uint8
+                  description: "i2c dev addr"
+                regaddr:
+                  type: integer
+                  format: uint8
+                  description: "reg func addr"
+                recivelen:
+                  type: integer
+                  format: uint8
+                  minimum: 0
+                  maximum: 4
+                  description: "len buffer read i2c (only read)"
+                transfer:
+                  type: string
+                  minimum: 0
+                  maximum: 127
+                  description:  "Buffer in hex separeted space. Ex: 01 02 03"
         required: true
       responses:
         205:
@@ -1315,29 +1132,52 @@ paths:
           description: Invalid parameters
           content: {}
       x-codegen-request-body-name: body # Pra que serve isso??
+
+  /system/cli: 
     get:
+        tags:
+        - system
+        summary: Get state cli
+        description: ""
+        operationId: getCliState
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    type:
+                      type: integer
+                      format: uint8
+                      minimum: 0
+                      maximum: 1
+                      description: CLI state (0 for disable, 1 enable)
+    put:
       tags:
       - system
-      summary: Get the system faults log
-      description: "The system faults log is coded in a bit mask (Alarm State), 
-                    each bit is set when a specific fault is detected. The thresholds are configurable\n\n"
-      operationId: getAlarm
-      parameters:
-        - name: observe
-          in: query
-          description: "Observe the resource \n\n
-                        (none: keep last mode; true: start observing; false: stop observing)"
-          required: false
-          schema:
-            type: boolean
-            default: false
+      summary: Set cli enable or disable
+      operationId: updateCliState
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              type: integer
+              format: uint8
+              minimum: 0
+              maximum: 1
+              description: CLI state (0 for disable, 1 enable)
+        required: true
       responses:
-        200:
-          description: Successful
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/alarm'
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
 
 components:
   schemas:
@@ -1349,12 +1189,12 @@ components:
           format: uint8
           minimum: 0
           maximum: 1
-          description: Gpio func (0 for input, 1 for output)
+          description: Gpio function (0 for input, 1 for output)
         mode:
           type: integer
           format: uint8
           minimum: 0
-          maximum: 3
+          maximum: 4
           description: "Gpio mode:\n\n  
                         0 - gpioModeDisabled: Input disabled. Pull-up if DOUT is set\n\n
                         1 - gpioModeInput: Input enabled. Filter if DOUT is set\n\n
@@ -1365,12 +1205,12 @@ components:
           type: integer
           format: uint8
           minimum: 0
-          maximum: 5
+          maximum: 3
           description: "Initialization interrupt mode :\n\n  
-                        0 - RISINGEDGE: AUTO LUX mode and ON state\n\n
-                        1 - FALLINGEDGE: AUTO LUX mode and OFF state\n\n
-                        2 - RISIN_AND_FALLIN: AUTO ASTRO mode and ON state\n\n
-                        3 - DISABLED: AUTO ASTRO mode and OFF state\n\n"
+                        0 - risingEdge: Set the interrupt will be enabled on the rising edge\n\n
+                        1 - fallingEdge: Set the interrupt will be enabled on the falling edge\n\n
+                        2 - risingfallingEdge: et the interrupt will be enabled on the rising edge and falling edge\n\n
+                        3 - disable: Interrupt leave disabled\n\n"
         adc:
           type: integer
           format: uint8
@@ -1388,140 +1228,52 @@ components:
           maximum: 1
           description: Gpio state (0 for off)
    
-    spa:
+    uart0_config:
       type: object
       properties:
-        src:
-          type: integer
-          format: uint8
-          minimum: 0
-          maximum: 1
-          description: "Coordinates source:\n\n
-                        0 - From GPS\n\n
-                        1 - Manually configured"
-        lat:
-          type: number
-          #format: float
-          minimum: -90.0
-          maximum: 90.0
-          description: Latitude in decimal degrees
-        lng:
-          type: number
-          #format: float
-          minimum: -180.0
-          maximum: 180
-          description: Longitude in decimal degrees
-
-    alarm:
-      type: object
-      properties:
-        alarm:
+        baudrate:
           type: integer
           format: uint32
-          #minimum: 0
-          #maximum: 4294967295
-          description: "Bit mask in the format b31|b30|...|b0:\n\n
-                        b0: [undervoltage] line voltage below the threshold\n\n
-                        b1: [overvoltage] line voltage above the threshold\n\n
-                        b2: [overcurrent] input current above the threshold\n\n
-                        b3: [undertemperature] system temperature below the threshold\n\n
-                        b4: [overtemperature] system temperature above the threshold\n\n
-                        b5: [reset] system was reset\n\n
-                        b6: [open circuit] lamp switched on and its current below the threshold\n\n
-                        b7: [short circuit] lamp switched off and its current above the threshold\n\n
-                        b8: [RTC error] RTC date/time was reset\n\n
-                        b9: [sub power factor] load power factor below the threshold\n\n
-                        b10: [lamp off night] lamp off and the system infers that it is at night (see /system/astronomic)\n\n
-                        b11: [lamp on day] lamp on and the system infers that it is at day (see /system/astronomic)\n\n
-                        b12: [lamp off dark] lamp off and the (luximeter measured) brightness is below the day/night threshold 
-                            (see /control/lamp)\n\n
-                        b13: [lamp on light] lamp on and the (luximeter measured) brightness is above the night/day threshold 
-                            (see /control/lamp)\n\n
-                        b14: [lamp blinking] the lamp is blinking\n\n
-                        b15: [no schedule] lamp control is in SCHEDULER mode and there are no scheduled actions\n\n
-                        b16: [no location] Solar Position Algotithm coordinates are invalids (for more than 90 seconds when in GPS mode) 
-                            (see /system/astronomic)\n\n
-                        b17: [end of life] consider replacing the device within the next 3 months\n\n
-                        b18: [reverse energy] line current flow in reverse\n\n
-                        b19 to b31: reserved\n\n
-                        E.g. 272 means 'overtemperature' and 'RTC error' conditions detected\n\n" 
-        unV:
-          type: integer
-          format: uint32
-          minimum: 0
-          maximum: 50000
-          description: "undervoltage threshold in centivolts (default: 9000)"
-          
-        ovV:
-          type: integer
-          format: uint32
-          minimum: 0
-          maximum: 50000
-          description: "overvoltage threshold in centivolts (default: 48000)"
-
-        ovC:
-          type: integer
-          format: uint32
-          minimum: 0
-          maximum: 10000
-          description: "overcurrent threshold in milliamperes (default: 1000)"
-
-        unT:
-          type: integer
-          format: uint32
-          minimum: -40
-          maximum: 85
-          description: "undertemperature threshold in degree Celsius (default: 0)"
-
-        ovT:
-          type: integer
-          format: uint32
-          minimum: -40
-          maximum: 85
-          description: "overtemperature threshold in degree Celsius (default: 45)"
-
-        opCirc:
-          type: integer
-          format: uint32
-          minimum: 0
-          maximum: 10000
-          description: "open circuit current threshold in milliamperes (default: 70)"
-
-        shCirc:
-          type: integer
-          format: uint32
-          minimum: 0
-          maximum: 10000
-          description: "short circuit current threshold in milliamperes (default: 70)"
-
-        unPfa:
-          type: integer
-          format: uint32
-          minimum: 0
-          maximum: 1000
-          description: "under power factor threshold (multiplied by 1000) (default: 920)"
-
-    schedule:
-      type: object
-      properties:
-        cron:
-          type: string
-          description: cron schedule expression (32 characters maximum length) (see https://crontab.guru)
-        state:
-          type: integer
-          format: uint8
-          minimum: 0
-          maximum: 1
-          description: Lamp state (see /lamp/control)
-        dim:
-          type: integer
-          format: uint8
-          minimum: 0
-          maximum: 100
-          description: Dimmer value in percentage (see /lamp/control)
+          minimum: 110
+          maximum: 230400
+          description: "todo"
         mode:
+          type: string
+          description: "Config mode format  DataBParityStopB. Ex: 8N1 :\n\n  
+                        Data Bits - 8 only \n\n
+                        Parity - NOPARITY(N) and EVENPARITY(P)\n\n
+                        Stop Bits - 1 or 2"
+        timeoutRx:
           type: integer
           format: uint8
           minimum: 0
-          maximum: 3
-          description: "Lamp operation mode (see /lamp/control)"
+          maximum: 180
+          description: Time to recived buffer rx in seconds 
+        endChars:
+          type: string
+          description:  Config end chars (5 characters maximum) 
+
+    uart1_config:
+      type: object
+      properties:
+        baudrate:
+          type: integer
+          format: uint8
+          minimum: 110
+          maximum: 9600
+          description: "todo"
+        mode:
+          type: string
+          description: "Config mode format  DataBParityStopB. Ex: 8N1 :\n\n  
+                        Data Bits - 8 only \n\n
+                        Parity - NOPARITY(N) and EVENPARITY(P)\n\n
+                        Stop Bits - 1 or 2"
+        timeoutRx:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 180
+          description: Time to recived buffer rx in seconds 
+        endChars:
+          type: string
+          description:  Config end chars (5 characters maximum length) 
