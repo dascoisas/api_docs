@@ -22,6 +22,8 @@ servers:
 - url: http://petstore.swagger.io/v2
 
 tags:
+- name: network
+  description: Access to network parameters
 - name: lamp
   description: Access to lamp parameters
 - name: sensors
@@ -30,6 +32,42 @@ tags:
   description: Access to system parameters and status
 
 paths:
+  /network/config/netinfo :
+    get:
+      tags:
+      - network
+      summary: Get network configuration info
+      description: ""
+      operationId: getNetInfo
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netinfo'
+
+    put:
+      tags:
+      - network
+      summary: Update network configuration info
+      operationId: updateNetInfo
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/netinfo'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+      
   /lamp/control :
     put:
       tags:
@@ -114,7 +152,7 @@ paths:
       - lamp
       summary: Delete all scheduler
       description: ""
-      operationId: resetLampStat
+      operationId: deleteScheduler
       responses:
         202:
           description: Success
@@ -274,7 +312,7 @@ paths:
       - sensors
       summary: Reset accumulated active/reactive energy
       description: ""
-      operationId: resetLampStat
+      operationId: deleteEnergySensor
       responses:
         202:
           description: Success
@@ -419,7 +457,7 @@ paths:
         - sensors
         summary: Get the Luxmeter Sensor measures
         description: ""
-        operationId: getTmpSens
+        operationId: getLux
         responses:
           200:
             description: Success
@@ -591,7 +629,7 @@ paths:
         - system
         summary: Get the system 64 bits Extended Unique Identifier
         description: ""
-        operationId: getVer
+        operationId: getEui64
         responses:
           200:
             description: Success
@@ -758,6 +796,25 @@ paths:
 
 components:
   schemas:
+    netinfo:
+      type: object
+      properties:
+        PanID:
+          type: integer
+          format: uint16
+          minimum: 0
+          maximum: 65535
+          description: Wi-SUN PAN ID
+        PanVersion:
+          type: integer
+          format: uint16
+          minimum: 0
+          maximum: 65535
+          description: Wi-SUN PAN Version
+        NetworkName:
+          type: string
+          description: Wi-SUN Network Name - MAX 32 characters 
+
     lamp_control:
       type: object
       properties:
@@ -994,4 +1051,4 @@ components:
             format: uint8
             minimum: 0
             maximum: 3
-            description: "Lamp operation mode (see /lamp/control)"
+            description: "Lamp operation mode (see /lamp/control)"        
