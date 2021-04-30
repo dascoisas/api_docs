@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: Nouvenn EVB - Starter kit 2020
   description: 'This documentation describes the high level REST interface that can be used for 
-  controlling the Nouvenn Smart Lighting Controller using CoAP. It is possible to access a node 
+  controlling the EVB - Starter kit 2020 using CoAP. It is possible to access a node 
   directly via CoAP throught a request to its IPv6 address, however we provide an HTTP/JSON to
   CoAP proxy controller. This documentation assumes that the proxy controller is accessible by 
   the given url address.'
@@ -126,7 +126,7 @@ paths:
         content:
           application/json:
            schema:
-             $ref: '#/components/schemas/ gpio_state_set'
+             $ref: '#/components/schemas/gpio_state_set'
         required: true
       responses:
         205:
@@ -141,7 +141,7 @@ paths:
       - gpio
       summary: This route provides access to the 'sw' pin state
       description: ""
-      operationId: getSwMode
+      operationId: getSwData
       parameters:
       - name: observe
         in: query
@@ -205,7 +205,7 @@ paths:
         content:
           application/json:
            schema:
-             $ref: '#/components/schemas/ gpio_state_set'
+             $ref: '#/components/schemas/gpio_state_set'
         required: true
       responses:
         205:
@@ -284,7 +284,7 @@ paths:
         content:
           application/json:
            schema:
-             $ref: '#/components/schemas/ gpio_state_set'
+             $ref: '#/components/schemas/gpio_state_set'
         required: true
       responses:
         205:
@@ -363,7 +363,7 @@ paths:
         content:
           application/json:
            schema:
-             $ref: '#/components/schemas/ gpio_state_set'
+             $ref: '#/components/schemas/gpio_state_set'
         required: true
       responses:
         205:
@@ -442,7 +442,7 @@ paths:
         content:
           application/json:
            schema:
-             $ref: '#/components/schemas/ gpio_state_set'
+             $ref: '#/components/schemas/gpio_state_set'
         required: true
       responses:
         205:
@@ -521,7 +521,7 @@ paths:
         content:
           application/json:
            schema:
-             $ref: '#/components/schemas/ gpio_state_set'
+             $ref: '#/components/schemas/gpio_state_set'
         required: true
       responses:
         205:
@@ -600,7 +600,7 @@ paths:
         content:
           application/json:
            schema:
-             $ref: '#/components/schemas/ gpio_state_set'
+             $ref: '#/components/schemas/gpio_state_set'
         required: true
       responses:
         205:
@@ -679,7 +679,7 @@ paths:
         content:
           application/json:
            schema:
-             $ref: '#/components/schemas/ gpio_state_set'
+             $ref: '#/components/schemas/gpio_state_set'
         required: true
       responses:
         205:
@@ -764,7 +764,7 @@ paths:
                   type: string
                   minimum: 0
                   maximum: 127
-                  description:  "Buffer in hex separeted space. Ex: 01 02 03"
+                  description:  "Tx buffer in hexadecimal separate with space. Ex: 01 02 03"
         required: true
       responses:
         205:
@@ -801,7 +801,7 @@ paths:
                     type: string
                     minimum: 0
                     maximum: 127
-                    description:  "Buffer in hex separeted space. Ex: 01 02 03"
+                    description:  "Recived buffer in hexadecimal separate with space"
 
   /uart0/config :
     put:
@@ -856,7 +856,7 @@ paths:
                     format: uint32
                     minimum: 0
                     maximum: 1
-                    description: todo
+                    description: Fix TX pin UART to low for 2m seconds
         required: true
       responses:
         205:
@@ -871,7 +871,7 @@ paths:
     put:
       tags:
       - uart1
-      summary: This route allows one to send data via uart0 serial bus
+      summary: This route allows one to send data via uart1 serial bus
       operationId: updateUart1Data
       requestBody:
         description: ""
@@ -884,7 +884,7 @@ paths:
                 type: string
                 minimum: 0
                 maximum: 127
-                description:  "Buffer in hex separeted space. Ex: 01 02 03"
+                description:  "Tx buffer in hexadecimal separate with space. Ex: 01 02 03"
         required: true
       responses:
         205:
@@ -897,7 +897,7 @@ paths:
     get:
       tags:
       - uart1
-      summary: This route allows one to monitor data reception via uart0 serial bus
+      summary: This route allows one to monitor data reception via uart1 serial bus
       description: ""
       operationId: getUart1Data
       parameters:
@@ -921,13 +921,13 @@ paths:
                     type: string
                     minimum: 0
                     maximum: 127
-                    description:  "Buffer in hex separeted space. Ex: 01 02 03"
+                    description:  "Recived buffer in hexadecimal separate with space"
 
   /uart1/config :
     put:
       tags:
       - uart1
-      summary: This route allows one to update the uart0 configuration
+      summary: This route allows one to update the uart1 configuration
       operationId: updateUart1Config
       requestBody:
         description: ""
@@ -947,7 +947,7 @@ paths:
     get:
       tags:
       - uart1
-      summary: This route provides access to the uart0 configuration
+      summary: This route provides access to the uart1 configuration
       description: ""
       operationId: getUart1Config
       responses:
@@ -962,7 +962,7 @@ paths:
     put:
       tags:
       - uart1
-      summary: This route allows one to send a break condition on uart0 serial bus
+      summary: This route allows one to send a break condition on uart1 serial bus
       operationId: breakUart1
       requestBody:
         description: ""
@@ -976,7 +976,7 @@ paths:
                     format: uint32
                     minimum: 0
                     maximum: 1
-                    description: todo
+                    description: Fix TX pin LEUART to low for 2m seconds
         required: true
       responses:
         205:
@@ -1007,11 +1007,11 @@ paths:
                       format: uint32
                       minimum: 0
                       maximum: 32000000
-                      description: todo
+                      description: An SPI bitrate
     put:
       tags:
       - spi
-      summary: This route allows onte to update the SPI bus clock
+      summary: This route allows one to to update the SPI bus clock
       operationId: updateSpiClock
       requestBody:
         description: ""
@@ -1025,7 +1025,7 @@ paths:
                   format: uint32
                   minimum: 0
                   maximum: 32000000
-                  description: todo
+                  description: An SPI bitrate
         required: true
       responses:
         205:
@@ -1043,14 +1043,14 @@ paths:
       summary: This route allows one to execute a read/write SPI openration
       operationId: updateSpiData 
       requestBody:
-        description: "todo"
+        description: ""
         content:
           application/json:
            schema:
             type: string
             minimum: 0
             maximum: 127
-            description:  "Buffer in hex separeted space. Ex: 01 02 03"
+            description:  "Transfer buffer in hexadecimal separate with space. Ex: 01 02 03"
         required: true
       responses:
         205:
@@ -1064,7 +1064,7 @@ paths:
                       type: string
                       minimum: 0
                       maximum: 127
-                      description:  "Buffer in hex separeted space. Ex: 01 02 03"
+                      description:  "Recived buffer in hexadecimal separate with space"
         400:
           description: Invalid parameters
           content: {}
@@ -1089,11 +1089,11 @@ paths:
                       format: uint32
                       minimum: 0
                       maximum: 100000
-                      description: todo
+                      description: I2C max bus frequency to use
     put:
       tags:
       - i2c
-      summary: This route allows onte to update the I2C bus clock
+      summary: This route allows one to update the I2C bus clock
       operationId: updateSI2cClock
       requestBody:
         description: ""
@@ -1107,7 +1107,7 @@ paths:
                   format: uint32
                   minimum: 0
                   maximum: 100000
-                  description: todo
+                  description: I2C max bus frequency to use
         required: true
       responses:
         205:
@@ -1125,7 +1125,7 @@ paths:
       summary: This route allows one to execute a read/write I2C operation 
       operationId: updateI2cData
       requestBody:
-        description: "todo"
+        description: ""
         content:
           application/json:
            schema:
@@ -1142,22 +1142,22 @@ paths:
                 devaddr:
                   type: integer
                   format: uint8
-                  description: "i2c dev addr"
+                  description: "I2c dev addr"
                 regaddr:
                   type: integer
                   format: uint8
-                  description: "reg func addr"
+                  description: "Reg func addr"
                 recivelen:
                   type: integer
                   format: uint8
                   minimum: 0
                   maximum: 4
-                  description: "len buffer read i2c (only read)"
+                  description: "Read buffer length i2c (only read)"
                 transfer:
                   type: string
                   minimum: 0
                   maximum: 127
-                  description:  "Buffer in hex separeted space. Ex: 01 02 03"
+                  description:  "Transfer buffer in hexadecimal separate with space. Ex: 01 02 03"
         required: true
       responses:
         205:
@@ -1171,7 +1171,7 @@ paths:
                       type: string
                       minimum: 0
                       maximum: 127
-                      description:  "Buffer in hex separeted space. Ex: 01 02 03"
+                      description:  "Rx buffer in hexadecimal separate with space"
         400:
           description: Invalid parameters
           content: {}
@@ -1197,7 +1197,7 @@ paths:
                       format: uint32
                       minimum: 0
                       maximum: 1
-                      description: CLI state (0 for disable, 1 enable)
+                      description: CLI state (0 for disable)
     put:
       tags:
       - system
@@ -1215,7 +1215,7 @@ paths:
                   format: uint32
                   minimum: 0
                   maximum: 1
-                  description: CLI state (0 for disable, 1 enable)
+                  description: CLI state (0 for disable)
         required: true
       responses:
         205:
@@ -1236,17 +1236,17 @@ components:
           format: uint8
           minimum: 0
           maximum: 1
-          description: Gpio function (0 for input, 1 for output)
+          description: Gpio function (0 for input)
         mode:
           type: integer
           format: uint8
           minimum: 0
           maximum: 4
           description: "Gpio mode:\n\n  
-                        0 - gpioModeDisabled: Input disabled\n\n
-                        1 - gpioModeInput: Input enabled\n\n
-                        2 - gpioModeInputPull: Input enabled\n\n
-                        3 - gpioModeInputPullFilter: Input enabled with filter\n\n
+                        0 - gpioModeDisabled: Input disabled. Pull-up if DOUT is set\n\n
+                        1 - gpioModeInput: Input enabled. Filter if DOUT is set\n\n
+                        2 - gpioModeInputPull: Input enabled. DOUT determines pull direction\n\n
+                        3 - gpioModeInputPullFilter: Input enabled with filter. DOUT determines pull direction\n\n
                         4 - gpioModePushPull: Push-pull output"
         initIn:
           type: integer
@@ -1263,7 +1263,7 @@ components:
           format: uint8
           minimum: 0
           maximum: 1
-          description: Set gpio to adc (0 for disable, 1 enable)
+          description: Set gpio to adc (0 for disable)
 
     gpio_state_set:
       type: object
@@ -1273,7 +1273,7 @@ components:
           format: uint8
           minimum: 0
           maximum: 1
-          description: Gpio state (0 for off, only set digital funcition)
+          description: Gpio state (0 for off, only gpio digital output)
 
     gpio_state_get:
       type: object
@@ -1284,8 +1284,8 @@ components:
           minimum: 0
           maximum: 1
           description: "Gpio state :\n\n  
-                        - If gpio digital:  0 is off \n\n
-                        - If gpio analog: read adc bits"
+                        If gpio digital: 0 is off \n\n
+                        Else gpio analog: Read adc bits\n\n"
 
     uart0_config:
       type: object
@@ -1295,22 +1295,22 @@ components:
           format: uint32
           minimum: 110
           maximum: 230400
-          description: "todo"
+          description: "UART baud rate"
         mode:
           type: string
-          description: "Config mode format  DataBParityStopB. Ex: 8N1 :\n\n  
-                        Data Bits - 8 only \n\n
-                        Parity - NOPARITY(N) and EVENPARITY(P)\n\n
-                        Stop Bits - 1 or 2"
+          description: "Config mode format 8N1 :\n\n  
+                        Data Bits - Is fixed at 8 bit frames\n\n
+                        Parity - Parity configuration: No parity(N) or Even parity(P)\n\n
+                        Stop Bits - A number of stop bits: 1 or 2\n\n"
         timeoutRx:
           type: integer
           format: uint8
           minimum: 0
           maximum: 180
-          description: Time to recived buffer rx in seconds 
+          description: Time to send buffer rx in seconds  
         endChars:
           type: string
-          description:  Config end chars (5 characters maximum) 
+          description:  End chars to send buffer rx (5 characters maximum) 
 
     uart1_config:
       type: object
@@ -1320,19 +1320,19 @@ components:
           format: uint8
           minimum: 110
           maximum: 9600
-          description: "todo"
+          description: "LEUART baud rate"
         mode:
           type: string
-          description: "Config mode format  DataBParityStopB. Ex: 8N1 :\n\n  
-                        Data Bits - 8 only \n\n
-                        Parity - NOPARITY(N) and EVENPARITY(P)\n\n
-                        Stop Bits - 1 or 2"
+          description: "Config mode format 8N1 :\n\n  
+                        Data Bits - Is fixed at 8 bit frames\n\n
+                        Parity - Parity configuration: No parity(N) or Even parity(P)\n\n
+                        Stop Bits - A number of stop bits: 1 or 2\n\n"
         timeoutRx:
           type: integer
           format: uint8
           minimum: 0
           maximum: 180
-          description: Time to recived buffer rx in seconds 
+          description: Time to send buffer rx in seconds 
         endChars:
           type: string
-          description:  Config end chars (5 characters maximum length) 
+          description:  End chars to send buffer rx (5 characters maximum) 
