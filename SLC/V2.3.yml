@@ -114,7 +114,7 @@ paths:
       - lamp
       summary: Delete all scheduler
       description: ""
-      operationId: resetLampStat
+      operationId: deleteScheduler
       responses:
         202:
           description: Success
@@ -274,7 +274,7 @@ paths:
       - sensors
       summary: Reset accumulated active/reactive energy
       description: ""
-      operationId: resetLampStat
+      operationId: deleteEnergySensor
       responses:
         202:
           description: Success
@@ -419,7 +419,7 @@ paths:
         - sensors
         summary: Get the Luxmeter Sensor measures
         description: ""
-        operationId: getTmpSens
+        operationId: getLux
         responses:
           200:
             description: Success
@@ -591,7 +591,7 @@ paths:
         - system
         summary: Get the system 64 bits Extended Unique Identifier
         description: ""
-        operationId: getVer
+        operationId: getEui64
         responses:
           200:
             description: Success
@@ -994,4 +994,4 @@ components:
             format: uint8
             minimum: 0
             maximum: 3
-            description: "Lamp operation mode (see /lamp/control)"
+            description: "Lamp operation mode (see /lamp/control)"        
