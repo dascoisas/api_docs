@@ -1,0 +1,210 @@
+openapi: 3.0.1
+info:
+  title: Nouvenn Gridsafe Network
+  description: 'This documentation describes the high level REST interface that can be used for 
+  monitoring and controlling the Nouvenn GridSafe Network using CoAP. It is possible to access a node 
+  directly via CoAP throught a request to its IPv6 address, however we provide an HTTP/JSON to
+  CoAP proxy controller. This documentation assumes that the proxy controller is accessible by 
+  the given url address.'
+  version: 1.0.0
+
+tags:
+- name: network
+  description: Access to network parameters
+
+paths:
+  /network/config/netinfo :
+    get:
+      tags:
+      - network
+      summary: Get network configuration info
+      description: ""
+      operationId: getNetInfo
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netInfo'
+
+    put:
+      tags:
+      - network
+      summary: Update network configuration info
+      operationId: updateNetInfo
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/netInfo'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+
+  /network/config/disc :
+    get:
+      tags:
+      - network
+      summary: Get PAN Discovery Trickle Timer info
+      description: ""
+      operationId: getDisc
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netDisc'
+
+    put:
+      tags:
+      - network
+      summary: Update PAN Discovery Trickle Timer info
+      operationId: updateDisc
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/netDisc'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+
+  /network/metric/rpl :
+    get:
+      tags:
+      - network
+      summary: Get network RPL metrics
+      description: ""
+      operationId: getRplmetric
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netRplMetric'
+
+  /network/command/local_repair :
+    put:
+      tags:
+      - network
+      summary: Send Local Repair command
+      operationId: localRepair
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+
+components:
+  schemas:
+    netInfo:
+      type: object
+      properties:
+        PanID:
+          type: integer
+          format: uint16
+          minimum: 0
+          maximum: 65535
+          description: Wi-SUN PAN ID
+        PanVersion:
+          type: integer
+          format: uint16
+          minimum: 0
+          maximum: 65535
+          description: Wi-SUN PAN Version
+        NetworkName:
+          type: string
+          description: Wi-SUN Network Name - MAX 32 characters 
+
+    netDisc:
+      type: object
+      properties:
+        DISC_Imin:
+          type: integer
+          format: uint8
+          minimum: 1
+          maximum: 255
+          description: PAN Discovery Trickle Timer Imin
+        DISC_Imax:
+          type: integer
+          format: uint8
+          minimum: 1
+          maximum: 8
+          description: PAN Discovery Trickle timer Imax
+        DISC_k:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 10
+          description: PAN Discovery Trickle timer redundancy constant
+
+    netRplMetric:
+      type: object
+      properties:
+        ARO_NACK_Counter:
+          type: integer
+          format: uint16
+          minimum: 0
+          maximum: 65535
+          description: Number of Neighbor Discovery NA ARO NACK packets received
+        Uplink_Packet_Failures:
+          type: integer
+          format: uint16
+          minimum: 0
+          maximum: 65535
+          description: Number of Uplink Packet loss
+        Downlink_Packet_Failures:
+          type: integer
+          format: uint16
+          minimum: 0
+          maximum: 65535
+          description: Number of Downlink Packet loss
+        Local_Repair_Counter:
+          type: integer
+          format: uint16
+          minimum: 0
+          maximum: 65535
+          description: Number of Local Repair executed
+        Malformed_Packets:
+          type: integer
+          format: uint16
+          minimum: 0
+          maximum: 65535
+          description: Number of Malformed Packets
+        ICMP_Error_Packets:
+          type: integer
+          format: uint16
+          minimum: 0
+          maximum: 65535
+          description: Number of ICMP ERROR Packets
+        Time_on_DODAG:
+          type: integer
+          format: uint16
+          minimum: 0
+          maximum: 65535
+          description: Time connected to the DODAG in seconds
+        Disconnected_Time:
+          type: integer
+          format: uint16
+          minimum: 0
+          maximum: 65535
+          description: Time disconnected from the DODAG in seconds   
