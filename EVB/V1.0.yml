@@ -1142,11 +1142,11 @@ paths:
                 devaddr:
                   type: integer
                   format: uint8
-                  description: "I2c dev addr"
+                  description: "I2c dev addr in hexadecimal"
                 regaddr:
                   type: integer
                   format: uint8
-                  description: "Reg func addr"
+                  description: "Reg func addr in hexadecimal"
                 recivelen:
                   type: integer
                   format: uint8
