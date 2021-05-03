@@ -1383,7 +1383,7 @@ components:
           format: uint8
           minimum: 0
           maximum: 1
-          description: Gpio state (0 for off, only gpio digital output)
+          description: Gpio state (0 for on, only gpio digital output)
 
     gpio_state_get:
       type: object
