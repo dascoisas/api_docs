@@ -747,7 +747,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/gpio_control'
 
-  /uart0/data :
+  /uart0/data/hex :
     put:
       tags:
       - uart0
@@ -802,6 +802,61 @@ paths:
                     minimum: 0
                     maximum: 127
                     description:  "Recived buffer in hexadecimal separate with space"
+  /uart0/data/tex :
+    put:
+      tags:
+      - uart0
+      summary: This route allows one to send data via uart0 serial bus
+      operationId: updateUart0DataTex
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+            type: object
+            properties:
+              tx:
+                type: string
+                minimum: 0
+                maximum: 127
+                description:  "Tx buffer in text format"
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - uart0
+      summary: This route allows one to monitor data reception via uart0 serial bus
+      description: ""
+      operationId: getUart0DataTex
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rx:
+                    type: string
+                    minimum: 0
+                    maximum: 127
+                    description:  "Recived buffer in text format"
 
   /uart0/config :
     put:
@@ -867,7 +922,7 @@ paths:
           content: {}
       x-codegen-request-body-name: body   
 
-  /uart1/data :
+  /uart1/data/hex :
     put:
       tags:
       - uart1
@@ -922,6 +977,61 @@ paths:
                     minimum: 0
                     maximum: 127
                     description:  "Recived buffer in hexadecimal separate with space"
+  /uart1/data/tex :
+    put:
+      tags:
+      - uart1
+      summary: This route allows one to send data via uart1 serial bus
+      operationId: updateUart1DataTex
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+            type: object
+            properties:
+              tx:
+                type: string
+                minimum: 0
+                maximum: 127
+                description:  "Tx buffer in text format"
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - uart1
+      summary: This route allows one to monitor data reception via uart1 serial bus
+      description: ""
+      operationId: getUart1DataTex
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rx:
+                    type: string
+                    minimum: 0
+                    maximum: 127
+                    description:  "Recived buffer in text format"
 
   /uart1/config :
     put:
@@ -1163,7 +1273,7 @@ paths:
         205:
           description: Response i2c
           content: 
-            application/json:
+            lication/json:
               schema:
                   type: object
                   properties:
