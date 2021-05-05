@@ -604,7 +604,7 @@ paths:
                       type: string
                       description: Hexadecimal representation EUI-64 
                       
-  /lamp/reboot_adv :
+  /system/reboot_adv :
     put:
       tags:
       - system
