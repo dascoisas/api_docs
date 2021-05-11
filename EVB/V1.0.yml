@@ -762,8 +762,8 @@ paths:
               properties:
                 tx:
                   type: string
-                  minimum: 0
-                  maximum: 127
+                  minLength: 2
+                  maxLength: 127
                   description:  "Tx buffer in hexadecimal separate with space. Ex: 01 02 03"
         required: true
       responses:
@@ -799,8 +799,8 @@ paths:
                 properties:
                   rx:
                     type: string
-                    minimum: 0
-                    maximum: 127
+                    minLength: 2
+                    maxLength: 127
                     description:  "Recived buffer in hexadecimal separate with space"
   /uart0/data/tex :
     put:
@@ -817,8 +817,8 @@ paths:
             properties:
               tx:
                 type: string
-                minimum: 0
-                maximum: 127
+                minLength: 1
+                maxLength: 127
                 description:  "Tx buffer in text format"
         required: true
       responses:
@@ -854,8 +854,8 @@ paths:
                 properties:
                   rx:
                     type: string
-                    minimum: 0
-                    maximum: 127
+                    minLength: 1
+                    maxLength: 127
                     description:  "Recived buffer in text format"
 
   /uart0/config :
@@ -937,8 +937,8 @@ paths:
             properties:
               tx:
                 type: string
-                minimum: 0
-                maximum: 127
+                minLength: 2
+                maxLength: 127
                 description:  "Tx buffer in hexadecimal separate with space. Ex: 01 02 03"
         required: true
       responses:
@@ -974,8 +974,8 @@ paths:
                 properties:
                   rx:
                     type: string
-                    minimum: 0
-                    maximum: 127
+                    minLength: 2
+                    maxLength: 127
                     description:  "Recived buffer in hexadecimal separate with space"
   /uart1/data/tex :
     put:
@@ -992,8 +992,8 @@ paths:
             properties:
               tx:
                 type: string
-                minimum: 0
-                maximum: 127
+                minLength: 1
+                maxLength: 127
                 description:  "Tx buffer in text format"
         required: true
       responses:
@@ -1029,8 +1029,8 @@ paths:
                 properties:
                   rx:
                     type: string
-                    minimum: 0
-                    maximum: 127
+                    minLength: 1
+                    maxLength: 127
                     description:  "Recived buffer in text format"
 
   /uart1/config :
@@ -1150,7 +1150,7 @@ paths:
     put:
       tags:
       - spi
-      summary: This route allows one to execute a read/write SPI openration
+      summary: This route allows one to execute a read/write SPI operation
       operationId: updateSpiData 
       requestBody:
         description: ""
@@ -1161,19 +1161,19 @@ paths:
               properties:
                 transfer:
                   type: string
-                  minimum: 0
-                  maximum: 127
+                  minLength: 2
+                  maxLength: 127
                   description:  "Transfer buffer in hexadecimal separate with space. Ex: 01 02 03"
         required: true
       responses:
         205:
           description: Response spi
           content: 
-            application/json:
+            application/text:
               schema:
                 type: string
-                minimum: 0
-                maximum: 127
+                minLength: 2
+                maxLength: 127
                 description:  "Recived buffer in hexadecimal separate with space"
         400:
           description: Invalid parameters
@@ -1260,24 +1260,24 @@ paths:
                 recivelen:
                   type: integer
                   format: uint8
-                  minimum: 0
-                  maximum: 4
+                  minimum: 2
+                  maximum: 127
                   description: "Read buffer length i2c (only read)"
                 transfer:
                   type: string
-                  minimum: 0
-                  maximum: 127
+                  minLength: 2
+                  maxLength : 127
                   description:  "Transfer buffer in hexadecimal separate with space. Ex: 01 02 03"
         required: true
       responses:
         205:
           description: Response i2c
           content: 
-            aplication/json:
+            application/text:
               schema:
                 type: string
-                minimum: 0
-                maximum: 127
+                minLength: 2
+                maxLength: 127
                 description:  "Rx buffer in hexadecimal separate with space"
         400:
           description: Invalid parameters
@@ -1374,10 +1374,10 @@ components:
           minimum: 0
           maximum: 4
           description: "Gpio mode:\n\n  
-                        0 - gpioModeDisabled: Input disabled. Pull-up if DOUT is set\n\n
-                        1 - gpioModeInput: Input enabled. Filter if DOUT is set\n\n
-                        2 - gpioModeInputPull: Input enabled. DOUT determines pull direction\n\n
-                        3 - gpioModeInputPullFilter: Input enabled with filter. DOUT determines pull direction\n\n
+                        0 - gpioModeDisabled: Input disabled \n\n
+                        1 - gpioModeInput: Input enabled \n\n
+                        2 - gpioModeInputPull: Input enabled \n\n
+                        3 - gpioModeInputPullFilter: Input enabled with filter \n\n
                         4 - gpioModePushPull: Push-pull output"
         initIn:
           type: integer
@@ -1429,6 +1429,8 @@ components:
           description: "UART baud rate"
         mode:
           type: string
+          minLength: 3
+          maxLength: 3
           description: "Config mode format 8N1 :\n\n  
                         Data Bits - Is fixed at 8 bit frames\n\n
                         Parity - Parity configuration: No parity(N) or Even parity(P)\n\n
@@ -1441,6 +1443,8 @@ components:
           description: Time to send buffer rx in seconds  
         endChars:
           type: string
+          minLength: 1
+          maxLength: 5
           description:  End chars to send buffer rx (5 characters maximum) 
 
     uart1_config:
@@ -1454,6 +1458,8 @@ components:
           description: "LEUART baud rate"
         mode:
           type: string
+          minLength: 3
+          maxLength: 3
           description: "Config mode format 8N1 :\n\n  
                         Data Bits - Is fixed at 8 bit frames\n\n
                         Parity - Parity configuration: No parity(N) or Even parity(P)\n\n
@@ -1466,4 +1472,6 @@ components:
           description: Time to send buffer rx in seconds 
         endChars:
           type: string
+          minLength: 1
+          maxLength: 5
           description:  End chars to send buffer rx (5 characters maximum) 
