@@ -747,7 +747,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/gpio_control'
 
-  /uart0/data/hex :
+  /uart0/data :
     put:
       tags:
       - uart0
@@ -764,7 +764,7 @@ paths:
                   type: string
                   minLength: 2
                   maxLength: 127
-                  description:  "Tx buffer in hexadecimal separate with space. Ex: 01 02 03"
+                  description:  "Tx buffer according with format in uart1 configuration (see uart0/config)"
         required: true
       responses:
         205:
@@ -801,62 +801,7 @@ paths:
                     type: string
                     minLength: 2
                     maxLength: 127
-                    description:  "Recived buffer in hexadecimal separate with space"
-  /uart0/data/tex :
-    put:
-      tags:
-      - uart0
-      summary: This route allows one to send data via uart0 serial bus
-      operationId: updateUart0DataTex
-      requestBody:
-        description: ""
-        content:
-          application/json:
-           schema:
-            type: object
-            properties:
-              tx:
-                type: string
-                minLength: 1
-                maxLength: 127
-                description:  "Tx buffer in text format"
-        required: true
-      responses:
-        205:
-          description: Success
-          content: {}
-        400:
-          description: Invalid parameters
-          content: {}
-      x-codegen-request-body-name: body 
-    get:
-      tags:
-      - uart0
-      summary: This route allows one to monitor data reception via uart0 serial bus
-      description: ""
-      operationId: getUart0DataTex
-      parameters:
-      - name: observe
-        in: query
-        description: "Observe the resource \n\n
-                      (none: keep last mode; true: start observing; false: stop observing)"
-        required: false
-        schema:
-          type: boolean
-          default: false
-      responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  rx:
-                    type: string
-                    minLength: 1
-                    maxLength: 127
-                    description:  "Recived buffer in text format"
+                    description:  "Rx buffer according with format in uart1 configuration (see uart0/config)"
 
   /uart0/config :
     put:
@@ -922,7 +867,7 @@ paths:
           content: {}
       x-codegen-request-body-name: body   
 
-  /uart1/data/hex :
+  /uart1/data :
     put:
       tags:
       - uart1
@@ -939,7 +884,7 @@ paths:
                 type: string
                 minLength: 2
                 maxLength: 127
-                description:  "Tx buffer in hexadecimal separate with space. Ex: 01 02 03"
+                description:  "Tx buffer according with format in uart1 configuration (see uart1/config)"
         required: true
       responses:
         205:
@@ -976,62 +921,7 @@ paths:
                     type: string
                     minLength: 2
                     maxLength: 127
-                    description:  "Recived buffer in hexadecimal separate with space"
-  /uart1/data/tex :
-    put:
-      tags:
-      - uart1
-      summary: This route allows one to send data via uart1 serial bus
-      operationId: updateUart1DataTex
-      requestBody:
-        description: ""
-        content:
-          application/json:
-           schema:
-            type: object
-            properties:
-              tx:
-                type: string
-                minLength: 1
-                maxLength: 127
-                description:  "Tx buffer in text format"
-        required: true
-      responses:
-        205:
-          description: Success
-          content: {}
-        400:
-          description: Invalid parameters
-          content: {}
-      x-codegen-request-body-name: body 
-    get:
-      tags:
-      - uart1
-      summary: This route allows one to monitor data reception via uart1 serial bus
-      description: ""
-      operationId: getUart1DataTex
-      parameters:
-      - name: observe
-        in: query
-        description: "Observe the resource \n\n
-                      (none: keep last mode; true: start observing; false: stop observing)"
-        required: false
-        schema:
-          type: boolean
-          default: false
-      responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  rx:
-                    type: string
-                    minLength: 1
-                    maxLength: 127
-                    description:  "Recived buffer in text format"
+                    description:  "Rx buffer according with format in uart1 configuration (see uart1/config)"
 
   /uart1/config :
     put:
@@ -1435,6 +1325,14 @@ components:
                         Data Bits - Is fixed at 8 bit frames\n\n
                         Parity - Parity configuration: No parity(N) or Even parity(P)\n\n
                         Stop Bits - A number of stop bits: 1 or 2\n\n"
+        format:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 1
+          description: "Config format tx and rx :\n\n  
+                        0 - Recived and transmit buffer in hexadecimal separate with space. Ex: 01 02 03\n\n
+                        1 - Recived and transmit buffer in text format\n\n"
         timeoutRx:
           type: integer
           format: uint8
@@ -1464,6 +1362,14 @@ components:
                         Data Bits - Is fixed at 8 bit frames\n\n
                         Parity - Parity configuration: No parity(N) or Even parity(P)\n\n
                         Stop Bits - A number of stop bits: 1 or 2\n\n"
+        format:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 1
+          description: "Config format tx and rx:\n\n  
+                        0 - Recived and transmit buffer in hexadecimal separate with space. Ex: 01 02 03\n\n
+                        1 - Recived and transmit buffer in text format\n\n"
         timeoutRx:
           type: integer
           format: uint8
