@@ -13,6 +13,21 @@ tags:
   description: Access to network parameters
 
 paths:
+  /network/config/address :
+    get:
+      tags:
+      - network
+      summary: Get network ula gua IPv6 address
+      description: ""
+      operationId: getNetAddess
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netAddress'
+
   /network/config/netinfo :
     get:
       tags:
@@ -114,8 +129,30 @@ paths:
           description: Invalid parameters
           content: {}
 
+  /network/info/ver :
+    get:
+      tags:
+      - network
+      summary: Get Gridsafe Network version info
+      description: ""
+      operationId: getNetVersion
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netVersion'
+
 components:
   schemas:
+    netAddress:
+      type: object
+      properties:
+        ADDR:
+          type: string
+          description: Wi-SUN ULA GUA Address 
+
     netInfo:
       type: object
       properties:
@@ -207,4 +244,11 @@ components:
           format: uint16
           minimum: 0
           maximum: 65535
-          description: Time disconnected from the DODAG in seconds   
+          description: Time disconnected from the DODAG in seconds
+
+    netVersion:
+      type: object
+      properties:
+        Version:
+          type: string
+          description: Gridsafe Version
