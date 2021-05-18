@@ -249,6 +249,9 @@ components:
     netVersion:
       type: object
       properties:
-        Version:
+        tec:
+          type: string
+          description: Technology
+        ver:
           type: string
           description: Gridsafe Version
