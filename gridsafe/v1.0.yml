@@ -115,6 +115,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/netRplMetric'
 
+  /network/metric/link :
+    get:
+      tags:
+      - network
+      summary: Get L2 metrics
+      description: ""
+      operationId: getL2metric
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netL2Metric'
+
   /network/command/local_repair :
     put:
       tags:
@@ -246,9 +261,76 @@ components:
           maximum: 65535
           description: Time disconnected from the DODAG in seconds
 
+    netL2Metric:
+      type: object
+      properties:
+        Unicast_tx_packets:
+          type: integer
+          format: uint32
+          minimum: 0
+          maximum: 4294967295
+          description: Number of L2 unicast transmitted packets
+        Unicast_rx_packets:
+          type: integer
+          format: uint32
+          minimum: 0
+          maximum: 4294967295
+          description: Number of L2 unicast received packets
+        Broadcast_tx_packets:
+          type: integer
+          format: uint32
+          minimum: 0
+          maximum: 4294967295
+          description: Number of L2 broadcast transmitted packets
+        Broadcast_rx_packets:
+          type: integer
+          format: uint32
+          minimum: 0
+          maximum: 4294967295
+          description: Number of L2 broadcast received packets
+        Async_tx_packets:
+          type: integer
+          format: uint32
+          minimum: 0
+          maximum: 4294967295
+          description: Number of L2 async transmitted packets
+        AR_tx_packets:
+          type: integer
+          format: uint32
+          minimum: 0
+          maximum: 4294967295
+          description: Ack requested transmitted packets
+        N_AR_tx_packets:
+          type: integer
+          format: uint32
+          minimum: 0
+          maximum: 4294967295
+          description: Non Ack requested transmitted packets
+        ACK_rx:
+          type: integer
+          format: uint32
+          minimum: 0
+          maximum: 4294967295
+          description: Ack received packets
+        ACK_tx:
+          type: integer
+          format: uint32
+          minimum: 0
+          maximum: 4294967295
+          description: Ack transmitted packets
+        Rx_errors:
+          type: integer
+          format: uint32
+          minimum: 0
+          maximum: 4294967295
+          description: Rx errors counter
+
     netVersion:
       type: object
       properties:
-        Version:
+        tec:
+          type: string
+          description: Technology
+        ver:
           type: string
           description: Gridsafe Version
