@@ -136,6 +136,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/netL2Metric'
 
+  /network/metric/table :
+    get:
+      tags:
+      - metric
+      summary: Get Neighbor Table
+      description: ""
+      operationId: getNeighborTable
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netNeighborTable'
+
   /network/command/local_repair :
     put:
       tags:
@@ -359,6 +374,139 @@ components:
           minimum: 0
           maximum: 4294967295
           description: Rx errors counter
+
+    netNeighborTable:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: uint32
+          minimum: 0
+          maximum: 4294967295
+          description: Number of L2 unicast transmitted packets
+        eui:
+          type: string
+          description: Device eui64
+        iface:
+          type: string
+          description: Device interface ID
+        ula_gua:
+          type: string
+          description: Device ULA GUA Address
+        rpl:
+          type: object
+          properties:
+            instID:
+              type: integer
+              format: uint16
+              minimum: 0
+              maximum: 65535
+              description: RPL Instance ID
+            ver:
+              type: integer
+              format: uint16
+              minimum: 0
+              maximum: 65535
+              description: RPL Version
+            dtsn:
+              type: integer
+              format: uint16
+              minimum: 0
+              maximum: 65535
+              description: RPL DTSN Number
+            rank:
+              type: integer
+              format: uint16
+              minimum: 0
+              maximum: 65535
+              description: RPL current rank
+            prefLen:
+              type: integer
+              format: uint16
+              minimum: 0
+              maximum: 65535
+              description: RPL Prefix Length
+            prefix:
+              type: string
+              description: RPL Network Prefix
+            dodagID:
+              type: string
+              description: RPL DODAG ID Address
+        neighTab:
+          type: object
+          properties:
+            eui:
+              type: string
+              description: Neighbor eui64 Address
+            iface:
+              type: string
+              description: Neighbor interface ID Address
+            ula_gua:
+              type: string
+              description: Neighbor ULA GUA Address
+            lRsl:
+              type: integer
+              format: uint8
+              minimum: 0
+              maximum: 255
+              description: Neighbor Local RSL
+            rRsl:
+              type: integer
+              format: uint8
+              minimum: 0
+              maximum: 255
+              description: Neighbor Remote RSL
+            etx:
+              type: integer
+              format: uint16
+              minimum: 0
+              maximum: 65535
+              description: Neighbor ETX
+            rank:
+              type: integer
+              format: uint16
+              minimum: 0
+              maximum: 65535
+              description: Neighbor Rank
+            stat:
+              type: string
+              description: Neighbor status
+            time:
+              type: integer
+              format: uint16
+              minimum: 0
+              maximum: 65535
+              description: Neighbor route lifetime
+            txAtt:
+              type: integer
+              format: uint32
+              minimum: 0
+              maximum: 4294967295
+              description: Neighbor tx attempts
+            rxAck:
+              type: integer
+              format: uint32
+              minimum: 0
+              maximum: 4294967295
+              description: Neighbor received acks
+            offset:
+              type: integer
+              format: uint32
+              minimum: 0
+              maximum: 4294967295
+              description: Neighbor time offset
+            l3Rx:
+              type: integer
+              format: uint32
+              minimum: 0
+              maximum: 4294967295
+              description: Neighbor Received L3 packets
+            l3Tx:
+              type: integer
+              format: uint32
+              minimum: 0
+              maximum: 4294967295
+              description: Neighbor Transmitted L3 packets
 
     netVersion:
       type: object
