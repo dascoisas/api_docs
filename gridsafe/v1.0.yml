@@ -9,14 +9,20 @@ info:
   version: 1.0.0
 
 tags:
-- name: network
-  description: Access to network parameters
+- name: config
+  description: Access to network config parameters
+- name: metric
+  description: Access to network metrics
+- name: command
+  description: Network commands
+- name: info
+  description: Network system info
 
 paths:
   /network/config/address :
     get:
       tags:
-      - network
+      - config
       summary: Get network ula gua IPv6 address
       description: ""
       operationId: getNetAddess
@@ -31,7 +37,7 @@ paths:
   /network/config/netinfo :
     get:
       tags:
-      - network
+      - config
       summary: Get network configuration info
       description: ""
       operationId: getNetInfo
@@ -45,7 +51,7 @@ paths:
 
     put:
       tags:
-      - network
+      - config
       summary: Update network configuration info
       operationId: updateNetInfo
       requestBody:
@@ -67,7 +73,7 @@ paths:
   /network/config/disc :
     get:
       tags:
-      - network
+      - config
       summary: Get PAN Discovery Trickle Timer info
       description: ""
       operationId: getDisc
@@ -81,7 +87,7 @@ paths:
 
     put:
       tags:
-      - network
+      - config
       summary: Update PAN Discovery Trickle Timer info
       operationId: updateDisc
       requestBody:
@@ -103,7 +109,7 @@ paths:
   /network/metric/rpl :
     get:
       tags:
-      - network
+      - metric
       summary: Get network RPL metrics
       description: ""
       operationId: getRplmetric
@@ -118,7 +124,7 @@ paths:
   /network/metric/link :
     get:
       tags:
-      - network
+      - metric
       summary: Get L2 metrics
       description: ""
       operationId: getL2metric
@@ -133,9 +139,23 @@ paths:
   /network/command/local_repair :
     put:
       tags:
-      - network
+      - command
       summary: Send Local Repair command
       operationId: localRepair
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+
+  /network/command/reboot :
+    put:
+      tags:
+      - command
+      summary: Send reboot command
+      operationId: reboot
       responses:
         205:
           description: Success
@@ -147,7 +167,7 @@ paths:
   /network/info/ver :
     get:
       tags:
-      - network
+      - info
       summary: Get Gridsafe Network version info
       description: ""
       operationId: getNetVersion
@@ -158,6 +178,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/netVersion'
+
+  /network/info/reset :
+    get:
+      tags:
+      - info
+      summary: Get Gridsafe Device reset counter
+      description: ""
+      operationId: getResetCounter
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netReset'
 
 components:
   schemas:
@@ -334,3 +369,49 @@ components:
         ver:
           type: string
           description: Gridsafe Version
+
+    netReset:
+      type: object
+      properties:
+        ResetCounter:
+          type: integer
+          format: uint16
+          minimum: 0
+          maximum: 65535
+          description: Total Number of resets
+        PowerOnReset:
+          type: integer
+          format: uint16
+          minimum: 0
+          maximum: 65535
+          description: Power On reset counter
+        SystemReset:
+          type: integer
+          format: uint16
+          minimum: 0
+          maximum: 65535
+          description: System reset counter
+        WatchdogReset:
+          type: integer
+          format: uint16
+          minimum: 0
+          maximum: 65535
+          description: Watchdog reset counter
+        PinReset:
+          type: integer
+          format: uint16
+          minimum: 0
+          maximum: 65535
+          description: Pin reset counter
+        OtherReset:
+          type: integer
+          format: uint16
+          minimum: 0
+          maximum: 65535
+          description: Other reset counter
+        DefaultHandlerReset:
+          type: integer
+          format: uint16
+          minimum: 0
+          maximum: 65535
+          description: Default Handler reset counter
