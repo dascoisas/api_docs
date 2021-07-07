@@ -151,6 +151,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/netNeighborTable'
 
+  /network/metric/rsl :
+    get:
+      tags:
+      - metric
+      summary: Get Neighbor RSL
+      description: ""
+      operationId: getNeighborRSL
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netNeighborRSL'
+
   /network/command/local_repair :
     put:
       tags:
@@ -507,6 +522,28 @@ components:
               minimum: 0
               maximum: 4294967295
               description: Neighbor Transmitted L3 packets
+
+    netNeighborRSL:
+      type: object
+      properties:
+        neighTab:
+          type: object
+          properties:
+            eui:
+              type: string
+              description: Neighbor eui64 Address
+            lRsl:
+              type: integer
+              format: uint8
+              minimum: 0
+              maximum: 255
+              description: Neighbor Local RSL
+            rRsl:
+              type: integer
+              format: uint8
+              minimum: 0
+              maximum: 255
+              description: Neighbor Remote RSL
 
     netVersion:
       type: object
