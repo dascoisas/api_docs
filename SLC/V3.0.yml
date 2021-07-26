@@ -853,6 +853,31 @@ components:
           minimum: -180.0
           maximum: 180
           description: Longitude in decimal degrees
+        srise_h:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 24
+          description: "Hours sunrise"
+        srise_m:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 59
+          description: "Minutes sunrise"
+
+        sset_h:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 24
+          description: "Hours sunset"
+        sset_m:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 59
+          description: "Minutes sunset"
 
     alarm:
       type: object
