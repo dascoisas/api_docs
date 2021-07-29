@@ -392,12 +392,33 @@ paths:
                 schema:
                   type: object
                   properties:
-                    tmp:
+                    current:
                       type: integer
                       format: int8
                       minimum: -40
                       maximum: 85
                       description: Current system temperature in degree Celsius
+                    min:
+                      type: integer
+                      format: int8
+                      minimum: -40
+                      maximum: 85
+                      description: Minimum system temperature in degree Celsius
+                    max:
+                      type: integer
+                      format: int8
+                      minimum: -40
+                      maximum: 85
+                      description: Maximum system temperature in degree Celsius
+    delete:
+        tags:
+        - sensors
+        summary: Reset minimum and maximum system temperature
+        description: ""
+        operationId: deleteTemp
+        responses:
+          202:
+            description: Success
 
   /sensors/lux : 
     get:
@@ -414,13 +435,33 @@ paths:
                 schema:
                   type: object
                   properties:
-                    lux:
+                    current:
                       type: integer
                       format: uint32
                       minimum: 0
                       maximum: 8386560
                       description: Current iluminance in centilux
-
+                    min:
+                      type: integer
+                      format: uint32
+                      minimum: 0
+                      maximum: 8386560
+                      description: Minimum iluminance in centilux
+                    max:
+                      type: integer
+                      format: uint32
+                      minimum: 0
+                      maximum: 8386560
+                      description: Maximum iluminance in centilux
+    delete:
+        tags:
+        - sensors
+        summary: Reset minimum and maximum iluminance
+        description: ""
+        operationId: deleteLux
+        responses:
+          202:
+            description: Success
   /sensors/gps : 
     get:
         tags:
@@ -829,15 +870,17 @@ components:
           format: uint32
           minimum: 0
           maximum: 8386560
-          description: Brightness value in centilux below which the 
-                        lamp is switched on, when in 'AUTO LUX' mode
+          description: "Brightness value in centilux below which the 
+                        lamp is switched on, when in 'AUTO LUX' mode. fix \n\n
+                        (day_night_thr <= nigh_day_thr)"
         nigh_day_thr:
           type: integer
           format: uint32
           minimum: 0
           maximum: 8386560
-          description: Brightness value in centilux above which the 
-                        lamp is switched off, when in 'AUTO LUX' mode
+          description: "Brightness value in centilux above which the 
+                        lamp is switched off, when in 'AUTO LUX' mode. \n\n
+                        (nigh_day_thr >= day_night_thr)"
         mode:
           type: integer
           format: uint8
@@ -982,14 +1025,14 @@ components:
           format: uint32
           minimum: 0
           maximum: 50000
-          description: "undervoltage threshold in centivolts (default: 9000)"
+          description: "undervoltage threshold in centivolts (default: 19800)"
           
         ovV:
           type: integer
           format: uint32
           minimum: 0
           maximum: 50000
-          description: "overvoltage threshold in centivolts (default: 48000)"
+          description: "overvoltage threshold in centivolts (default: 24200)"
 
         ovC:
           type: integer
