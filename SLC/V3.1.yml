@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.0.1
 info:
   title: Nouvenn Smart Lighting Controller
   description: 'This documentation describes the high level REST interface that can be used for 
@@ -706,9 +706,29 @@ paths:
                       geographical coordinates and current date and time"
         content:
           application/json:
-            schema:
-               $ref: '#/components/schemas/spa'
-        required: true
+           schema:
+            type: object
+            properties:
+              src:
+                type: integer
+                format: uint8
+                minimum: 0
+                maximum: 1
+                description: "Coordinates source:\n\n
+                              0 - From GPS\n\n
+                              1 - Manually configured"
+              lat:
+                type: number
+                #format: float
+                minimum: -90.0
+                maximum: 90.0
+                description: Latitude in decimal degrees
+              lng:
+                type: number
+                #format: float
+                minimum: -180.0
+                maximum: 180
+                description: Longitude in decimal degrees
       responses:
         205:
           description: Success
@@ -729,8 +749,52 @@ paths:
           content:
             application/json:
               schema:
-                 $ref: '#/components/schemas/spa'
-                 
+                type: object
+                properties:
+                  src:
+                    type: integer
+                    format: uint8
+                    minimum: 0
+                    maximum: 1
+                    description: "Coordinates source:\n\n
+                                  0 - From GPS\n\n
+                                  1 - Manually configured"
+                  lat:
+                    type: number
+                    #format: float
+                    minimum: -90.0
+                    maximum: 90.0
+                    description: Latitude in decimal degrees
+                  lng:
+                    type: number
+                    #format: float
+                    minimum: -180.0
+                    maximum: 180
+                    description: Longitude in decimal degrees
+                  srise_h:
+                    type: integer
+                    format: uint8
+                    minimum: 0
+                    maximum: 24
+                    description: "Hours sunrise"
+                  srise_m:
+                    type: integer
+                    format: uint8
+                    minimum: 0
+                    maximum: 59
+                    description: "Minutes sunrise"
+                  sset_h:
+                    type: integer
+                    format: uint8
+                    minimum: 0
+                    maximum: 24
+                    description: "Hours sunset"
+                  sset_m:
+                    type: integer
+                    format: uint8
+                    minimum: 0
+                    maximum: 59
+                    description: "Minutes sunset"
         204:
           description: No signal
           content: {}
@@ -816,7 +880,7 @@ components:
           maximum: 8386560
           description: "Brightness value in centilux above which the 
                         lamp is switched off, when in 'AUTO LUX' mode. \n\n
-                        (nigh_day_thr >= day_night_thr)"
+                        (nigh_day_thr >= day_night_thr)
         mode:
           type: integer
           format: uint8
@@ -897,6 +961,31 @@ components:
           minimum: -180.0
           maximum: 180
           description: Longitude in decimal degrees
+        srise_h:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 24
+          description: "Hours sunrise"
+        srise_m:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 59
+          description: "Minutes sunrise"
+
+        sset_h:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 24
+          description: "Hours sunset"
+        sset_m:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 59
+          description: "Minutes sunset"
 
     alarm:
       type: object
