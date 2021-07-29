@@ -106,6 +106,42 @@ paths:
           content: {}
       x-codegen-request-body-name: body # Pra que serve isso??
 
+  /network/config/power :
+    get:
+      tags:
+      - config
+      summary: Get Radio TxPower
+      description: ""
+      operationId: getPower
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netPower'
+
+    put:
+      tags:
+      - config
+      summary: Set Radio TxPower
+      operationId: setPower
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/netPower'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+
   /network/metric/rpl :
     get:
       tags:
@@ -273,6 +309,16 @@ components:
           minimum: 0
           maximum: 10
           description: PAN Discovery Trickle timer redundancy constant
+
+    netPower:
+      type: object
+      properties:
+        TxPower:
+          type: integer
+          format: uint16
+          minimum: -200
+          maximum: 200
+          description: Tx Power in deci-dBm
 
     netRplMetric:
       type: object
