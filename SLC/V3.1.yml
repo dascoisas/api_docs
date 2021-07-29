@@ -842,15 +842,15 @@ components:
           maximum: 8386560
           description: "Brightness value in centilux below which the 
                         lamp is switched on, when in 'AUTO LUX' mode. fix \n\n
-                        (day_night_thr <= nigh_day_thr)"
-        nigh_day_thr:
+                        (day_night_thr <= night_day_thr)"
+        night_day_thr:
           type: integer
           format: uint32
           minimum: 0
           maximum: 8386560
           description: "Brightness value in centilux above which the 
                         lamp is switched off, when in 'AUTO LUX' mode. \n\n
-                        (nigh_day_thr >= day_night_thr)"
+                        (night_day_thr >= day_night_thr)"
         mode:
           type: integer
           format: uint8
