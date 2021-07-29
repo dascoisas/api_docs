@@ -260,6 +260,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/netReset'
 
+  /network/info/assert :
+    get:
+      tags:
+      - info
+      summary: Get Gridsafe Device last assert
+      description: ""
+      operationId: getLastAssert
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netLastAssert'
+
 components:
   schemas:
     netAddress:
@@ -646,3 +661,46 @@ components:
           minimum: 0
           maximum: 65535
           description: Default Handler reset counter
+
+    netLastAssert:
+      type: object
+      properties:
+        mod:
+          type: string
+          description: Assert Module
+        loc:
+          type: integer
+          description: Assert location
+        Pool:
+          type: object
+          properties:
+            poll:
+              type: integer
+              format: uint16
+              minimum: 0
+              maximum: 65535
+              description: Pool ID
+            blockSize:
+              type: integer
+              format: uint16
+              minimum: 0
+              maximum: 65535
+              description: Pool Block Size
+            nTot:
+              type: integer
+              format: uint16
+              minimum: 0
+              maximum: 65535
+              description: Pool total number of blocks
+            nFree:
+              type: integer
+              format: uint16
+              minimum: 0
+              maximum: 65535
+              description: Pool number of free blocks remaining
+            nMin:
+              type: integer
+              format: uint16
+              minimum: 0
+              maximum: 65535
+              description: Pool minimum number of free blocks ever present 
