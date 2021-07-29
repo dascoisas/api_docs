@@ -1,5 +1,6 @@
 openapi: 3.0.1
 info:
+  version: 3.1.0
   title: Nouvenn Smart Lighting Controller
   description: 'This documentation describes the high level REST interface that can be used for 
   controlling the Nouvenn Smart Lighting Controller using CoAP. It is possible to access a node 
@@ -664,37 +665,6 @@ paths:
           content: {}
       x-codegen-request-body-name: body # Pra que serve isso??
 
-  /system/lastgasp : 
-    get:
-        tags:
-        - system
-        summary: Monitor 'last gasp' events
-        description: "It generates an event every time the system is shut down due to power failure"
-        operationId: getLastgasp
-        parameters:
-        - name: observe
-          in: query
-          description: "Observe the resource \n\n
-                        (none: keep last mode; true: start observing; false: stop observing)"
-          required: false
-          schema:
-            type: boolean
-            default: false
-        responses:
-          200:
-            description: Success
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    uptime:
-                      type: integer
-                      format: uint32
-                      #minimum: 0
-                      #maximum: 4294967295
-                      description: The time for which the system has been running in seconds 
-
   /system/astronomic :
     put:
       tags:
@@ -880,7 +850,7 @@ components:
           maximum: 8386560
           description: "Brightness value in centilux above which the 
                         lamp is switched off, when in 'AUTO LUX' mode. \n\n
-                        (nigh_day_thr >= day_night_thr)
+                        (nigh_day_thr >= day_night_thr)"
         mode:
           type: integer
           format: uint8
