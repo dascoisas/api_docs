@@ -513,7 +513,9 @@ paths:
                                     2 - Differential GPS fix, OmniSTAR VBS\n\n
                                     3 - Real-Time Kinematic, fixed integers\n\n
                                     4 - Real-Time Kinematic, float integers, OmniSTAR XP/HP or Location RTK\n\n"
-
+          503:
+            description: Service unavailable
+            
   /system/state : 
     get:
         tags:
@@ -567,6 +569,8 @@ paths:
           204:
             description: No time set
             content: {}
+          503:
+            description: Service unavailable
     put:
       tags:
       - system
@@ -768,6 +772,8 @@ paths:
         204:
           description: No signal
           content: {}
+        503:
+            description: Service unavailable
 
   /system/alarm :
     put:
