@@ -132,25 +132,25 @@ paths:
                 properties:
                   on_time:
                     type: integer
-                    format: uint32
+                    format: int32
                     #minimum: 0
                     #maximum: 1
                     description: Accumulated time in minutes which the lamp remained on
                   off_time:
                     type: integer
-                    format: uint32
+                    format: int32
                     #minimum: 0
                     #maximum: 1
                     description: Accumulated time in minutes which the lamp remained off
                   n_switches:
                     type: integer
-                    format: uint32
+                    format: int32
                     #minimum: 0
                     #maximum: 1
                     description: The number of times the lamp has been turned on
                   n_reset:
                     type: integer
-                    format: uint32
+                    format: int32
                     description: The number of times the system has been restarted
     delete:
       tags:
@@ -188,13 +188,13 @@ paths:
                 properties:
                   u_rms:
                     type: integer
-                    format: uint16
+                    format: int16
                     minimum: 0
                     maximum: 65535
                     description: Line voltage RMS in centivolts
                   i_rms:
                     type: integer
-                    format: uint16
+                    format: int16
                     minimum: 0
                     maximum: 65535
                     description: Line current RMS in milliamperes
@@ -246,13 +246,13 @@ paths:
                   properties:
                     active:
                       type: integer
-                      format: uint32
+                      format: int32
                       #minimum: 0
                       #maximum: 65535
                       description: Accummulated active energy in centi watts-hour
                     reactive:
                       type: integer
-                      format: uint32
+                      format: int32
                       #minimum: 0
                       #maximum: 65535
                       description: Accummulated reactive energy in centi volt-amperes reactive hour
@@ -283,7 +283,7 @@ paths:
                   properties:
                     mean:
                       type: integer
-                      format: uint32
+                      format: int32
                       #minimum: 0
                       #maximum: 65535
                       description: Mean sound pressure level in dBSPL
@@ -373,7 +373,7 @@ paths:
                   properties:
                     mBar:
                       type: integer
-                      format: uint16
+                      format: int16
                       minimum: 10
                       maximum: 2000
                       description: Barometric pressure in millibars
@@ -438,19 +438,19 @@ paths:
                   properties:
                     current:
                       type: integer
-                      format: uint32
+                      format: int32
                       minimum: 0
                       maximum: 8386560
                       description: Current iluminance in centilux
                     min:
                       type: integer
-                      format: uint32
+                      format: int32
                       minimum: 0
                       maximum: 8386560
                       description: Minimum iluminance in centilux
                     max:
                       type: integer
-                      format: uint32
+                      format: int32
                       minimum: 0
                       maximum: 8386560
                       description: Maximum iluminance in centilux
@@ -498,13 +498,13 @@ paths:
                       description: Orthometric height 
                     sats:
                       type: integer
-                      format: uint8
+                      format: int8
                       #minimum: -180.0
                       #maximum: 180
                       description: Number of satellites in use
                     quality:
                       type: integer
-                      format: uint8
+                      format: int8
                       #minimum: 0
                       #maximum: 4
                       description: "GPS Quality indicator:\n\n  
@@ -533,19 +533,19 @@ paths:
                   properties:
                     uptime:
                       type: integer
-                      format: uint32
+                      format: int32
                       #minimum: 0
                       #maximum: 4294967295
                       description: The time for which the system has been running in seconds
                     hmeter:
                       type: integer
-                      format: uint32
+                      format: int32
                       #minimum: 0
                       #maximum: 4294967295
                       description: Accumulated operation time in minutes
                     state:
                       type: integer
-                      format: uint32
+                      format: int32
                       #minimum: 0
                       #maximum: 4294967295
                       description: "System state bit mask in the format b31|b30|...|b0,
@@ -651,11 +651,11 @@ paths:
             properties:
               time:
                 type: integer
-                format: uint8
+                format: int8
                 description: Time to reboot in minutes (255 to cancel)
               inst:
                 type: integer
-                format: uint8
+                format: int8
                 minimum: 0
                 maximum: 1
                 description: 1 to install the previous installed firmware
@@ -685,7 +685,7 @@ paths:
             properties:
               src:
                 type: integer
-                format: uint8
+                format: int8
                 minimum: 0
                 maximum: 1
                 description: "Coordinates source:\n\n
@@ -727,7 +727,7 @@ paths:
                 properties:
                   src:
                     type: integer
-                    format: uint8
+                    format: int8
                     minimum: 0
                     maximum: 1
                     description: "Coordinates source:\n\n
@@ -747,25 +747,25 @@ paths:
                     description: Longitude in decimal degrees
                   srise_h:
                     type: integer
-                    format: uint8
+                    format: int8
                     minimum: 0
                     maximum: 24
                     description: "Hours sunrise"
                   srise_m:
                     type: integer
-                    format: uint8
+                    format: int8
                     minimum: 0
                     maximum: 59
                     description: "Minutes sunrise"
                   sset_h:
                     type: integer
-                    format: uint8
+                    format: int8
                     minimum: 0
                     maximum: 24
                     description: "Hours sunset"
                   sset_m:
                     type: integer
-                    format: uint8
+                    format: int8
                     minimum: 0
                     maximum: 59
                     description: "Minutes sunset"
@@ -831,19 +831,19 @@ components:
       properties:
         state:
           type: integer
-          format: uint8
+          format: int8
           minimum: 0
           maximum: 1
           description: Lamp state (0 for off)
         dim:
           type: integer
-          format: uint8
+          format: int8
           minimum: 0
           maximum: 100
           description: Dimmer value in percentage
         day_night_thr:
           type: integer
-          format: uint32
+          format: int32
           minimum: 0
           maximum: 8386560
           description: "Brightness value in centilux below which the 
@@ -851,7 +851,7 @@ components:
                         (day_night_thr <= night_day_thr)"
         night_day_thr:
           type: integer
-          format: uint32
+          format: int32
           minimum: 0
           maximum: 8386560
           description: "Brightness value in centilux above which the 
@@ -859,7 +859,7 @@ components:
                         (night_day_thr >= day_night_thr)"
         mode:
           type: integer
-          format: uint8
+          format: int8
           minimum: 0
           maximum: 3
           description: "Lamp operation mode:\n\n  
@@ -873,43 +873,43 @@ components:
       properties:
         yr:
           type: integer
-          format: uint8
+          format: int8
           minimum: 0
           maximum: 99
           description: Year after 2000 (e.g. 20 for 2020)
         mon:
           type: integer
-          format: uint8
+          format: int8
           minimum: 1
           maximum: 12
           description: Month
         monDy:
           type: integer
-          format: uint8
+          format: int8
           minimum: 1
           maximum: 31
           description: Month day
         wkDy:
           type: integer
-          format: uint8
+          format: int8
           minimum: 1
           maximum: 7
           description: Week day (1 for sunday)
         hrs:
           type: integer
-          format: uint8
+          format: int8
           minimum: 0
           maximum: 23
           description: Hours
         min:
           type: integer
-          format: uint8
+          format: int8
           minimum: 0
           maximum: 59
           description: Minutes
         sec:
           type: integer
-          format: uint8
+          format: int8
           minimum: 0
           maximum: 59
           description: Seconds
@@ -919,7 +919,7 @@ components:
       properties:
         src:
           type: integer
-          format: uint8
+          format: int8
           minimum: 0
           maximum: 1
           description: "Coordinates source:\n\n
@@ -939,26 +939,26 @@ components:
           description: Longitude in decimal degrees
         srise_h:
           type: integer
-          format: uint8
+          format: int8
           minimum: 0
           maximum: 24
           description: "Hours sunrise"
         srise_m:
           type: integer
-          format: uint8
+          format: int8
           minimum: 0
           maximum: 59
           description: "Minutes sunrise"
 
         sset_h:
           type: integer
-          format: uint8
+          format: int8
           minimum: 0
           maximum: 24
           description: "Hours sunset"
         sset_m:
           type: integer
-          format: uint8
+          format: int8
           minimum: 0
           maximum: 59
           description: "Minutes sunset"
@@ -968,7 +968,7 @@ components:
       properties:
         alarm:
           type: integer
-          format: uint32
+          format: int32
           #minimum: 0
           #maximum: 4294967295
           description: "Bit mask in the format b31|b30|...|b0:\n\n
@@ -998,21 +998,21 @@ components:
                         E.g. 272 means 'overtemperature' and 'RTC error' conditions detected\n\n" 
         unV:
           type: integer
-          format: uint32
+          format: int32
           minimum: 0
           maximum: 50000
           description: "undervoltage threshold in centivolts (default: 19800)"
           
         ovV:
           type: integer
-          format: uint32
+          format: int32
           minimum: 0
           maximum: 50000
           description: "overvoltage threshold in centivolts (default: 24200)"
 
         ovC:
           type: integer
-          format: uint32
+          format: int32
           minimum: 0
           maximum: 10000
           description: "overcurrent threshold in milliamperes (default: 1000)"
@@ -1026,28 +1026,28 @@ components:
 
         ovT:
           type: integer
-          format: uint32
+          format: int32
           minimum: -40
           maximum: 85
           description: "overtemperature threshold in degree Celsius (default: 85)"
 
         opCirc:
           type: integer
-          format: uint32
+          format: int32
           minimum: 0
           maximum: 10000
           description: "open circuit current threshold in milliamperes (default: 70)"
 
         shCirc:
           type: integer
-          format: uint32
+          format: int32
           minimum: 0
           maximum: 10000
           description: "short circuit current threshold in milliamperes (default: 70)"
 
         unPfa:
           type: integer
-          format: uint32
+          format: int32
           minimum: 0
           maximum: 1000
           description: "under power factor threshold (multiplied by 1000) (default: 920)"
@@ -1061,13 +1061,13 @@ components:
             description: cron schedule expression (32 characters maximum length) (see https://crontab.guru)
           state:
             type: integer
-            format: uint8
+            format: int8
             minimum: 0
             maximum: 1
             description: Lamp state (see /lamp/control)
           dim:
             type: integer
-            format: uint8
+            format: int8
             minimum: 0
             maximum: 100
             description: Dimmer value in percentage (see /lamp/control)      
