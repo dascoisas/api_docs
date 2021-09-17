@@ -1,0 +1,1383 @@
+openapi: 3.0.1
+info:
+  title: Nouvenn EVB - Starter kit 2020
+  description: 'This documentation describes the high level REST interface that can be used for 
+  controlling the EVB - Starter kit 2020 using CoAP. It is possible to access a node 
+  directly via CoAP throught a request to its IPv6 address, however we provide an HTTP/JSON to
+  CoAP proxy controller. This documentation assumes that the proxy controller is accessible by 
+  the given url address.'
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: External Docs
+  url: http://swagger.io
+
+servers:
+- url: https://petstore.swagger.io/v2
+- url: http://petstore.swagger.io/v2
+
+tags:
+- name: gpio
+  description: Access to gpio parameters
+- name: uart0
+  description: Access to uart0 parameters
+- name: uart1
+  description: Access to uart1 parameters
+- name: spi
+  description: Access to spi parameters
+- name: i2c
+  description: Access to i2c parameters
+- name: system
+  description: Access to cli
+
+paths:
+  /gpio/led/data :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'usr_led' pin state
+      operationId: updateLedData
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_state_set'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'usr_led' pin state
+      description: ""
+      operationId: getLedData
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_state_get'
+
+  /gpio/led/config/mode :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'usr_led' pin configuration
+      operationId: updateLedMode
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_control'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'usr_led' pin configuration
+      description: ""
+      operationId: getLedMode
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_control'
+
+  /gpio/sw/data :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'sw' pin state
+      operationId: updateSwData
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_state_set'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'sw' pin state
+      description: ""
+      operationId: getSwData
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_state_get'
+
+  /gpio/sw/config/mode :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'sw' pin configuration
+      operationId: updateSwMode
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_control'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'sw' pin configuration
+      description: ""
+      operationId: getSwMode
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_control'
+
+  /gpio/io0/data :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io0' pin state
+      operationId: updateI0Data
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_state_set'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io0' pin state
+      description: ""
+      operationId: getI0Data
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_state_get'
+
+  /gpio/io0/config/mode :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io0' pin configuration
+      operationId: updateI0Mode
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_control'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io0' pin configuration
+      description: ""
+      operationId: getI0Mode
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_control'
+
+  /gpio/io1/data :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io1' pin state
+      operationId: updateI1Data
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_state_set'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io1' pin state
+      description: ""
+      operationId: getI1Data
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_state_get'
+
+  /gpio/io1/config/mode :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io1' pin configuration
+      operationId: updateI1Mode
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_control'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io1' pin configuration
+      description: ""
+      operationId: getI1Mode
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_control'
+
+  /gpio/io2/data :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io2' pin state
+      operationId: updateI2Data
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_state_set'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io2' pin state
+      description: ""
+      operationId: getI2Data
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_state_get'
+
+  /gpio/io2/config/mode :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io2' pin configuration
+      operationId: updateI2Mode
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_control'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io2' pin configuration
+      description: ""
+      operationId: getI2Mode
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_control'
+
+  /gpio/io3/data :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io3' pin state
+      operationId: updateI3Data
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_state_set'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io3' pin state
+      description: ""
+      operationId: getI3Data
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_state_get'
+
+  /gpio/io3/config/mode :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io3' pin configuration
+      operationId: updateI3Mode
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_control'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io3' pin configuration
+      description: ""
+      operationId: getI3Mode
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_control'
+
+  /gpio/io4/data :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io4' pin state
+      operationId: updateI4Data
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_state_set'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io4' pin state
+      description: ""
+      operationId: getI4Data
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_state_get'
+
+  /gpio/io4/config/mode :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io4' pin configuration
+      operationId: updateI4Mode
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_control'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io4' pin configuration
+      description: ""
+      operationId: getI4Mode
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_control'
+
+  /gpio/io5/data :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io5' pin state
+      operationId: updateI5Data
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_state_set'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io5' pin state
+      description: ""
+      operationId: getI5Data
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_state_get'
+
+  /gpio/io5/config/mode :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io5' pin configuration
+      operationId: updateI5Mode
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_control'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io5' pin configuration
+      description: ""
+      operationId: getI5Mode
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_control'
+
+  /gpio/io6/data :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io6' pin state
+      operationId: updateI6Data
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_state_set'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io6' pin state
+      description: ""
+      operationId: getI6Data
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_state_get'
+
+  /gpio/io6/config/mode :
+    put:
+      tags:
+      - gpio
+      summary: This route allows one to update the 'io6' pin configuration
+      operationId: updateI6Mode
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/gpio_control'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - gpio
+      summary: This route provides access to the 'io6' pin configuration
+      description: ""
+      operationId: getI6Mode
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gpio_control'
+
+  /uart0/data :
+    put:
+      tags:
+      - uart0
+      summary: This route allows one to send data via uart0 serial bus
+      operationId: updateUart0Data
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+              type: object
+              properties:
+                tx:
+                  type: string
+                  minLength: 2
+                  maxLength: 127
+                  description:  "Tx buffer according with format in uart1 configuration (see uart0/config)"
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - uart0
+      summary: This route allows one to monitor data reception via uart0 serial bus
+      description: ""
+      operationId: getUart0Data
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rx:
+                    type: string
+                    minLength: 2
+                    maxLength: 127
+                    description:  "Rx buffer according with format in uart1 configuration (see uart0/config)"
+
+  /uart0/config :
+    put:
+      tags:
+      - uart0
+      summary: This route allows one to update the uart0 configuration
+      operationId: updateUart0Config
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/uart0_config'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - uart0
+      summary: This route provides access to the uart0 configuration
+      description: ""
+      operationId: getUart0Config
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/uart0_config'
+
+  /uart0/break :
+    put:
+      tags:
+      - uart0
+      summary: This route allows one to send a break condition on uart0 serial bus
+      operationId: breakUart0
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+                type: object
+                properties:
+                  break:
+                    type: integer
+                    format: uint32
+                    minimum: 0
+                    maximum: 1
+                    description: Fix TX pin UART to low for 2m seconds
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body   
+
+  /uart1/data :
+    put:
+      tags:
+      - uart1
+      summary: This route allows one to send data via uart1 serial bus
+      operationId: updateUart1Data
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+            type: object
+            properties:
+              tx:
+                type: string
+                minLength: 2
+                maxLength: 127
+                description:  "Tx buffer according with format in uart1 configuration (see uart1/config)"
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - uart1
+      summary: This route allows one to monitor data reception via uart1 serial bus
+      description: ""
+      operationId: getUart1Data
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rx:
+                    type: string
+                    minLength: 2
+                    maxLength: 127
+                    description:  "Rx buffer according with format in uart1 configuration (see uart1/config)"
+
+  /uart1/config :
+    put:
+      tags:
+      - uart1
+      summary: This route allows one to update the uart1 configuration
+      operationId: updateUart1Config
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/uart1_config'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+    get:
+      tags:
+      - uart1
+      summary: This route provides access to the uart1 configuration
+      description: ""
+      operationId: getUart1Config
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/uart1_config'
+
+  /uart1/break :
+    put:
+      tags:
+      - uart1
+      summary: This route allows one to send a break condition on uart1 serial bus
+      operationId: breakUart1
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+                type: object
+                properties:
+                  break:
+                    type: integer
+                    format: uint32
+                    minimum: 0
+                    maximum: 1
+                    description: Fix TX pin LEUART to low for 2m seconds
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body   
+
+  /spi/clock: 
+    get:
+        tags:
+        - spi
+        summary: This route provides access to the SPI bus clock
+        description: ""
+        operationId: getSpiClock
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    clock:
+                      type: integer
+                      format: uint32
+                      minimum: 0
+                      maximum: 32000000
+                      description: An SPI bitrate
+    put:
+      tags:
+      - spi
+      summary: This route allows one to to update the SPI bus clock
+      operationId: updateSpiClock
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                clock:
+                  type: integer
+                  format: uint32
+                  minimum: 0
+                  maximum: 32000000
+                  description: An SPI bitrate
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+
+  /spi/transfer :
+    put:
+      tags:
+      - spi
+      summary: This route allows one to execute a read/write SPI operation
+      operationId: updateSpiData 
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+              type: object
+              properties:
+                transfer:
+                  type: string
+                  minLength: 2
+                  maxLength: 127
+                  description:  "Transfer buffer in hexadecimal separate with space. Ex: 01 02 03"
+        required: true
+      responses:
+        205:
+          description: Response spi
+          content: 
+            application/text:
+              schema:
+                type: string
+                minLength: 2
+                maxLength: 127
+                description:  "Recived buffer in hexadecimal separate with space"
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+  /i2c/clock: 
+    get:
+        tags:
+        - i2c
+        summary: This route provides access to the I2C bus clock
+        description: ""
+        operationId: getSI2cClock
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    clock:
+                      type: integer
+                      format: uint32
+                      minimum: 0
+                      maximum: 100000
+                      description: I2C max bus frequency to use
+    put:
+      tags:
+      - i2c
+      summary: This route allows one to update the I2C bus clock
+      operationId: updateSI2cClock
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                clock:
+                  type: integer
+                  format: uint32
+                  minimum: 0
+                  maximum: 100000
+                  description: I2C max bus frequency to use
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+
+  /i2c/transfer :
+    put:
+      tags:
+      - i2c
+      summary: This route allows one to execute a read/write I2C operation 
+      operationId: updateI2cData
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+              type: object
+              properties:
+                type:
+                  type: integer
+                  format: uint8
+                  minimum: 0
+                  maximum: 4
+                  description: "I2c mode:\n\n  
+                                0 - i2c write\n\n
+                                1 - i2c read"
+                devaddr:
+                  type: integer
+                  format: uint8
+                  description: "I2c dev addr in hexadecimal"
+                regaddr:
+                  type: integer
+                  format: uint8
+                  description: "Reg func addr in hexadecimal"
+                recivelen:
+                  type: integer
+                  format: uint8
+                  minimum: 2
+                  maximum: 127
+                  description: "Read buffer length i2c (only read)"
+                transfer:
+                  type: string
+                  minLength: 2
+                  maxLength : 127
+                  description:  "Transfer buffer in hexadecimal separate with space. Ex: 01 02 03"
+        required: true
+      responses:
+        205:
+          description: Response i2c
+          content: 
+            application/text:
+              schema:
+                type: string
+                minLength: 2
+                maxLength: 127
+                description:  "Rx buffer in hexadecimal separate with space"
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+
+  /system/cli: 
+    get:
+        tags:
+        - system
+        summary: Get state cli
+        description: ""
+        operationId: getCliState
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    cli:
+                      type: integer
+                      format: uint32
+                      minimum: 0
+                      maximum: 1
+                      description: CLI state (0 for disable)
+    put:
+      tags:
+      - system
+      summary: Set cli enable or disable
+      operationId: updateCliState
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cli:
+                  type: integer
+                  format: uint32
+                  minimum: 0
+                  maximum: 1
+                  description: CLI state (0 for disable)
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body 
+      
+  /system/ver : 
+    get:
+      tags:
+      - system
+      summary: Get the system HW/FW version
+      description: ""
+      operationId: getVer
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  model:
+                    type: string
+                    description: Model 
+                  fwVer:
+                    type: string
+                    description: Firmware version
+                  hwVer:
+                    type: string
+                    description: Hardware version 
+components:
+  schemas:
+    gpio_control:
+      type: object
+      properties:
+        type:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 1
+          description: Gpio function (0 for input)
+        mode:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 4
+          description: "Gpio mode:\n\n  
+                        0 - gpioModeDisabled: Input disabled \n\n
+                        1 - gpioModeInput: Input enabled \n\n
+                        2 - gpioModeInputPull: Input enabled \n\n
+                        3 - gpioModeInputPullFilter: Input enabled with filter \n\n
+                        4 - gpioModePushPull: Push-pull output"
+        initIn:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 3
+          description: "Initialization interrupt mode :\n\n  
+                        0 - risingEdge: Set the interrupt will be enabled on the rising edge\n\n
+                        1 - fallingEdge: Set the interrupt will be enabled on the falling edge\n\n
+                        2 - risingfallingEdge: Set the interrupt will be enabled on the rising edge and falling edge\n\n
+                        3 - disable: GPIO interrupt sources to disable\n\n"
+        adc:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 1
+          description: Set gpio to adc (0 for disable)
+
+    gpio_state_set:
+      type: object
+      properties:
+        val:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 1
+          description: Gpio state (0 for on, only gpio digital output)
+
+    gpio_state_get:
+      type: object
+      properties:
+        val:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 1
+          description: "Gpio state :\n\n  
+                        If gpio digital: 0 is off \n\n
+                        Else gpio analog: Read adc bits\n\n"
+
+    uart0_config:
+      type: object
+      properties:
+        baudrate:
+          type: integer
+          format: uint32
+          minimum: 110
+          maximum: 230400
+          description: "UART baud rate"
+        mode:
+          type: string
+          minLength: 3
+          maxLength: 3
+          description: "Config mode format 8N1 :\n\n  
+                        Data Bits - Is fixed at 8 bit frames\n\n
+                        Parity - Parity configuration: No parity(N) or Even parity(P)\n\n
+                        Stop Bits - A number of stop bits: 1 or 2\n\n"
+        format:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 1
+          description: "Config format tx and rx :\n\n  
+                        0 - Recived and transmit buffer in hexadecimal separate with space. Ex: 01 02 03\n\n
+                        1 - Recived and transmit buffer in text format\n\n"
+        timeoutRx:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 180
+          description: Time to send buffer rx in seconds  
+        endChars:
+          type: string
+          minLength: 1
+          maxLength: 5
+          description:  End chars to send buffer rx (5 characters maximum) 
+
+    uart1_config:
+      type: object
+      properties:
+        baudrate:
+          type: integer
+          format: uint8
+          minimum: 110
+          maximum: 9600
+          description: "LEUART baud rate"
+        mode:
+          type: string
+          minLength: 3
+          maxLength: 3
+          description: "Config mode format 8N1 :\n\n  
+                        Data Bits - Is fixed at 8 bit frames\n\n
+                        Parity - Parity configuration: No parity(N) or Even parity(P)\n\n
+                        Stop Bits - A number of stop bits: 1 or 2\n\n"
+        format:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 1
+          description: "Config format tx and rx:\n\n  
+                        0 - Recived and transmit buffer in hexadecimal separate with space. Ex: 01 02 03\n\n
+                        1 - Recived and transmit buffer in text format\n\n"
+        timeoutRx:
+          type: integer
+          format: uint8
+          minimum: 0
+          maximum: 180
+          description: Time to send buffer rx in seconds 
+        endChars:
+          type: string
+          minLength: 1
+          maxLength: 5
+          description:  End chars to send buffer rx (5 characters maximum) 

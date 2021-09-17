@@ -604,7 +604,7 @@ paths:
                       type: string
                       description: Hexadecimal representation EUI-64 
                       
-  /lamp/reboot_adv :
+  /system/reboot_adv :
     put:
       tags:
       - system
@@ -801,7 +801,7 @@ components:
           type: integer
           format: uint8
           minimum: 0
-          maximum: 5
+          maximum: 6
           description: "Lamp initialization mode and state:\n\n  
                         0 - AUTO LUX ON: AUTO LUX mode and ON state\n\n
                         1 - AUTO LUX OFF: AUTO LUX mode and OFF state\n\n
@@ -937,17 +937,17 @@ components:
 
         unT:
           type: integer
-          format: uint32
+          format: int32
           minimum: -40
           maximum: 85
-          description: "undertemperature threshold in degree Celsius (default: 0)"
+          description: "undertemperature threshold in degree Celsius (default: -30)"
 
         ovT:
           type: integer
           format: uint32
           minimum: -40
           maximum: 85
-          description: "overtemperature threshold in degree Celsius (default: 45)"
+          description: "overtemperature threshold in degree Celsius (default: 85)"
 
         opCirc:
           type: integer
