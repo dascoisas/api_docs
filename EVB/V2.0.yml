@@ -853,7 +853,7 @@ paths:
                 properties:
                   break:
                     type: integer
-                    format: uint32
+                    format: int32
                     minimum: 0
                     maximum: 1
                     description: Fix TX pin UART to low for 2m seconds
@@ -973,7 +973,7 @@ paths:
                 properties:
                   break:
                     type: integer
-                    format: uint32
+                    format: int32
                     minimum: 0
                     maximum: 1
                     description: Fix TX pin LEUART to low for 2m seconds
@@ -1004,7 +1004,7 @@ paths:
                   properties:
                     clock:
                       type: integer
-                      format: uint32
+                      format: int32
                       minimum: 0
                       maximum: 32000000
                       description: An SPI bitrate
@@ -1022,7 +1022,7 @@ paths:
               properties:
                 clock:
                   type: integer
-                  format: uint32
+                  format: int32
                   minimum: 0
                   maximum: 32000000
                   description: An SPI bitrate
@@ -1086,7 +1086,7 @@ paths:
                   properties:
                     clock:
                       type: integer
-                      format: uint32
+                      format: int32
                       minimum: 0
                       maximum: 100000
                       description: I2C max bus frequency to use
@@ -1104,7 +1104,7 @@ paths:
               properties:
                 clock:
                   type: integer
-                  format: uint32
+                  format: int32
                   minimum: 0
                   maximum: 100000
                   description: I2C max bus frequency to use
@@ -1133,7 +1133,7 @@ paths:
               properties:
                 type:
                   type: integer
-                  format: uint8
+                  format: int8
                   minimum: 0
                   maximum: 4
                   description: "I2c mode:\n\n  
@@ -1141,15 +1141,15 @@ paths:
                                 1 - i2c read"
                 devaddr:
                   type: integer
-                  format: uint8
+                  format: int8
                   description: "I2c dev addr in hexadecimal"
                 regaddr:
                   type: integer
-                  format: uint8
+                  format: int8
                   description: "Reg func addr in hexadecimal"
                 recivelen:
                   type: integer
-                  format: uint8
+                  format: int8
                   minimum: 2
                   maximum: 127
                   description: "Read buffer length i2c (only read)"
@@ -1191,7 +1191,7 @@ paths:
                   properties:
                     cli:
                       type: integer
-                      format: uint32
+                      format: int32
                       minimum: 0
                       maximum: 1
                       description: CLI state (0 for disable)
@@ -1209,7 +1209,7 @@ paths:
               properties:
                 cli:
                   type: integer
-                  format: uint32
+                  format: int32
                   minimum: 0
                   maximum: 1
                   description: CLI state (0 for disable)
@@ -1239,7 +1239,7 @@ paths:
                   properties:
                     dlms:
                       type: integer
-                      format: uint32
+                      format: int32
                       minimum: 0
                       maximum: 1
                       description: DLMS state (0 for disable)
@@ -1257,7 +1257,7 @@ paths:
               properties:
                 dlms:
                   type: integer
-                  format: uint32
+                  format: int32
                   minimum: 0
                   maximum: 1
                   description: DLMS state (0 for disable)
@@ -1301,13 +1301,13 @@ components:
       properties:
         type:
           type: integer
-          format: uint8
+          format: int8
           minimum: 0
           maximum: 1
           description: Gpio function (0 for input)
         mode:
           type: integer
-          format: uint8
+          format: int8
           minimum: 0
           maximum: 4
           description: "Gpio mode:\n\n  
@@ -1318,7 +1318,7 @@ components:
                         4 - gpioModePushPull: Push-pull output"
         initIn:
           type: integer
-          format: uint8
+          format: int8
           minimum: 0
           maximum: 3
           description: "Initialization interrupt mode :\n\n  
@@ -1328,7 +1328,7 @@ components:
                         3 - disable: GPIO interrupt sources to disable\n\n"
         adc:
           type: integer
-          format: uint8
+          format: int8
           minimum: 0
           maximum: 1
           description: Set gpio to adc (0 for disable)
@@ -1338,7 +1338,7 @@ components:
       properties:
         val:
           type: integer
-          format: uint8
+          format: int8
           minimum: 0
           maximum: 1
           description: Gpio state (0 for on, only gpio digital output)
@@ -1348,7 +1348,7 @@ components:
       properties:
         val:
           type: integer
-          format: uint8
+          format: int8
           minimum: 0
           maximum: 1
           description: "Gpio state :\n\n  
@@ -1360,7 +1360,7 @@ components:
       properties:
         baudrate:
           type: integer
-          format: uint32
+          format: int32
           minimum: 110
           maximum: 230400
           description: "UART baud rate"
@@ -1374,7 +1374,7 @@ components:
                         Stop Bits - A number of stop bits: 1 or 2\n\n"
         format:
           type: integer
-          format: uint8
+          format: int8
           minimum: 0
           maximum: 1
           description: "Config format tx and rx :\n\n  
@@ -1382,7 +1382,7 @@ components:
                         1 - Recived and transmit buffer in text format\n\n"
         timeoutRx:
           type: integer
-          format: uint8
+          format: int8
           minimum: 0
           maximum: 180
           description: Time to send buffer rx in seconds  
@@ -1397,7 +1397,7 @@ components:
       properties:
         baudrate:
           type: integer
-          format: uint8
+          format: int8
           minimum: 110
           maximum: 9600
           description: "LEUART baud rate"
@@ -1411,7 +1411,7 @@ components:
                         Stop Bits - A number of stop bits: 1 or 2\n\n"
         format:
           type: integer
-          format: uint8
+          format: int8
           minimum: 0
           maximum: 1
           description: "Config format tx and rx:\n\n  
@@ -1419,7 +1419,7 @@ components:
                         1 - Recived and transmit buffer in text format\n\n"
         timeoutRx:
           type: integer
-          format: uint8
+          format: int8
           minimum: 0
           maximum: 180
           description: Time to send buffer rx in seconds 
