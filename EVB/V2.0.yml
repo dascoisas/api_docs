@@ -33,7 +33,7 @@ tags:
 - name: i2c
   description: Access to i2c parameters
 - name: system
-  description: Access to cli anhd dlms
+  description: Access to cli and dlms
 
 paths:
   /gpio/led/data :
@@ -1380,17 +1380,17 @@ components:
           description: "Config format tx and rx :\n\n  
                         0 - Recived and transmit buffer in hexadecimal separate with space. Ex: 01 02 03\n\n
                         1 - Recived and transmit buffer in text format\n\n"
-        timeoutRx:
+        timeoutTx:
           type: integer
           format: int8
           minimum: 0
           maximum: 180
-          description: Time to send buffer rx in seconds  
+          description: Time to send buffer tx in seconds  
         endChars:
           type: string
           minLength: 1
           maxLength: 5
-          description:  End chars to send buffer rx (5 characters maximum) 
+          description:  End chars to send buffer tx (5 characters maximum) 
 
     uart1_config:
       type: object
@@ -1417,14 +1417,14 @@ components:
           description: "Config format tx and rx:\n\n  
                         0 - Recived and transmit buffer in hexadecimal separate with space. Ex: 01 02 03\n\n
                         1 - Recived and transmit buffer in text format\n\n"
-        timeoutRx:
+        timeoutTx:
           type: integer
           format: int8
           minimum: 0
           maximum: 180
-          description: Time to send buffer rx in seconds 
+          description: Time to send buffer tx in seconds 
         endChars:
           type: string
           minLength: 1
           maxLength: 5
-          description:  End chars to send buffer rx (5 characters maximum) 
+          description:  End chars to send buffer tx (5 characters maximum) 
