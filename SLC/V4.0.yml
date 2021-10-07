@@ -672,7 +672,7 @@ paths:
     get:
         tags:
         - system
-        summary: Get It generates an event every time the system is shut down due to power failure.
+        summary: Get metrics the system when shut down due to power failure.
         description: ""
         operationId: getLastgasp
         responses:
@@ -686,22 +686,18 @@ paths:
                     time:
                       type: integer
                       format: int32
-                      #minimum: 0
-                      #maximum: 65535
-                      description: Mean sound pressure level in dBSPL
+                      description: Number seconds since 1970 until the last power failure
                     uptime:
                       type: integer
                       format: int32
-                      #minimum: 0
-                      #maximum: 65535
-                      description: Mean sound pressure level in dBSPL
+                      description: The time for which the system has been running in seconds
   /system/memory : 
     get:
         tags:
         - system
-        summary: Get It generates an event every time the system is shut down due to power failure.
+        summary: Get memory metrics.
         description: ""
-        operationId: getLastgasp
+        operationId: getMemory
         responses:
           200:
             description: Success
