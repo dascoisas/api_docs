@@ -1,0 +1,819 @@
+openapi: 3.0.1
+info:
+  title: Nouvenn Gridsafe Network
+  description: 'This documentation describes the high level REST interface that can be used for 
+  monitoring and controlling the Nouvenn GridSafe Network using CoAP. It is possible to access a node 
+  directly via CoAP throught a request to its IPv6 address, however we provide an HTTP/JSON to
+  CoAP proxy controller. This documentation assumes that the proxy controller is accessible by 
+  the given url address.'
+  version: 1.4.0
+
+tags:
+- name: config
+  description: Access to network config parameters
+- name: metric
+  description: Access to network metrics
+- name: command
+  description: Network commands
+- name: info
+  description: Network system info
+
+paths:
+  /network/config/address :
+    get:
+      tags:
+      - config
+      summary: Get network ula gua IPv6 address
+      description: ""
+      operationId: getNetAddess
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netAddress'
+
+  /network/config/netinfo :
+    get:
+      tags:
+      - config
+      summary: Get network configuration info
+      description: ""
+      operationId: getNetInfo
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netInfo'
+
+    put:
+      tags:
+      - config
+      summary: Update network configuration info
+      operationId: updateNetInfo
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/netInfo'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+
+  /network/config/disc :
+    get:
+      tags:
+      - config
+      summary: Get PAN Discovery Trickle Timer info
+      description: ""
+      operationId: getDisc
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netDisc'
+
+    put:
+      tags:
+      - config
+      summary: Update PAN Discovery Trickle Timer info
+      operationId: updateDisc
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/netDisc'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+
+  /network/config/power :
+    get:
+      tags:
+      - config
+      summary: Get Radio TxPower
+      description: ""
+      operationId: getPower
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netPower'
+
+    put:
+      tags:
+      - config
+      summary: Set Radio TxPower
+      operationId: setPower
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/netPower'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+
+  /network/config/pansize:
+    get:
+      tags:
+      - config
+      summary: Get Wi-SUN PAN size
+      description: ""
+      operationId: getPansize
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/panSize'
+
+    put:
+      tags:
+      - config
+      summary: Set Wi-SUN PAN size
+      operationId: setPansize
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/panSize'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body
+
+  /network/metric/rpl :
+    get:
+      tags:
+      - metric
+      summary: Get network RPL metrics
+      description: ""
+      operationId: getRplmetric
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netRplMetric'
+
+  /network/metric/link :
+    get:
+      tags:
+      - metric
+      summary: Get L2 metrics
+      description: ""
+      operationId: getL2metric
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netL2Metric'
+
+  /network/metric/rpl_info :
+    get:
+      tags:
+      - metric
+      summary: Get RPL Info
+      description: ""
+      operationId: getRPLInfo
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netNeighborTable'
+
+  /network/metric/table/parent :
+    get:
+      tags:
+      - metric
+      summary: Get Neighbor Parent Table
+      description: ""
+      operationId: getNeighborParentTable
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netNeighborParentTable'
+
+  /network/metric/table/children :
+    get:
+      tags:
+      - metric
+      summary: Get Neighbor Children Table
+      description: ""
+      operationId: getNeighborChildrenTable
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netNeighborChildrenTable'
+
+  /network/metric/rsl :
+    get:
+      tags:
+      - metric
+      summary: Get Neighbor RSL
+      description: ""
+      operationId: getNeighborRSL
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netNeighborRSL'
+
+  /network/metric/reset :
+    put:
+      tags:
+      - metric
+      summary: Reset metrics values
+      operationId: resetMetrics
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+
+  /network/command/local_repair :
+    put:
+      tags:
+      - command
+      summary: Send Local Repair command
+      operationId: localRepair
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+
+  /network/command/reboot :
+    put:
+      tags:
+      - command
+      summary: Send reboot command
+      operationId: reboot
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+
+  /network/info/ver :
+    get:
+      tags:
+      - info
+      summary: Get Gridsafe Network version info
+      description: ""
+      operationId: getNetVersion
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netVersion'
+
+  /network/info/reset :
+    get:
+      tags:
+      - info
+      summary: Get Gridsafe Device reset counter
+      description: ""
+      operationId: getResetCounter
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netReset'
+
+  /network/info/assert :
+    get:
+      tags:
+      - info
+      summary: Get Gridsafe Device last assert
+      description: ""
+      operationId: getLastAssert
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/netLastAssert'
+
+components:
+  schemas:
+    netAddress:
+      type: object
+      properties:
+        ADDR:
+          type: string
+          description: Wi-SUN ULA GUA Address 
+
+    netInfo:
+      type: object
+      properties:
+        PanID:
+          type: integer
+          format: int16
+          minimum: 0
+          maximum: 65535
+          description: Wi-SUN PAN ID
+        PanVersion:
+          type: integer
+          format: int16
+          minimum: 0
+          maximum: 65535
+          description: Wi-SUN PAN Version
+        NetworkName:
+          type: string
+          description: Wi-SUN Network Name - MAX 32 characters 
+
+    netDisc:
+      type: object
+      properties:
+        DISC_Imin:
+          type: integer
+          format: int8
+          minimum: 1
+          maximum: 255
+          description: PAN Discovery Trickle Timer Imin
+        DISC_Imax:
+          type: integer
+          format: int8
+          minimum: 1
+          maximum: 8
+          description: PAN Discovery Trickle timer Imax
+        DISC_k:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 10
+          description: PAN Discovery Trickle timer redundancy constant
+
+    netPower:
+      type: object
+      properties:
+        TxPower:
+          type: integer
+          format: int16
+          minimum: -200
+          maximum: 200
+          description: Tx Power in deci-dBm
+
+    panSize:
+      type: object
+      properties:
+        PanSize:
+          type: integer
+          format: int16
+          minimum: 1
+          maximum: 65535
+          description: Wi-SUN PAN Size - the number of nodes communicating through the Border Router
+
+    netRplMetric:
+      type: object
+      properties:
+        ARO_NACK_Counter:
+          type: integer
+          format: int16
+          minimum: 0
+          maximum: 65535
+          description: Number of Neighbor Discovery NA ARO NACK packets received
+        Uplink_Packet_Failures:
+          type: integer
+          format: int16
+          minimum: 0
+          maximum: 65535
+          description: Number of Uplink Packet loss
+        Downlink_Packet_Failures:
+          type: integer
+          format: int16
+          minimum: 0
+          maximum: 65535
+          description: Number of Downlink Packet loss
+        Local_Repair_Counter:
+          type: integer
+          format: int16
+          minimum: 0
+          maximum: 65535
+          description: Number of Local Repair executed
+        Malformed_Packets:
+          type: integer
+          format: int16
+          minimum: 0
+          maximum: 65535
+          description: Number of Malformed Packets
+        ICMP_Error_Packets:
+          type: integer
+          format: int16
+          minimum: 0
+          maximum: 65535
+          description: Number of ICMP ERROR Packets
+        Time_on_DODAG:
+          type: integer
+          format: int16
+          minimum: 0
+          maximum: 65535
+          description: Time connected to the DODAG in seconds
+        Disconnected_Time:
+          type: integer
+          format: int16
+          minimum: 0
+          maximum: 65535
+          description: Time disconnected from the DODAG in seconds
+
+    netL2Metric:
+      type: object
+      properties:
+        Unicast_tx_packets:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 4294967295
+          description: Number of L2 unicast transmitted packets
+        Unicast_rx_packets:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 4294967295
+          description: Number of L2 unicast received packets
+        Broadcast_tx_packets:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 4294967295
+          description: Number of L2 broadcast transmitted packets
+        Broadcast_rx_packets:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 4294967295
+          description: Number of L2 broadcast received packets
+        Async_tx_packets:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 4294967295
+          description: Number of L2 async transmitted packets
+        AR_tx_packets:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 4294967295
+          description: Ack requested transmitted packets
+        N_AR_tx_packets:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 4294967295
+          description: Non Ack requested transmitted packets
+        ACK_rx:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 4294967295
+          description: Ack received packets
+        ACK_tx:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 4294967295
+          description: Ack transmitted packets
+        Rx_errors:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 4294967295
+          description: Rx errors counter
+
+    netNeighborTable:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 4294967295
+          description: Number of L2 unicast transmitted packets
+        eui:
+          type: string
+          description: Device eui64
+        iface:
+          type: string
+          description: Device interface ID
+        ula_gua:
+          type: string
+          description: Device ULA GUA Address
+        rpl:
+          type: object
+          properties:
+            instID:
+              type: integer
+              format: int16
+              minimum: 0
+              maximum: 65535
+              description: RPL Instance ID
+            ver:
+              type: integer
+              format: int16
+              minimum: 0
+              maximum: 65535
+              description: RPL Version
+            dtsn:
+              type: integer
+              format: int16
+              minimum: 0
+              maximum: 65535
+              description: RPL DTSN Number
+            rank:
+              type: integer
+              format: int16
+              minimum: 0
+              maximum: 65535
+              description: RPL current rank
+            prefLen:
+              type: integer
+              format: int16
+              minimum: 0
+              maximum: 65535
+              description: RPL Prefix Length
+            prefix:
+              type: string
+              description: RPL Network Prefix
+            dodagID:
+              type: string
+              description: RPL DODAG ID Address
+        neighTab:
+          type: object
+          properties:
+            eui:
+              type: string
+              description: Neighbor eui64 Address
+            iface:
+              type: string
+              description: Neighbor interface ID Address
+            ula_gua:
+              type: string
+              description: Neighbor ULA GUA Address
+            lRsl:
+              type: integer
+              format: int8
+              minimum: 0
+              maximum: 255
+              description: Neighbor Local RSL
+            rRsl:
+              type: integer
+              format: int8
+              minimum: 0
+              maximum: 255
+              description: Neighbor Remote RSL
+            etx:
+              type: integer
+              format: int16
+              minimum: 0
+              maximum: 65535
+              description: Neighbor ETX
+            rank:
+              type: integer
+              format: int16
+              minimum: 0
+              maximum: 65535
+              description: Neighbor Rank
+            stat:
+              type: string
+              description: Neighbor status
+            time:
+              type: integer
+              format: int16
+              minimum: 0
+              maximum: 65535
+              description: Neighbor route lifetime
+            txAtt:
+              type: integer
+              format: int32
+              minimum: 0
+              maximum: 4294967295
+              description: Neighbor tx attempts
+            rxAck:
+              type: integer
+              format: int32
+              minimum: 0
+              maximum: 4294967295
+              description: Neighbor received acks
+            offset:
+              type: integer
+              format: int32
+              minimum: 0
+              maximum: 4294967295
+              description: Neighbor time offset
+            l3Rx:
+              type: integer
+              format: int32
+              minimum: 0
+              maximum: 4294967295
+              description: Neighbor Received L3 packets
+            l3Tx:
+              type: integer
+              format: int32
+              minimum: 0
+              maximum: 4294967295
+              description: Neighbor Transmitted L3 packets
+
+    netNeighborParentTable:
+      type: object
+      properties:
+        neighTab:
+          type: object
+          properties:
+            eui:
+              type: string
+              description: Neighbor eui64 Address
+            stat:
+              type: string
+              description: Neighbor status
+
+    netNeighborChildrenTable:
+      type: object
+      properties:
+        neighTab:
+          type: object
+          properties:
+            eui:
+              type: string
+              description: Neighbor eui64 Address
+
+    netNeighborRSL:
+      type: object
+      properties:
+        neighTab:
+          type: object
+          properties:
+            eui:
+              type: string
+              description: Neighbor eui64 Address
+            lRsl:
+              type: integer
+              format: int8
+              minimum: 0
+              maximum: 255
+              description: Neighbor Local RSL
+            rRsl:
+              type: integer
+              format: int8
+              minimum: 0
+              maximum: 255
+              description: Neighbor Remote RSL
+
+    netVersion:
+      type: object
+      properties:
+        tec:
+          type: string
+          description: Technology
+        ver:
+          type: string
+          description: Gridsafe Version
+
+    netReset:
+      type: object
+      properties:
+        ResetCounter:
+          type: integer
+          format: int16
+          minimum: 0
+          maximum: 65535
+          description: Total Number of resets
+        PowerOnReset:
+          type: integer
+          format: int16
+          minimum: 0
+          maximum: 65535
+          description: Power On reset counter
+        SystemReset:
+          type: integer
+          format: int16
+          minimum: 0
+          maximum: 65535
+          description: System reset counter
+        WatchdogReset:
+          type: integer
+          format: int16
+          minimum: 0
+          maximum: 65535
+          description: Watchdog reset counter
+        PinReset:
+          type: integer
+          format: int16
+          minimum: 0
+          maximum: 65535
+          description: Pin reset counter
+        OtherReset:
+          type: integer
+          format: int16
+          minimum: 0
+          maximum: 65535
+          description: Other reset counter
+        DefaultHandlerReset:
+          type: integer
+          format: int16
+          minimum: 0
+          maximum: 65535
+          description: Default Handler reset counter
+
+    netLastAssert:
+      type: object
+      properties:
+        mod:
+          type: string
+          description: Assert Module
+        loc:
+          type: integer
+          description: Assert location
+        Pool:
+          type: object
+          properties:
+            poll:
+              type: integer
+              format: int16
+              minimum: 0
+              maximum: 65535
+              description: Pool ID
+            blockSize:
+              type: integer
+              format: int16
+              minimum: 0
+              maximum: 65535
+              description: Pool Block Size
+            nTot:
+              type: integer
+              format: int16
+              minimum: 0
+              maximum: 65535
+              description: Pool total number of blocks
+            nFree:
+              type: integer
+              format: int16
+              minimum: 0
+              maximum: 65535
+              description: Pool number of free blocks remaining
+            nMin:
+              type: integer
+              format: int16
+              minimum: 0
+              maximum: 65535
+              description: Pool minimum number of free blocks ever present 
