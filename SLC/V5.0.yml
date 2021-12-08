@@ -1,0 +1,1123 @@
+openapi: 3.0.1
+info:
+  version: 5.0.0
+  title: Nouvenn Smart Lighting Controller
+  description: 'This documentation describes the high level REST interface that can be used for 
+  controlling the Nouvenn Smart Lighting Controller using CoAP. It is possible to access a node 
+  directly via CoAP throught a request to its IPv6 address, however we provide an HTTP/JSON to
+  CoAP proxy controller. This documentation assumes that the proxy controller is accessible by 
+  the given url address.'
+
+tags:
+- name: lamp
+  description: Access to lamp parameters
+- name: sensors
+  description: Access to sensors measures
+- name: system
+  description: Access to system parameters and status
+
+paths:
+  /lamp/control :
+    put:
+      tags:
+      - lamp
+      summary: Update the state of the lamp parameters
+      operationId: updateLamp
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/lamp_control'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - lamp
+      summary: Get the state of the lamp parameters
+      description: ""
+      operationId: getLamp
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/lamp_control'
+
+  /lamp/sched :
+    put:
+      tags:
+      - lamp
+      summary: Update the scheduler
+      operationId: updateSched
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/schedule'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - lamp
+      summary: Get the scheduler
+      description: ""
+      operationId: getScheduler
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/schedule'
+
+    delete:
+      tags:
+      - lamp
+      summary: Delete all scheduler
+      description: ""
+      operationId: deleteScheduler
+      responses:
+        202:
+          description: Success
+
+  /lamp/statistic :
+    get:
+      tags:
+      - lamp
+      summary: Get lamp statistics
+      description: ""
+      operationId: getLampStat
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  on_time:
+                    type: integer
+                    format: int32
+                    #minimum: 0
+                    #maximum: 1
+                    description: Accumulated time in minutes which the lamp remained on
+                  off_time:
+                    type: integer
+                    format: int32
+                    #minimum: 0
+                    #maximum: 1
+                    description: Accumulated time in minutes which the lamp remained off
+                  n_switches:
+                    type: integer
+                    format: int32
+                    #minimum: 0
+                    #maximum: 1
+                    description: The number of times the lamp has been turned on
+                  n_reset:
+                    type: integer
+                    format: int32
+                    description: The number of times the system has been restarted
+    delete:
+      tags:
+      - lamp
+      summary: Reset lamp statistcs
+      description: ""
+      operationId: resetLampStat
+      responses:
+        202:
+          description: Success
+
+  /sensors/energy : 
+   get:
+      tags:
+      - sensors
+      summary: Get the Energy Sensor measures
+      description: ""
+      operationId: getEnergySens
+      parameters:
+      - name: observe
+        in: query
+        description: "Observe the resource \n\n
+                      (none: keep last mode; true: start observing; false: stop observing)"
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  u_rms:
+                    type: integer
+                    format: int16
+                    minimum: 0
+                    maximum: 65535
+                    description: Line voltage RMS in centivolts
+                  i_rms:
+                    type: integer
+                    format: int16
+                    minimum: 0
+                    maximum: 65535
+                    description: Line current RMS in milliamperes
+                  p_active:
+                    type: integer
+                    format: int16
+                    minimum: -32768
+                    maximum: 32768
+                    description: Line mean active power in watts
+                  p_reactive:
+                    type: integer
+                    format: int16
+                    minimum: -32768
+                    maximum: 32768
+                    description: Line mean reactive power in volt-amperes reactive
+                  p_total:
+                    type: integer
+                    format: int16
+                    minimum: -32768
+                    maximum: 32768
+                    description: Line mean apparent power in volt-amperes
+                  power_factor:
+                    type: integer
+                    format: int16
+                    minimum: -1000
+                    maximum: 1000
+                    description: Line power factor (multiplied by 1000)
+                  freq:
+                    type: integer
+                    format: int16
+                    minimum: 4500 
+                    maximum: 6500
+                    description: Line voltage frequency in centihertz
+
+  /sensors/energy/acc : 
+    get:
+        tags:
+        - sensors
+        summary: Get accumulated energy
+        description: ""
+        operationId: getAccSens
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    active:
+                      type: integer
+                      format: int32
+                      #minimum: 0
+                      #maximum: 65535
+                      description: Accummulated active energy in centi watts-hour
+                    reactive:
+                      type: integer
+                      format: int32
+                      #minimum: 0
+                      #maximum: 65535
+                      description: Accummulated reactive energy in centi volt-amperes reactive hour
+    delete:
+      tags:
+      - sensors
+      summary: Reset accumulated active/reactive energy
+      description: ""
+      operationId: deleteEnergySensor
+      responses:
+        202:
+          description: Success
+
+  /sensors/mic : 
+    get:
+        tags:
+        - sensors
+        summary: Get the microphone measures
+        description: ""
+        operationId: getMicSens
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    mean:
+                      type: integer
+                      format: int32
+                      #minimum: 0
+                      #maximum: 65535
+                      description: Mean sound pressure level in dBSPL
+  /sensors/acc : 
+    get:
+        tags:
+        - sensors
+        summary: Get the Acelerometer Sensor measures
+        description: ""
+        operationId: getAcelSens
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    x:
+                      type: integer
+                      format: int16
+                      minimum: -2000
+                      maximum: 2000
+                      description: x-axis acceleration in milli-G
+                    y:
+                      type: integer
+                      format: int16
+                      minimum: -2000
+                      maximum: 2000
+                      description: y-axis acceleration in milli-G
+                    z:
+                      type: integer
+                      format: int16
+                      minimum: -2000
+                      maximum: 2000
+                      description: z-axis acceleration in milli-G
+
+  /sensors/mag : 
+    get:
+        tags:
+        - sensors
+        summary: Get the Magnetometer Sensor measures
+        description: ""
+        operationId: getMagSens
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    x:
+                      type: integer
+                      format: int32
+                      minimum: -160000
+                      maximum: 160000
+                      description: x-axis magnetic field strength in milligauss
+                    y:
+                      type: integer
+                      format: int32
+                      minimum: -160000
+                      maximum: 160000
+                      description: y-axis magnetic field strength in milligauss
+                    z:
+                      type: integer
+                      format: int32
+                      minimum: -160000
+                      maximum: 160000
+                      description: z-axis magnetic field strength in milligauss
+
+  /sensors/bar : 
+    get:
+        tags:
+        - sensors
+        summary: Get the Barometer Sensor measures
+        description: ""
+        operationId: getBarSens
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    mBar:
+                      type: integer
+                      format: int16
+                      minimum: 10
+                      maximum: 2000
+                      description: Barometric pressure in millibars
+
+  /sensors/tmp : 
+    get:
+        tags:
+        - sensors
+        summary: Get the Termometer Sensor measures
+        description: ""
+        operationId: getTmpSens
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    current:
+                      type: integer
+                      format: int8
+                      minimum: -40
+                      maximum: 85
+                      description: Current system temperature in degree Celsius
+                    min:
+                      type: integer
+                      format: int8
+                      minimum: -40
+                      maximum: 85
+                      description: Minimum system temperature in degree Celsius
+                    max:
+                      type: integer
+                      format: int8
+                      minimum: -40
+                      maximum: 85
+                      description: Maximum system temperature in degree Celsius
+    delete:
+        tags:
+        - sensors
+        summary: Reset minimum and maximum system temperature
+        description: ""
+        operationId: deleteTemp
+        responses:
+          202:
+            description: Success
+
+  /sensors/lux : 
+    get:
+        tags:
+        - sensors
+        summary: Get the Luxmeter Sensor measures
+        description: ""
+        operationId: getLux
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    current:
+                      type: integer
+                      format: int32
+                      minimum: 0
+                      maximum: 8386560
+                      description: Current iluminance in centilux
+                    min:
+                      type: integer
+                      format: int32
+                      minimum: 0
+                      maximum: 8386560
+                      description: Minimum iluminance in centilux
+                    max:
+                      type: integer
+                      format: int32
+                      minimum: 0
+                      maximum: 8386560
+                      description: Maximum iluminance in centilux
+    delete:
+        tags:
+        - sensors
+        summary: Reset minimum and maximum iluminance
+        description: ""
+        operationId: deleteLux
+        responses:
+          202:
+            description: Success
+  /sensors/gps : 
+    get:
+        tags:
+        - sensors
+        summary: Get the GPS fix data
+        description: ""
+        operationId: getGpsSens
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    lat:
+                      type: number
+                      #format: float
+                      minimum: -90.0
+                      maximum: 90.0
+                      description: Latitude in decimal degrees
+                    lng:
+                      type: number
+                      #format: float
+                      minimum: -180.0
+                      maximum: 180
+                      description: Longitude in decimal degrees
+                    hei:
+                      type: number
+                      #format: float
+                      #minimum: -180.0
+                      #maximum: 180
+                      description: Orthometric height 
+                    sats:
+                      type: integer
+                      format: int8
+                      #minimum: -180.0
+                      #maximum: 180
+                      description: Number of satellites in use
+                    quality:
+                      type: integer
+                      format: int8
+                      #minimum: 0
+                      #maximum: 4
+                      description: "GPS Quality indicator:\n\n  
+                                    0 - Fix not valid\n\n
+                                    1 - GPS fix\n\n
+                                    2 - Differential GPS fix, OmniSTAR VBS\n\n
+                                    3 - Real-Time Kinematic, fixed integers\n\n
+                                    4 - Real-Time Kinematic, float integers, OmniSTAR XP/HP or Location RTK\n\n"
+          503:
+            description: Service unavailable
+            
+  /system/state : 
+    get:
+        tags:
+        - system
+        summary: Get the system state variables
+        description: ""
+        operationId: getState
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    uptime:
+                      type: integer
+                      format: int32
+                      #minimum: 0
+                      #maximum: 4294967295
+                      description: The time for which the system has been running in seconds
+                    hmeter:
+                      type: integer
+                      format: int32
+                      #minimum: 0
+                      #maximum: 4294967295
+                      description: Accumulated operation time in minutes
+                    state:
+                      type: integer
+                      format: int32
+                      #minimum: 0
+                      #maximum: 4294967295
+                      description: "System state bit mask in the format b31|b30|...|b0,
+                                    same meaning as the Alarm bit mask (see /system/alarm) 
+                                    but the bits are set WHILE a specific cause is detected." 
+
+  /system/datetime : 
+    get:
+        tags:
+        - system
+        summary: Get the system date and time
+        description: ""
+        operationId: getDateTime
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/date_time'
+          204:
+            description: No time set
+            content: {}
+          503:
+            description: Service unavailable
+    put:
+      tags:
+      - system
+      summary: Update the system date and time
+      operationId: updateDateTime
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/date_time'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+
+  /system/ver : 
+    get:
+      tags:
+      - system
+      summary: Get the system HW/FW version
+      description: ""
+      operationId: getVer
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  model:
+                    type: string
+                    description: Model 
+                  fwVer:
+                    type: string
+                    description: Firmware version
+                  hwVer:
+                    type: string
+                    description: Hardware version 
+
+  /system/eui64 : 
+      get:
+        tags:
+        - system
+        summary: Get the system 64 bits Extended Unique Identifier
+        description: ""
+        operationId: getEui64
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    eui64:
+                      type: string
+                      description: Hexadecimal representation EUI-64 
+                      
+  /system/reboot_adv :
+    put:
+      tags:
+      - system
+      summary: Schedule a delayed reboot 
+      operationId: updateReboot
+      requestBody:
+        description: ""
+        content:
+          application/json:
+           schema:
+            type: object
+            properties:
+              time:
+                type: integer
+                format: int8
+                description: Time to reboot in minutes (255 to cancel)
+              inst:
+                type: integer
+                format: int8
+                minimum: 0
+                maximum: 1
+                description: 1 to install the previous installed firmware
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+
+  /system/lastgasp : 
+    get:
+        tags:
+        - system
+        summary: Get metrics the system when shut down due to power failure.
+        description: ""
+        operationId: getLastgasp
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    time:
+                      type: integer
+                      format: int32
+                      description: Number seconds since 1970 until the last power failure
+                    uptime:
+                      type: integer
+                      format: int32
+                      description: The time for which the system has been running in seconds
+  /system/memory : 
+    get:
+        tags:
+        - system
+        summary: Get memory metrics.
+        description: ""
+        operationId: getMemory
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    erase:
+                      type: integer
+                      format: int32
+                      description: The number of times the memory has been erase
+
+  /system/astronomic :
+    put:
+      tags:
+      - system
+      summary: Update the Solar Position Algorithm parameters 
+      operationId: updateAstro
+      requestBody:
+        description: "Solar Position Algorithm infers between day and night from 
+                      geographical coordinates and current date and time"
+        content:
+          application/json:
+           schema:
+            type: object
+            properties:
+              src:
+                type: integer
+                format: int8
+                minimum: 0
+                maximum: 1
+                description: "Coordinates source:\n\n
+                              0 - From GPS\n\n
+                              1 - Manually configured"
+              lat:
+                type: number
+                #format: float
+                minimum: -90.0
+                maximum: 90.0
+                description: Latitude in decimal degrees
+              lng:
+                type: number
+                #format: float
+                minimum: -180.0
+                maximum: 180
+                description: Longitude in decimal degrees
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - system
+      summary: Get the Solar Position Algorithm parameters
+      description: ""
+      operationId: getAstro
+      responses:
+        200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  src:
+                    type: integer
+                    format: int8
+                    minimum: 0
+                    maximum: 1
+                    description: "Coordinates source:\n\n
+                                  0 - From GPS\n\n
+                                  1 - Manually configured"
+                  lat:
+                    type: number
+                    #format: float
+                    minimum: -90.0
+                    maximum: 90.0
+                    description: Latitude in decimal degrees
+                  lng:
+                    type: number
+                    #format: float
+                    minimum: -180.0
+                    maximum: 180
+                    description: Longitude in decimal degrees
+                  srise_h:
+                    type: integer
+                    format: int8
+                    minimum: 0
+                    maximum: 24
+                    description: "Hours sunrise"
+                  srise_m:
+                    type: integer
+                    format: int8
+                    minimum: 0
+                    maximum: 59
+                    description: "Minutes sunrise"
+                  sset_h:
+                    type: integer
+                    format: int8
+                    minimum: 0
+                    maximum: 24
+                    description: "Hours sunset"
+                  sset_m:
+                    type: integer
+                    format: int8
+                    minimum: 0
+                    maximum: 59
+                    description: "Minutes sunset"
+        204:
+          description: No signal
+          content: {}
+        503:
+            description: Service unavailable
+
+  /system/alarm :
+    put:
+      tags:
+      - system
+      summary:  Update the Alarm bitmask and thresholds
+      operationId: updateAlarm
+      requestBody:
+        description: "The Alarm State is saved in a non-volatile memory, which means that
+                      if a fault condition is detected, the equivalent bit will be set until
+                      it is explicitly reset; this route can be used to do that and set each fault threshold\n\n
+                      'alarm' bit masks the current Alarm State\n\n
+                      E.g. Alarm State = 272, alarm = 16, new Alarm State = 16"
+        content:
+          application/json:
+           schema:
+              $ref: '#/components/schemas/alarm'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+    get:
+      tags:
+      - system
+      summary: Get the system faults log
+      description: "The system faults log is coded in a bit mask (Alarm State), 
+                    each bit is set when a specific fault is detected. The thresholds are configurable\n\n"
+      operationId: getAlarm
+      parameters:
+        - name: observe
+          in: query
+          description: "Observe the resource \n\n
+                        (none: keep last mode; true: start observing; false: stop observing)"
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alarm'
+
+components:
+  schemas:
+    lamp_control:
+      type: object
+      properties:
+        state:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 1
+          description: Lamp state (0 for off)
+        dim:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 100
+          description: Dimmer value in percentage
+        day_night_thr:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 8386560
+          description: "Brightness value in centilux below which the 
+                        lamp is switched on, when in 'AUTO LUX' mode. fix \n\n
+                        (day_night_thr <= night_day_thr)"
+        night_day_thr:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 8386560
+          description: "Brightness value in centilux above which the 
+                        lamp is switched off, when in 'AUTO LUX' mode. \n\n
+                        (night_day_thr >= day_night_thr)"
+        mode:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 3
+          description: "Lamp operation mode:\n\n  
+                        0 - MANUAL: Only user commands\n\n
+                        1 - AUTO LUX: On/off decision from the luximeter measure\n\n
+                        2 - AUTO ASTRO: On/off decision from the solar position\n\n
+                        3 - SCHEDULER: On/off decision and dimmer change from scheduled actions"
+        dim_mode:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 1
+          description: "Dimmer operation mode:\n\n  
+                        0 - Dimmer value output DC between 0 at 10 volts\n\n
+                        1 - Dimmer value output DC between 1 at 10 volts"
+
+    date_time:
+      type: object
+      properties:
+        yr:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 99
+          description: Year after 2000 (e.g. 20 for 2020)
+        mon:
+          type: integer
+          format: int8
+          minimum: 1
+          maximum: 12
+          description: Month
+        monDy:
+          type: integer
+          format: int8
+          minimum: 1
+          maximum: 31
+          description: Month day
+        wkDy:
+          type: integer
+          format: int8
+          minimum: 1
+          maximum: 7
+          description: Week day (1 for sunday)
+        hrs:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 23
+          description: Hours
+        min:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 59
+          description: Minutes
+        sec:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 59
+          description: Seconds
+   
+    spa:
+      type: object
+      properties:
+        src:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 1
+          description: "Coordinates source:\n\n
+                        0 - From GPS\n\n
+                        1 - Manually configured"
+        lat:
+          type: number
+          #format: float
+          minimum: -90.0
+          maximum: 90.0
+          description: Latitude in decimal degrees
+        lng:
+          type: number
+          #format: float
+          minimum: -180.0
+          maximum: 180
+          description: Longitude in decimal degrees
+        srise_h:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 24
+          description: "Hours sunrise"
+        srise_m:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 59
+          description: "Minutes sunrise"
+
+        sset_h:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 24
+          description: "Hours sunset"
+        sset_m:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 59
+          description: "Minutes sunset"
+
+    alarm:
+      type: object
+      properties:
+        alarm:
+          type: integer
+          format: int32
+          #minimum: 0
+          #maximum: 4294967295
+          description: "Bit mask in the format b31|b30|...|b0:\n\n
+                        b0: [undervoltage] line voltage below the threshold\n\n
+                        b1: [overvoltage] line voltage above the threshold\n\n
+                        b2: [overcurrent] input current above the threshold\n\n
+                        b3: [undertemperature] system temperature below the threshold\n\n
+                        b4: [overtemperature] system temperature above the threshold\n\n
+                        b5: [reset] system was reset\n\n
+                        b6: [open circuit] lamp switched on and its current below the threshold\n\n
+                        b7: [short circuit] lamp switched off and its current above the threshold\n\n
+                        b8: [RTC error] RTC date/time was reset\n\n
+                        b9: [sub power factor] load power factor below the threshold\n\n
+                        b10: [lamp off night] lamp off and the system infers that it is at night (see /system/astronomic)\n\n
+                        b11: [lamp on day] lamp on and the system infers that it is at day (see /system/astronomic)\n\n
+                        b12: [lamp off dark] lamp off and the (luximeter measured) brightness is below the day/night threshold 
+                            (see /control/lamp)\n\n
+                        b13: [lamp on light] lamp on and the (luximeter measured) brightness is above the night/day threshold 
+                            (see /control/lamp)\n\n
+                        b14: [lamp blinking] the lamp is blinking\n\n
+                        b15: [no schedule] lamp control is in SCHEDULER mode and there are no scheduled actions\n\n
+                        b16: [no location] Solar Position Algotithm coordinates are invalids (for more than 90 seconds when in GPS mode) 
+                            (see /system/astronomic)\n\n
+                        b17: [end of life] consider replacing the device within the next 3 months\n\n
+                        b18: [reverse energy] line current flow in reverse\n\n
+                        b19 to b31: reserved\n\n
+                        E.g. 272 means 'overtemperature' and 'RTC error' conditions detected\n\n" 
+        unV:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 50000
+          description: "undervoltage threshold in centivolts (default: 19800)"
+          
+        ovV:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 50000
+          description: "overvoltage threshold in centivolts (default: 24200)"
+
+        ovC:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 10000
+          description: "overcurrent threshold in milliamperes (default: 1000)"
+
+        unT:
+          type: integer
+          format: int32
+          minimum: -40
+          maximum: 85
+          description: "undertemperature threshold in degree Celsius (default: -30)"
+
+        ovT:
+          type: integer
+          format: int32
+          minimum: -40
+          maximum: 85
+          description: "overtemperature threshold in degree Celsius (default: 85)"
+
+        opCirc:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 10000
+          description: "open circuit current threshold in milliamperes (default: 70)"
+
+        shCirc:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 10000
+          description: "short circuit current threshold in milliamperes (default: 70)"
+
+        unPfa:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 1000
+          description: "under power factor threshold (multiplied by 1000) (default: 920)"
+
+    schedule:
+      type: array
+      items:
+        properties:
+          cron:
+            type: string
+            description: cron schedule expression (32 characters maximum length) (see https://crontab.guru)
+          state:
+            type: integer
+            format: int8
+            minimum: 0
+            maximum: 1
+            description: Lamp state (see /lamp/control)
+          dim:
+            type: integer
+            format: int8
+            minimum: 0
+            maximum: 100
+            description: Dimmer value in percentage (see /lamp/control)      
