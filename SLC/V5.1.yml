@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  version: 5.0.0
+  version: 5.1.0
   title: Nouvenn Smart Lighting Controller
   description: 'This documentation describes the high level REST interface that can be used for 
   controlling the Nouvenn Smart Lighting Controller using CoAP. It is possible to access a node 
@@ -551,6 +551,21 @@ paths:
           description: Invalid parameters
           content: {}
       x-codegen-request-body-name: body # Pra que serve isso??
+
+  /app/periodic/instantaneous :
+    get:
+      tags:
+      - app
+      summary: Periodic instantaneous measure
+      description: ""
+      operationId: getPeriodicInst
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/readPeriodic'
             
   /system/state : 
     get:
@@ -1157,7 +1172,8 @@ components:
             format: int8
             minimum: 0
             maximum: 100
-            description: Dimmer value in percentage (see /lamp/control)      
+            description: Dimmer value in percentage (see /lamp/control)   
+
     configPeriodic:
       type: object
       properties:
@@ -1204,3 +1220,98 @@ components:
           type: string
           description: "Destination Ipv6 address to be send \n\n
                         Format: 2001:0DB8:AD1F:25E2:CADE:CAFE:F0CA:84C1\n\n"
+
+    readPeriodic:
+      type: array
+      items:
+        properties:
+          state:
+            type: integer
+            format: int8
+            minimum: 0
+            maximum: 1
+            description: Lamp state (see /lamp/control)
+          dim:
+            type: integer
+            format: int8
+            minimum: 0
+            maximum: 100
+            description: Dimmer value in percentage (see /lamp/control)
+          active:
+            type: integer
+            format: int32
+            #minimum: 0
+            #maximum: 65535
+            description: Accummulated active energy in centi watts-hour
+          reactive:
+            type: integer
+            format: int32
+            #minimum: 0
+            #maximum: 65535
+            description: Accummulated reactive energy in centi volt-amperes reactive hour
+          u_rms:
+            type: integer
+            format: int16
+            minimum: 0
+            maximum: 65535
+            description: Line voltage RMS in centivolts
+          i_rms:
+            type: integer
+            format: int16
+            minimum: 0
+            maximum: 65535
+            description: Line current RMS in milliamperes
+          p_active:
+            type: integer
+            format: int16
+            minimum: -32768
+            maximum: 32768
+            description: Line mean active power in watts
+          p_reactive:
+            type: integer
+            format: int16
+            minimum: -32768
+            maximum: 32768
+            description: Line mean reactive power in volt-amperes reactive
+          power_factor:
+            type: integer
+            format: int16
+            minimum: -1000
+            maximum: 1000
+            description: Line power factor (multiplied by 1000)
+          x:
+            type: integer
+            format: int16
+            minimum: -2000
+            maximum: 2000
+            description: x-axis acceleration in milli-G
+          y:
+            type: integer
+            format: int16
+            minimum: -2000
+            maximum: 2000
+            description: y-axis acceleration in milli-G
+          z:
+            type: integer
+            format: int16
+            minimum: -2000
+            maximum: 2000
+            description: z-axis acceleration in milli-G
+          lux:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 8386560
+            description: Current iluminance in centilux
+          temp:
+            type: integer
+            format: int8
+            minimum: -40
+            maximum: 85
+            description: Current system temperature in degree Celsius
+          dBSPL:
+            type: integer
+            format: int32
+            #minimum: 0
+            #maximum: 65535
+            description: Mean sound pressure level in dBSPL
