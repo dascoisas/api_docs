@@ -566,6 +566,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/readPeriodic'
+
+  /app/periodic/stored :
+    get:
+      tags:
+      - app
+      summary: Number of stored measures in Periodic Service
+      description: ""
+      operationId: getPeriodicStored
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/storedPeriodic'
             
   /system/state : 
     get:
@@ -1315,3 +1330,14 @@ components:
             #minimum: 0
             #maximum: 65535
             description: Mean sound pressure level in dBSPL
+
+    storedPeriodic:
+      type: array
+      items:
+        properties:
+          stored_meas:
+            type: integer
+            format: int8
+            minimum: 0
+            maximum: 255
+            description: Number of stored measures in NVM
