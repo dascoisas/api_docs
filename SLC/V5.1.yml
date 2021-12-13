@@ -521,7 +521,7 @@ paths:
     get:
       tags:
       - app
-      summary: Periodic service configuration
+      summary: Get the periodic service configuration
       description: ""
       operationId: getPeriodicConfig
       responses:
@@ -556,7 +556,7 @@ paths:
     get:
       tags:
       - app
-      summary: Periodic instantaneous measure
+      summary: Get a periodic instantaneous measure
       description: ""
       operationId: getPeriodicInst
       responses:
@@ -571,7 +571,7 @@ paths:
     get:
       tags:
       - app
-      summary: Number of stored measures in Periodic Service
+      summary: Get the number of stored measures in Periodic Service
       description: ""
       operationId: getPeriodicStored
       responses:
@@ -602,6 +602,16 @@ paths:
           description: Invalid parameters
           content: {}
       x-codegen-request-body-name: body # Pra que serve isso??
+
+    delete:
+        tags:
+        - app
+        summary: Delete all stored measures in Periodic Service
+        description: ""
+        operationId: deletePeriodicStored
+        responses:
+          202:
+            description: Success
             
   /system/state : 
     get:
@@ -1353,23 +1363,21 @@ components:
             description: Mean sound pressure level in dBSPL
 
     storedPeriodic:
-      type: array
-      items:
-        properties:
-          stored_meas:
-            type: integer
-            format: int8
-            minimum: 0
-            maximum: 255
-            description: Number of stored measures in NVM
+      type: object
+      properties:
+        stored_meas:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 255
+          description: Number of stored measures in NVM
 
     transmitPeriodic:
-      type: array
-      items:
-        properties:
-          start:
-            type: integer
-            format: int8
-            minimum: 0
-            maximum: 1
-            description: Start transmission of stored meas in NVM
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 1
+          description: Start transmission of stored meas in NVM
