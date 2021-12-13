@@ -581,6 +581,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/storedPeriodic'
+
+    put:
+      tags:
+      - app
+      summary: Start transmission of stored measures in Periodic Service
+      operationId: putPeriodicStored
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/transmitPeriodic'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
             
   /system/state : 
     get:
@@ -1341,3 +1362,14 @@ components:
             minimum: 0
             maximum: 255
             description: Number of stored measures in NVM
+
+    transmitPeriodic:
+      type: array
+      items:
+        properties:
+          start:
+            type: integer
+            format: int8
+            minimum: 0
+            maximum: 1
+            description: Start transmission of stored meas in NVM
