@@ -571,7 +571,7 @@ paths:
     get:
       tags:
       - app
-      summary: Get the number of stored measures in Periodic Service
+      summary: Get the number of stored measures on NVM
       description: ""
       operationId: getPeriodicStored
       responses:
@@ -585,7 +585,7 @@ paths:
     put:
       tags:
       - app
-      summary: Start transmission of stored measures in Periodic Service
+      summary: Start transmission of stored measures
       operationId: putPeriodicStored
       requestBody:
         description: ""
@@ -606,13 +606,94 @@ paths:
     delete:
         tags:
         - app
-        summary: Delete all stored measures in Periodic Service
+        summary: Delete all stored measures on NVM
         description: ""
         operationId: deletePeriodicStored
         responses:
           202:
             description: Success
-            
+
+  /app/events/config :
+    get:
+      tags:
+      - app
+      summary: Get the Events service configuration
+      description: ""
+      operationId: getEventsConfig
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/configPeriodicEvents'
+    put:
+      tags:
+      - app
+      summary: Update Events service configuration
+      operationId: setEventsConfig
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/configPeriodicEvents'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+
+  /app/events/stored :
+    get:
+      tags:
+      - app
+      summary: Get the number of stored Events on NVM
+      description: ""
+      operationId: getEventsStored
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/storedEvents'
+
+    put:
+      tags:
+      - app
+      summary: Start transmission of stored Events
+      operationId: putEventsStored
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/transmitPeriodic'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+
+    delete:
+        tags:
+        - app
+        summary: Delete all stored Events on NVM
+        description: ""
+        operationId: deleteEventsStored
+        responses:
+          202:
+            description: Success
+
   /system/state : 
     get:
         tags:
@@ -1267,6 +1348,33 @@ components:
           description: "Destination Ipv6 address to be send \n\n
                         Format: 2001:0DB8:AD1F:25E2:CADE:CAFE:F0CA:84C1\n\n"
 
+    configPeriodicEvents:
+      type: object
+      properties:
+        enable:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 1
+          description: Enable/Disable service
+        interval:
+          type: integer
+          format: int32
+          minimum: 20
+          maximum: 43200
+          description: Measure send interval
+        dest_port:
+          type: integer
+          format: int32
+          minimum: 1058
+          maximum: 47808
+          description: Destination port to be send
+
+        dest_ipv6:
+          type: string
+          description: "Destination Ipv6 address to be send \n\n
+                        Format: 2001:0DB8:AD1F:25E2:CADE:CAFE:F0CA:84C1\n\n"
+
     readPeriodic:
       type: array
       items:
@@ -1371,6 +1479,16 @@ components:
           minimum: 0
           maximum: 255
           description: Number of stored measures in NVM
+
+    storedEvents:
+      type: object
+      properties:
+        stored_events:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 255
+          description: Number of stored events in NVM
 
     transmitPeriodic:
       type: object
