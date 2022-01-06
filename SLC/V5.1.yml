@@ -517,31 +517,31 @@ paths:
           503:
             description: Service unavailable
 
-  /app/periodic/config :
+  /app/measures/config :
     get:
       tags:
       - app
-      summary: Get the periodic service configuration
+      summary: Get the Measures service configuration
       description: ""
-      operationId: getPeriodicConfig
+      operationId: getMeasuresConfig
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/configPeriodic'
+                $ref: '#/components/schemas/configMeasures'
     put:
       tags:
       - app
-      summary: Update Periodic service configuration
-      operationId: setPeriodicConfig
+      summary: Update Measures service configuration
+      operationId: setMeasuresConfig
       requestBody:
         description: ""
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/configPeriodic'
+              $ref: '#/components/schemas/configMeasures'
         required: true
       responses:
         205:
@@ -552,47 +552,47 @@ paths:
           content: {}
       x-codegen-request-body-name: body # Pra que serve isso??
 
-  /app/periodic/instantaneous :
+  /app/measures/instantaneous :
     get:
       tags:
       - app
-      summary: Get a periodic instantaneous measure
+      summary: Get a Measures instantaneous measure
       description: ""
-      operationId: getPeriodicInst
+      operationId: getMeasuresInst
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/readPeriodic'
+                $ref: '#/components/schemas/readMeasures'
 
-  /app/periodic/stored :
+  /app/measures/stored :
     get:
       tags:
       - app
       summary: Get the number of stored measures on NVM
       description: ""
-      operationId: getPeriodicStored
+      operationId: getMeasuresStored
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/storedPeriodic'
+                $ref: '#/components/schemas/storedMeasures'
 
     put:
       tags:
       - app
       summary: Start transmission of stored measures
-      operationId: putPeriodicStored
+      operationId: putMeasuresStored
       requestBody:
         description: ""
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/transmitPeriodic'
+              $ref: '#/components/schemas/transmitMeasures'
         required: true
       responses:
         205:
@@ -608,7 +608,7 @@ paths:
         - app
         summary: Delete all stored measures on NVM
         description: ""
-        operationId: deletePeriodicStored
+        operationId: deleteMeasuresStored
         responses:
           202:
             description: Success
@@ -626,7 +626,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/configPeriodicEvents'
+                $ref: '#/components/schemas/configMeasuresEvents'
     put:
       tags:
       - app
@@ -637,7 +637,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/configPeriodicEvents'
+              $ref: '#/components/schemas/configMeasuresEvents'
         required: true
       responses:
         205:
@@ -647,6 +647,22 @@ paths:
           description: Invalid parameters
           content: {}
       x-codegen-request-body-name: body # Pra que serve isso??
+
+  /app/events/instantaneous :
+    get:
+      tags:
+      - app
+      summary: Get the deitailed events saved in current transmission interval
+      description: ""
+      operationId: getEventsInst
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/readEvents'
+
 
   /app/events/stored :
     get:
@@ -673,7 +689,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/transmitPeriodic'
+              $ref: '#/components/schemas/transmitMeasures'
         required: true
       responses:
         205:
@@ -1301,7 +1317,7 @@ components:
             maximum: 100
             description: Dimmer value in percentage (see /lamp/control)   
 
-    configPeriodic:
+    configMeasures:
       type: object
       properties:
         enable:
@@ -1348,7 +1364,7 @@ components:
           description: "Destination Ipv6 address to be send \n\n
                         Format: 2001:0DB8:AD1F:25E2:CADE:CAFE:F0CA:84C1\n\n"
 
-    configPeriodicEvents:
+    configMeasuresEvents:
       type: object
       properties:
         enable:
@@ -1375,7 +1391,7 @@ components:
           description: "Destination Ipv6 address to be send \n\n
                         Format: 2001:0DB8:AD1F:25E2:CADE:CAFE:F0CA:84C1\n\n"
 
-    readPeriodic:
+    readMeasures:
       type: array
       items:
         properties:
@@ -1470,7 +1486,24 @@ components:
             #maximum: 65535
             description: Mean sound pressure level in dBSPL
 
-    storedPeriodic:
+    readEvents:
+      type: array
+      items:
+        properties:
+          id:
+            type: integer
+            format: int8
+            minimum: 0
+            maximum: 1
+            description: Event ID
+          time:
+            type: integer
+            format: int32
+            #minimum: 0
+            #maximum: 100
+            description: Time when the event has ocurred
+
+    storedMeasures:
       type: object
       properties:
         stored_meas:
@@ -1478,7 +1511,7 @@ components:
           format: int8
           minimum: 0
           maximum: 255
-          description: Number of stored measures in NVM
+          description: Number of not transmitted measures stored in NVM
 
     storedEvents:
       type: object
@@ -1488,9 +1521,16 @@ components:
           format: int8
           minimum: 0
           maximum: 255
-          description: Number of stored events in NVM
+          description: Number of stored events in current transmission interval
+        stored_events_packets:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 255
+          description: Number of not transmitted packets with events that happended before the current transmission interval
 
-    transmitPeriodic:
+
+    transmitMeasures:
       type: object
       properties:
         start:
