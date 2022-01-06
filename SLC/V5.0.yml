@@ -13,6 +13,8 @@ tags:
   description: Access to lamp parameters
 - name: sensors
   description: Access to sensors measures
+- name: app
+  description: Access to SLC applications
 - name: system
   description: Access to system parameters and status
 
@@ -514,7 +516,200 @@ paths:
                                     4 - Real-Time Kinematic, float integers, OmniSTAR XP/HP or Location RTK\n\n"
           503:
             description: Service unavailable
-            
+
+  /app/measures/config :
+    get:
+      tags:
+      - app
+      summary: Get the Measures service configuration
+      description: ""
+      operationId: getMeasuresConfig
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/configMeasures'
+    put:
+      tags:
+      - app
+      summary: Update Measures service configuration
+      operationId: setMeasuresConfig
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/configMeasures'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+
+  /app/measures/instantaneous :
+    get:
+      tags:
+      - app
+      summary: Get a Measures instantaneous measure
+      description: ""
+      operationId: getMeasuresInst
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/readMeasures'
+
+  /app/measures/stored :
+    get:
+      tags:
+      - app
+      summary: Get the number of stored measures on NVM
+      description: ""
+      operationId: getMeasuresStored
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/storedMeasures'
+
+    put:
+      tags:
+      - app
+      summary: Start transmission of stored measures
+      operationId: putMeasuresStored
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/transmitMeasures'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+
+    delete:
+        tags:
+        - app
+        summary: Delete all stored measures on NVM
+        description: ""
+        operationId: deleteMeasuresStored
+        responses:
+          202:
+            description: Success
+
+  /app/events/config :
+    get:
+      tags:
+      - app
+      summary: Get the Events service configuration
+      description: ""
+      operationId: getEventsConfig
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/configMeasuresEvents'
+    put:
+      tags:
+      - app
+      summary: Update Events service configuration
+      operationId: setEventsConfig
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/configMeasuresEvents'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+
+  /app/events/instantaneous :
+    get:
+      tags:
+      - app
+      summary: Get the deitailed events saved in current transmission interval
+      description: ""
+      operationId: getEventsInst
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/readEvents'
+
+
+  /app/events/stored :
+    get:
+      tags:
+      - app
+      summary: Get the number of stored Events on NVM
+      description: ""
+      operationId: getEventsStored
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/storedEvents'
+
+    put:
+      tags:
+      - app
+      summary: Start transmission of stored Events
+      operationId: putEventsStored
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/transmitMeasures'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+
+    delete:
+        tags:
+        - app
+        summary: Delete all stored Events on NVM
+        description: ""
+        operationId: deleteEventsStored
+        responses:
+          202:
+            description: Success
+
   /system/state : 
     get:
         tags:
@@ -1120,4 +1315,227 @@ components:
             format: int8
             minimum: 0
             maximum: 100
-            description: Dimmer value in percentage (see /lamp/control)      
+            description: Dimmer value in percentage (see /lamp/control)   
+
+    configMeasures:
+      type: object
+      properties:
+        enable:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 1
+          description: Enable/Disable service
+        interval:
+          type: integer
+          format: int32
+          minimum: 20
+          maximum: 43200
+          description: Measure send interval
+        mask:
+          type: integer
+          format: int32
+          minimum: 0
+          description: "Bit mask in the format b31|b30|...|b0:\n\n
+                        b0: [lampstate] State of the relay\n\n
+                        b1: [lampdimm] Value of Dimmer configuration \n\n
+                        b2: [active energy acc] Value of accumulated active energy\n\n
+                        b3: [reactive energy acc] Value of accumulated reactive energy\n\n
+                        b4: [voltage] Value of input voltage\n\n
+                        b5: [current] Value of output current\n\n
+                        b6: [active energy] Value of active energy\n\n
+                        b7: [reactive energy] Value of reactive energy\n\n
+                        b8: [power factor] Value of load power factor\n\n
+                        b9: [lux] Light intensity in lux\n\n
+                        b10: [temperature] Temperature\n\n
+                        b11: [mic] Audio noise in dBSPL measured by the microphone\n\n
+                        b12: [acc] Acceleration on x, y and z coordinates\n\n
+                        b13 to b31: reserved\n\n
+                        E.g. 272 means 'overtemperature' and 'RTC error' conditions detected\n\n" 
+        dest_port:
+          type: integer
+          format: int32
+          minimum: 1058
+          maximum: 47808
+          description: Destination port to be send
+
+        dest_ipv6:
+          type: string
+          description: "Destination Ipv6 address to be send \n\n
+                        Format: 2001:0DB8:AD1F:25E2:CADE:CAFE:F0CA:84C1\n\n"
+
+    configMeasuresEvents:
+      type: object
+      properties:
+        enable:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 1
+          description: Enable/Disable service
+        interval:
+          type: integer
+          format: int32
+          minimum: 20
+          maximum: 43200
+          description: Measure send interval
+        dest_port:
+          type: integer
+          format: int32
+          minimum: 1058
+          maximum: 47808
+          description: Destination port to be send
+
+        dest_ipv6:
+          type: string
+          description: "Destination Ipv6 address to be send \n\n
+                        Format: 2001:0DB8:AD1F:25E2:CADE:CAFE:F0CA:84C1\n\n"
+
+    readMeasures:
+      type: array
+      items:
+        properties:
+          state:
+            type: integer
+            format: int8
+            minimum: 0
+            maximum: 1
+            description: Lamp state (see /lamp/control)
+          dim:
+            type: integer
+            format: int8
+            minimum: 0
+            maximum: 100
+            description: Dimmer value in percentage (see /lamp/control)
+          active:
+            type: integer
+            format: int32
+            #minimum: 0
+            #maximum: 65535
+            description: Accummulated active energy in centi watts-hour
+          reactive:
+            type: integer
+            format: int32
+            #minimum: 0
+            #maximum: 65535
+            description: Accummulated reactive energy in centi volt-amperes reactive hour
+          u_rms:
+            type: integer
+            format: int16
+            minimum: 0
+            maximum: 65535
+            description: Line voltage RMS in centivolts
+          i_rms:
+            type: integer
+            format: int16
+            minimum: 0
+            maximum: 65535
+            description: Line current RMS in milliamperes
+          p_active:
+            type: integer
+            format: int16
+            minimum: -32768
+            maximum: 32768
+            description: Line mean active power in watts
+          p_reactive:
+            type: integer
+            format: int16
+            minimum: -32768
+            maximum: 32768
+            description: Line mean reactive power in volt-amperes reactive
+          power_factor:
+            type: integer
+            format: int16
+            minimum: -1000
+            maximum: 1000
+            description: Line power factor (multiplied by 1000)
+          x:
+            type: integer
+            format: int16
+            minimum: -2000
+            maximum: 2000
+            description: x-axis acceleration in milli-G
+          y:
+            type: integer
+            format: int16
+            minimum: -2000
+            maximum: 2000
+            description: y-axis acceleration in milli-G
+          z:
+            type: integer
+            format: int16
+            minimum: -2000
+            maximum: 2000
+            description: z-axis acceleration in milli-G
+          lux:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 8386560
+            description: Current iluminance in centilux
+          temp:
+            type: integer
+            format: int8
+            minimum: -40
+            maximum: 85
+            description: Current system temperature in degree Celsius
+          dBSPL:
+            type: integer
+            format: int32
+            #minimum: 0
+            #maximum: 65535
+            description: Mean sound pressure level in dBSPL
+
+    readEvents:
+      type: array
+      items:
+        properties:
+          id:
+            type: integer
+            format: int8
+            minimum: 0
+            maximum: 1
+            description: Event ID
+          time:
+            type: integer
+            format: int32
+            #minimum: 0
+            #maximum: 100
+            description: Time when the event has ocurred
+
+    storedMeasures:
+      type: object
+      properties:
+        stored_meas:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 255
+          description: Number of not transmitted measures stored in NVM
+
+    storedEvents:
+      type: object
+      properties:
+        stored_events:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 255
+          description: Number of stored events in current transmission interval
+        stored_events_packets:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 255
+          description: Number of not transmitted packets with events that happended before the current transmission interval
+
+
+    transmitMeasures:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 1
+          description: Start transmission of stored meas in NVM
