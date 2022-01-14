@@ -304,19 +304,19 @@ paths:
                 schema:
                   type: object
                   properties:
-                    x:
+                    acc_x:
                       type: integer
                       format: int16
                       minimum: -2000
                       maximum: 2000
                       description: x-axis acceleration in milli-G
-                    y:
+                    acc_y:
                       type: integer
                       format: int16
                       minimum: -2000
                       maximum: 2000
                       description: y-axis acceleration in milli-G
-                    z:
+                    acc_z:
                       type: integer
                       format: int16
                       minimum: -2000
@@ -338,19 +338,19 @@ paths:
                 schema:
                   type: object
                   properties:
-                    x:
+                    mag_x:
                       type: integer
                       format: int32
                       minimum: -160000
                       maximum: 160000
                       description: x-axis magnetic field strength in milligauss
-                    y:
+                    mag_y:
                       type: integer
                       format: int32
                       minimum: -160000
                       maximum: 160000
                       description: y-axis magnetic field strength in milligauss
-                    z:
+                    mag_z:
                       type: integer
                       format: int32
                       minimum: -160000
@@ -1331,7 +1331,7 @@ components:
           format: int32
           minimum: 20
           maximum: 43200
-          description: Measure send interval
+          description: Measures send interval in minutes
         mask:
           type: integer
           format: int32
@@ -1376,16 +1376,15 @@ components:
         interval:
           type: integer
           format: int32
-          minimum: 20
-          maximum: 43200
-          description: Measure send interval
+          minimum: 360
+          maximum: 1440
+          description: Events send interval in minutes
         dest_port:
           type: integer
           format: int32
           minimum: 1058
           maximum: 47808
           description: Destination port to be send
-
         dest_ipv6:
           type: string
           description: "Destination Ipv6 address to be send \n\n
@@ -1449,19 +1448,19 @@ components:
             minimum: -1000
             maximum: 1000
             description: Line power factor (multiplied by 1000)
-          x:
+          acc_x:
             type: integer
             format: int16
             minimum: -2000
             maximum: 2000
             description: x-axis acceleration in milli-G
-          y:
+          acc_y:
             type: integer
             format: int16
             minimum: -2000
             maximum: 2000
             description: y-axis acceleration in milli-G
-          z:
+          acc_z:
             type: integer
             format: int16
             minimum: -2000
@@ -1494,8 +1493,21 @@ components:
             type: integer
             format: int8
             minimum: 0
-            maximum: 1
-            description: Event ID
+            maximum: 255
+            description: "Event IDs:\n\n
+                        UNKNOWN = 0\n\n
+                        UNDER_VOLT = 1 (Under Voltage)\n\n
+                        OVER_VOLT = 2 (Over Voltage)\n\n
+                        OVER_CURRENT = 3 (Over Current)\n\n
+                        UNDER_TEMP = 4 (Under Temprature)\n\n
+                        OVER_TEMP = 5 (Over Temprature)\n\n
+                        OPEN_CIRC = 6 (Under Temprature)\n\n
+                        SHORT_CIRC = 7 (Short Circuit)\n\n
+                        OFF_NIGHT = 8 (Lamp off at the night)\n\n
+                        ON_DAY = 9 (Lamp on at the day)\n\n
+                        OFF_DARK = 10 (Lamp off low luminosity)\n\n
+                        ON_LIGHT = 11 (Lamp on at high luminosity)\n\n
+                        BLINK = 12 (Lamp blinking)\n\n" 
           time:
             type: integer
             format: int32
