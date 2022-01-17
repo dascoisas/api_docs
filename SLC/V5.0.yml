@@ -394,19 +394,19 @@ paths:
                 schema:
                   type: object
                   properties:
-                    current:
+                    tmp_current:
                       type: integer
                       format: int8
                       minimum: -40
                       maximum: 85
                       description: Current system temperature in degree Celsius
-                    min:
+                    tmp_min:
                       type: integer
                       format: int8
                       minimum: -40
                       maximum: 85
                       description: Minimum system temperature in degree Celsius
-                    max:
+                    tmp_max:
                       type: integer
                       format: int8
                       minimum: -40
@@ -437,19 +437,19 @@ paths:
                 schema:
                   type: object
                   properties:
-                    current:
+                    lux_current:
                       type: integer
                       format: int32
                       minimum: 0
                       maximum: 8386560
                       description: Current iluminance in centilux
-                    min:
+                    lux_min:
                       type: integer
                       format: int32
                       minimum: 0
                       maximum: 8386560
                       description: Minimum iluminance in centilux
-                    max:
+                    lux_max:
                       type: integer
                       format: int32
                       minimum: 0
@@ -1466,19 +1466,19 @@ components:
             minimum: -2000
             maximum: 2000
             description: z-axis acceleration in milli-G
-          lux:
+          lux_current:
             type: integer
             format: int32
             minimum: 0
             maximum: 8386560
             description: Current iluminance in centilux
-          temp:
+          tmp_current:
             type: integer
             format: int8
             minimum: -40
             maximum: 85
             description: Current system temperature in degree Celsius
-          dBSPL:
+          meas:
             type: integer
             format: int32
             #minimum: 0
