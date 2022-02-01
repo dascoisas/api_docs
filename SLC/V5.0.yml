@@ -710,6 +710,41 @@ paths:
           202:
             description: Success
 
+  /app/actions/config :
+    get:
+      tags:
+      - app
+      summary: Get the Automatic Actions configuration
+      description: ""
+      operationId: getActionsConfig
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/configActions'
+    put:
+      tags:
+      - app
+      summary: Update the Automatic Actions configuration
+      operationId: setActionsConfig
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/configActions'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+
   /system/state : 
     get:
         tags:
@@ -1390,6 +1425,21 @@ components:
           description: "Destination Ipv6 address to be send \n\n
                         Format: 2001:0DB8:AD1F:25E2:CADE:CAFE:F0CA:84C1\n\n"
 
+    configActions:
+      type: object
+      properties:
+        enable:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 1
+          description: "Enable/Disable the automatic actions \n\n
+                        Actions: \n\n
+                        Over Voltage: Turn off relay\n\n
+                        Under Voltage: Turn off relay\n\n
+                        Over Current: Turn off relay\n\n
+                        Over Temperature: Turn off relay\n\n"
+
     readMeasures:
       type: array
       items:
@@ -1499,9 +1549,9 @@ components:
                         UNDER_VOLT = 1 (Under Voltage)\n\n
                         OVER_VOLT = 2 (Over Voltage)\n\n
                         OVER_CURRENT = 3 (Over Current)\n\n
-                        UNDER_TEMP = 4 (Under Temprature)\n\n
-                        OVER_TEMP = 5 (Over Temprature)\n\n
-                        OPEN_CIRC = 6 (Under Temprature)\n\n
+                        UNDER_TEMP = 4 (Under Temperature)\n\n
+                        OVER_TEMP = 5 (Over Temperature)\n\n
+                        OPEN_CIRC = 6 (Under Temperature)\n\n
                         SHORT_CIRC = 7 (Short Circuit)\n\n
                         OFF_NIGHT = 8 (Lamp off at the night)\n\n
                         ON_DAY = 9 (Lamp on at the day)\n\n
