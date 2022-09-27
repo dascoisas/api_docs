@@ -311,6 +311,49 @@ paths:
           202:
             description: Success
 
+  /sensors/tmp : 
+    get:
+        tags:
+        - sensors
+        summary: Get the Internal Termometer Sensor measures
+        description: ""
+        operationId: getTmpSens
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    tmp_current:
+                      type: integer
+                      format: int8
+                      minimum: -40
+                      maximum: 85
+                      description: Current system temperature in degree Celsius
+                    tmp_min:
+                      type: integer
+                      format: int8
+                      minimum: -40
+                      maximum: 85
+                      description: Minimum system temperature in degree Celsius
+                    tmp_max:
+                      type: integer
+                      format: int8
+                      minimum: -40
+                      maximum: 85
+                      description: Maximum system temperature in degree Celsius
+    delete:
+        tags:
+        - sensors
+        summary: Reset minimum and maximum system temperature
+        description: ""
+        operationId: deleteTemp
+        responses:
+          202:
+            description: Success
+
   /app/measures/config :
     get:
       tags:
