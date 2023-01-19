@@ -23,9 +23,9 @@ paths:
     get:
       tags:
       - config
-      summary: Get network ula gua IPv6 address
+      summary: Get network ULA GUA and EUI64 IPv6 address
       description: ""
-      operationId: getNetAddess
+      operationId: getNetAddress
       responses:
         200:
           description: Success
@@ -389,9 +389,12 @@ components:
     netAddress:
       type: object
       properties:
-        ADDR:
+        ula_gua:
           type: string
-          description: Wi-SUN ULA GUA Address 
+          description: Wi-SUN ULA GUA Address
+        eui:
+          type: string
+          description: Wi-SUN EUI64 Address
 
     netInfo:
       type: object
