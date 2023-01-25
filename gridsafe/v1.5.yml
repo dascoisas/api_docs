@@ -46,8 +46,8 @@ paths:
           description: Sucess
           content:
             application/json:
-            schema:
-              $ref: '#/components/schemas/broadcastDomainList'
+              schema:
+                $ref: '#/components/schemas/broadcastDomainList'
     put:
       tags:
       - config
@@ -58,7 +58,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/broadcastDomainList'
+              type: object
+              properties:
+                domain:
+                  type: string
         required: true
       responses:
         205:
@@ -66,6 +69,9 @@ paths:
           content: {}
         400:
           description: Invalid parameters
+          content: {}
+        500:
+          description: Not joined to the domain
           content: {}
       x-codegen-request-body-name: body
 
@@ -75,9 +81,25 @@ paths:
       summary: Delete network broadcast domain IP list
       description: ""
       operationId: deleteBroadcastDomainList
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                domain:
+                  type: string
+        required: true
       responses:
-        202:
+        205:
           description: Success
+        400:
+          description: Invalid parameters
+          content: {}
+        500:
+          description: Domain not deleted
+          content: {}
 
   /network/config/netinfo :
     get:
@@ -443,10 +465,18 @@ components:
 
     broadcastDomainList:
       type: object
-      proprieties:
-        ip:
-          type: string
-          description: Brodcast Domain IP
+      properties:
+        joined_groups:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 255
+          description: Number of ip addresses joined
+        domains:
+          type: array
+          description: Joined domains ip addresses
+          items:
+            type: string
 
     netInfo:
       type: object
