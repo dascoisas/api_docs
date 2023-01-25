@@ -34,6 +34,51 @@ paths:
               schema:
                 $ref: '#/components/schemas/netAddress'
 
+  network/config/broadcast_domain:
+    get:
+      tags:
+      - config
+      sumary: Get network brodcast domain IP list
+      description: ""
+      operationId: getBrodcastDomainList
+      responses:
+        200:
+          description: Sucess
+          content:
+            application/json:
+            schema:
+              $ref: '#/components/schemas/broadcastDomainList'
+    put:
+      tags:
+      - config
+      summary: Update network broadcast domain IP list
+      operationId: updateBroadcastDomainList
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/broadcastDomainList'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body
+
+    delete:
+      tags:
+      - config
+      summary: Delete network broadcast domain IP list
+      description: ""
+      operationId: deleteBroadcastDomainList
+      responses:
+        202:
+          description: Success
+
   /network/config/netinfo :
     get:
       tags:
@@ -395,6 +440,13 @@ components:
         eui:
           type: string
           description: Wi-SUN EUI64 Address
+
+    broadcastDomainList:
+      type: object
+      proprieties:
+        ip:
+          type: string
+          description: Brodcast Domain IP
 
     netInfo:
       type: object
