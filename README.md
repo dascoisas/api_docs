@@ -21,20 +21,13 @@ The API works using HTTP methods.
 
 The **GET** method returns a HTTP request based on the information at the "Example" tab:
 
-![GET method](/Images/getAPI.png)
-
 - **RESPONSE:** The reply from the device following the Example template.
 - **CLEAR:** Clear the reply string.
-- **MODEL:** It shows each variable meaning, type and description:
-
-    ![Model Template](/Images/modelAPI.png)
-
+- **MODEL:** It shows each variable meaning, type and description.
 - **EXAMPLE:** Shows an example template for the request.
 
 #### PUT
 The **PUT** method send a HTTP request based on the "Example" tab:
-
-![PUT method](/Images/putAPI.png)
 
 - **RESPONSE:** Sucess or Error.
 - **CLEAR:** Clear the reply string.
@@ -43,7 +36,5 @@ The **PUT** method send a HTTP request based on the "Example" tab:
 
 #### DELETE
 The **DELETE** method send a HTTP request that usually deletes a variable value (clear) or reset it (set to zero).
-
-![DELETE method](/Images/deleteAPI.png)
 
 - **RESPONSE:** Sucess or Error.

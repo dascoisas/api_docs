@@ -34,6 +34,73 @@ paths:
               schema:
                 $ref: '#/components/schemas/netAddress'
 
+  /network/config/broadcast_domain:
+    get:
+      tags:
+      - config
+      sumary: Get network brodcast domain IP list
+      description: ""
+      operationId: getBrodcastDomainList
+      responses:
+        200:
+          description: Sucess
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/broadcastDomainList'
+    put:
+      tags:
+      - config
+      summary: Insert domain IP address in network broadcast domain IP list
+      operationId: updateBroadcastDomainList
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                domain:
+                  type: string
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+        500:
+          description: Not joined to the domain
+          content: {}
+      x-codegen-request-body-name: body
+
+    delete:
+      tags:
+      - config
+      summary: Delete domain IP address from network broadcast domain IP list
+      description: ""
+      operationId: deleteBroadcastDomainList
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                domain:
+                  type: string
+        required: true
+      responses:
+        205:
+          description: Success
+        400:
+          description: Invalid parameters
+          content: {}
+        500:
+          description: Domain not deleted
+          content: {}
+
   /network/config/netinfo :
     get:
       tags:
@@ -395,6 +462,21 @@ components:
         eui:
           type: string
           description: Wi-SUN EUI64 Address
+
+    broadcastDomainList:
+      type: object
+      properties:
+        joined_groups:
+          type: integer
+          format: int8
+          minimum: 0
+          maximum: 255
+          description: Number of ip addresses joined
+        domains:
+          type: array
+          description: Joined domains ip addresses
+          items:
+            type: string
 
     netInfo:
       type: object
