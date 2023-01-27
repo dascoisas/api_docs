@@ -78,7 +78,7 @@ paths:
     delete:
       tags:
       - config
-      summary: Delete network broadcast domain IP list
+      summary: Delete domain IP address from network broadcast domain IP list
       description: ""
       operationId: deleteBroadcastDomainList
       requestBody:
