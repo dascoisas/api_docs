@@ -51,7 +51,7 @@ paths:
     put:
       tags:
       - config
-      summary: Update network broadcast domain IP list
+      summary: Insert domain IP address in network broadcast domain IP list
       operationId: updateBroadcastDomainList
       requestBody:
         description: ""
