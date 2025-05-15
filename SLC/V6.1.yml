@@ -313,6 +313,41 @@ paths:
         202:
           description: Success
 
+  /sensors/energy/autocal : 
+    get:
+        tags:
+        - sensors
+        summary: Get auto calibration config
+        description: ""
+        operationId: getAutoCalConfig
+        responses:
+          200:
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/configAutoCal'
+    put:
+      tags:
+      - sensors
+      summary: Update auto calibration config and start calibration
+      operationId: PutAutoCalConfig
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/configAutoCalPut'
+        required: true
+      responses:
+        205:
+          description: Success
+          content: {}
+        400:
+          description: Invalid parameters
+          content: {}
+      x-codegen-request-body-name: body # Pra que serve isso??
+
   /sensors/lux : 
     get:
         tags:
@@ -1347,6 +1382,61 @@ components:
             minimum: 0
             #maximum: 65535
             description: Constant for calculate power rms
+
+    configAutoCal:
+      type: object
+      properties:
+          voltage:
+            type: integer
+            format: int32
+            minimum: 0
+            #maximum: 65535
+            description: Voltage in centivolts
+          current:
+            type: integer
+            format: int32
+            minimum: 0
+            #maximum: 65535
+            description: Current in milliamperes
+          power_factor:
+            type: integer
+            format: int32
+            minimum: 0
+            #maximum: 65535
+            description: Power factor
+          status:
+            type: integer
+            format: int8
+            minimum: 0
+            #maximum: 65535
+            description: "Calibration status \n\n
+                        DONE: 0 \n\n
+                        IN_PROGRESS: 1 \n\n
+                        STOPPED: 2 \n\n
+                        FAIL: 3 \n\n
+                        NOT_CALIBRATED: 4\n\n"
+
+    configAutoCalPut:
+      type: object
+      properties:
+          voltage:
+            type: integer
+            format: int32
+            minimum: 0
+            #maximum: 65535
+            description: Voltage in centivolts
+          current:
+            type: integer
+            format: int32
+            minimum: 0
+            #maximum: 65535
+            description: Current in milliamperes
+          power_factor:
+            type: integer
+            format: int32
+            minimum: 0
+            #maximum: 65535
+            description: Power factor
 
     configActions:
       type: object
