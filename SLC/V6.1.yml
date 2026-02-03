@@ -138,22 +138,26 @@ paths:
                     #minimum: 0
                     #maximum: 1
                     description: Accumulated time in minutes which the lamp remained on
+                    default: 52560
                   off_time:
                     type: integer
                     format: int32
                     #minimum: 0
                     #maximum: 1
                     description: Accumulated time in minutes which the lamp remained off
+                    default: 35040
                   n_switches:
                     type: integer
                     format: int32
                     #minimum: 0
                     #maximum: 1
                     description: The number of times the lamp has been turned on
+                    default: 365
                   n_reset:
                     type: integer
                     format: int32
                     description: The number of times the system has been restarted
+                    default: 5
     delete:
       tags:
       - lamp
@@ -194,42 +198,49 @@ paths:
                     minimum: 0
                     maximum: 65535
                     description: Line voltage RMS in centivolts
+                    default: 22000
                   i_rms:
                     type: integer
                     format: int16
                     minimum: 0
                     maximum: 65535
                     description: Line current RMS in milliamperes
+                    default: 450
                   p_active:
                     type: integer
                     format: int16
                     minimum: -32768
                     maximum: 32768
                     description: Line mean active power in watts
+                    default: 95
                   p_reactive:
                     type: integer
                     format: int16
                     minimum: -32768
                     maximum: 32768
                     description: Line mean reactive power in volt-amperes reactive
+                    default: 15
                   p_total:
                     type: integer
                     format: int16
                     minimum: -32768
                     maximum: 32768
                     description: Line mean apparent power in volt-amperes
+                    default: 96
                   power_factor:
                     type: integer
                     format: int16
                     minimum: -1000
                     maximum: 1000
                     description: Line power factor (multiplied by 1000)
+                    default: 950
                   freq:
                     type: integer
                     format: int16
                     minimum: 4500 
                     maximum: 6500
                     description: Line voltage frequency in centihertz
+                    default: 6000
 
   /sensors/energy/acc : 
     get:
@@ -252,12 +263,14 @@ paths:
                       #minimum: 0
                       #maximum: 65535
                       description: Accummulated active energy in centi watts-hour
+                      default: 150000
                     reactive:
                       type: integer
                       format: int32
                       #minimum: 0
                       #maximum: 65535
                       description: Accummulated reactive energy in centi volt-amperes reactive hour
+                      default: 25000
     delete:
       tags:
       - sensors
@@ -369,18 +382,21 @@ paths:
                       minimum: 0
                       maximum: 8386560
                       description: Current iluminance in centilux
+                      default: 5000
                     lux_min:
                       type: integer
                       format: int32
                       minimum: 0
                       maximum: 8386560
                       description: Minimum iluminance in centilux
+                      default: 0
                     lux_max:
                       type: integer
                       format: int32
                       minimum: 0
                       maximum: 8386560
                       description: Maximum iluminance in centilux
+                      default: 1000000
     delete:
         tags:
         - sensors
@@ -412,18 +428,21 @@ paths:
                       minimum: -40
                       maximum: 85
                       description: Current system temperature in degree Celsius
+                      default: 35
                     tmp_min:
                       type: integer
                       format: int8
                       minimum: -40
                       maximum: 85
                       description: Minimum system temperature in degree Celsius
+                      default: 5
                     tmp_max:
                       type: integer
                       format: int8
                       minimum: -40
                       maximum: 85
                       description: Maximum system temperature in degree Celsius
+                      default: 65
     delete:
         tags:
         - sensors
@@ -683,12 +702,14 @@ paths:
                       #minimum: 0
                       #maximum: 4294967295
                       description: The time for which the system has been running in seconds
+                      default: 86400
                     hmeter:
                       type: integer
                       format: int32
                       #minimum: 0
                       #maximum: 4294967295
                       description: Accumulated operation time in minutes
+                      default: 525600
                     state:
                       type: integer
                       format: int32
@@ -696,7 +717,8 @@ paths:
                       #maximum: 4294967295
                       description: "System state bit mask in the format b31|b30|...|b0,
                                     same meaning as the Alarm bit mask (see /system/alarm) 
-                                    but the bits are set WHILE a specific cause is detected." 
+                                    but the bits are set WHILE a specific cause is detected."
+                      default: 0 
 
   /system/datetime : 
     get:
@@ -755,13 +777,16 @@ paths:
                 properties:
                   model:
                     type: string
-                    description: Model 
+                    description: Model
+                    default: "SLC-200"
                   fwVer:
                     type: string
                     description: Firmware version
+                    default: "6.1.0"
                   hwVer:
                     type: string
-                    description: Hardware version 
+                    description: Hardware version
+                    default: "2.0" 
 
   /system/eui64 : 
       get:
@@ -780,7 +805,8 @@ paths:
                   properties:
                     eui64:
                       type: string
-                      description: Hexadecimal representation EUI-64 
+                      description: Hexadecimal representation EUI-64
+                      default: "00-1A-2B-3C-4D-5E-6F-70" 
                       
   /system/reboot_adv :
     put:
@@ -799,12 +825,14 @@ paths:
                 type: integer
                 format: int8
                 description: Time to reboot in minutes (255 to cancel)
+                default: 5
               inst:
                 type: integer
                 format: int8
                 minimum: 0
                 maximum: 1
                 description: 1 to install the previous installed firmware
+                default: 0
         required: true
       responses:
         205:
@@ -834,6 +862,7 @@ paths:
                       type: integer
                       format: int32
                       description: The number of times the memory has been erase
+                      default: 150
 
   /system/astronomic :
     put:
@@ -857,18 +886,21 @@ paths:
                 description: "Coordinates source:\n\n
                               0 - From GPS\n\n
                               1 - Manually configured"
+                default: 1
               lat:
                 type: number
                 #format: float
                 minimum: -90.0
                 maximum: 90.0
                 description: Latitude in decimal degrees
+                default: -23.5505
               lng:
                 type: number
                 #format: float
                 minimum: -180.0
                 maximum: 180
                 description: Longitude in decimal degrees
+                default: -46.6333
       responses:
         205:
           description: Success
@@ -899,42 +931,49 @@ paths:
                     description: "Coordinates source:\n\n
                                   0 - From GPS\n\n
                                   1 - Manually configured"
+                    default: 1
                   lat:
                     type: number
                     #format: float
                     minimum: -90.0
                     maximum: 90.0
                     description: Latitude in decimal degrees
+                    default: -23.5505
                   lng:
                     type: number
                     #format: float
                     minimum: -180.0
                     maximum: 180
                     description: Longitude in decimal degrees
+                    default: -46.6333
                   srise_h:
                     type: integer
                     format: int8
                     minimum: 0
                     maximum: 24
                     description: "Hours sunrise"
+                    default: 6
                   srise_m:
                     type: integer
                     format: int8
                     minimum: 0
                     maximum: 59
                     description: "Minutes sunrise"
+                    default: 15
                   sset_h:
                     type: integer
                     format: int8
                     minimum: 0
                     maximum: 24
                     description: "Hours sunset"
+                    default: 18
                   sset_m:
                     type: integer
                     format: int8
                     minimum: 0
                     maximum: 59
                     description: "Minutes sunset"
+                    default: 45
         204:
           description: No signal
           content: {}
@@ -1001,12 +1040,14 @@ components:
           minimum: 0
           maximum: 1
           description: Lamp state (0 for off)
+          default: 1
         dim:
           type: integer
           format: int8
           minimum: 0
           maximum: 100
           description: Dimmer value in percentage
+          default: 80
         day_night_thr:
           type: integer
           format: int32
@@ -1015,6 +1056,7 @@ components:
           description: "Brightness value in centilux below which the 
                         lamp is switched on, when in 'AUTO LUX' mode. fix \n\n
                         (day_night_thr <= night_day_thr)"
+          default: 5000
         night_day_thr:
           type: integer
           format: int32
@@ -1023,6 +1065,7 @@ components:
           description: "Brightness value in centilux above which the 
                         lamp is switched off, when in 'AUTO LUX' mode. \n\n
                         (night_day_thr >= day_night_thr)"
+          default: 10000
         mode:
           type: integer
           format: int8
@@ -1033,6 +1076,7 @@ components:
                         1 - AUTO LUX: On/off decision from the luximeter measure\n\n
                         2 - AUTO ASTRO: On/off decision from the solar position\n\n
                         3 - SCHEDULER: On/off decision and dimmer change from scheduled actions"
+          default: 1
         dim_mode:
           type: integer
           format: int8
@@ -1041,6 +1085,7 @@ components:
           description: "Dimmer operation mode:\n\n  
                         0 - Dimmer value output DC between 0 at 10 volts\n\n
                         1 - Dimmer value output DC between 1 at 10 volts"
+          default: 0
 
     date_time:
       type: object
@@ -1051,42 +1096,49 @@ components:
           minimum: 0
           maximum: 99
           description: Year after 2000 (e.g. 20 for 2020)
+          default: 26
         mon:
           type: integer
           format: int8
           minimum: 1
           maximum: 12
           description: Month
+          default: 2
         monDy:
           type: integer
           format: int8
           minimum: 1
           maximum: 31
           description: Month day
+          default: 3
         wkDy:
           type: integer
           format: int8
           minimum: 1
           maximum: 7
           description: Week day (1 for sunday)
+          default: 3
         hrs:
           type: integer
           format: int8
           minimum: 0
           maximum: 23
           description: Hours
+          default: 14
         min:
           type: integer
           format: int8
           minimum: 0
           maximum: 59
           description: Minutes
+          default: 30
         sec:
           type: integer
           format: int8
           minimum: 0
           maximum: 59
           description: Seconds
+          default: 45
    
     spa:
       type: object
@@ -1099,30 +1151,35 @@ components:
           description: "Coordinates source:\n\n
                         0 - From GPS\n\n
                         1 - Manually configured"
+          default: 1
         lat:
           type: number
           #format: float
           minimum: -90.0
           maximum: 90.0
           description: Latitude in decimal degrees
+          default: -23.5505
         lng:
           type: number
           #format: float
           minimum: -180.0
           maximum: 180
           description: Longitude in decimal degrees
+          default: -46.6333
         srise_h:
           type: integer
           format: int8
           minimum: 0
           maximum: 24
           description: "Hours sunrise"
+          default: 6
         srise_m:
           type: integer
           format: int8
           minimum: 0
           maximum: 59
           description: "Minutes sunrise"
+          default: 15
 
         sset_h:
           type: integer
@@ -1130,12 +1187,14 @@ components:
           minimum: 0
           maximum: 24
           description: "Hours sunset"
+          default: 18
         sset_m:
           type: integer
           format: int8
           minimum: 0
           maximum: 59
           description: "Minutes sunset"
+          default: 45
 
     alarm:
       type: object
@@ -1169,13 +1228,15 @@ components:
                         b17: [end of life] consider replacing the device within the next 3 months\n\n
                         b18: [reverse energy] line current flow in reverse\n\n
                         b19 to b31: reserved\n\n
-                        E.g. 272 means 'overtemperature' and 'RTC error' conditions detected\n\n" 
+                        E.g. 272 means 'overtemperature' and 'RTC error' conditions detected\n\n"
+          default: 0
         unV:
           type: integer
           format: int32
           minimum: 0
           maximum: 50000
           description: "undervoltage threshold in centivolts (default: 19800)"
+          default: 19800
           
         ovV:
           type: integer
@@ -1183,6 +1244,7 @@ components:
           minimum: 0
           maximum: 50000
           description: "overvoltage threshold in centivolts (default: 24200)"
+          default: 24200
 
         ovC:
           type: integer
@@ -1190,6 +1252,7 @@ components:
           minimum: 0
           maximum: 10000
           description: "overcurrent threshold in milliamperes (default: 1000)"
+          default: 1000
 
         unT:
           type: integer
@@ -1197,6 +1260,7 @@ components:
           minimum: -40
           maximum: 85
           description: "undertemperature threshold in degree Celsius (default: -30)"
+          default: -30
 
         ovT:
           type: integer
@@ -1204,6 +1268,7 @@ components:
           minimum: -40
           maximum: 85
           description: "overtemperature threshold in degree Celsius (default: 85)"
+          default: 85
 
         opCirc:
           type: integer
@@ -1211,6 +1276,7 @@ components:
           minimum: 0
           maximum: 10000
           description: "open circuit current threshold in milliamperes (default: 70)"
+          default: 70
 
         shCirc:
           type: integer
@@ -1218,6 +1284,7 @@ components:
           minimum: 0
           maximum: 10000
           description: "short circuit current threshold in milliamperes (default: 70)"
+          default: 70
 
         unPfa:
           type: integer
@@ -1225,6 +1292,7 @@ components:
           minimum: 0
           maximum: 1000
           description: "under power factor threshold (multiplied by 1000) (default: 920)"
+          default: 920
 
     schedule:
       type: array
@@ -1233,18 +1301,21 @@ components:
           cron:
             type: string
             description: cron schedule expression (32 characters maximum length) (see https://crontab.guru)
+            default: "0 18 * * *"
           state:
             type: integer
             format: int8
             minimum: 0
             maximum: 1
             description: Lamp state (see /lamp/control)
+            default: 1
           dim:
             type: integer
             format: int8
             minimum: 0
             maximum: 100
-            description: Dimmer value in percentage (see /lamp/control)   
+            description: Dimmer value in percentage (see /lamp/control)
+            default: 80   
 
     configMeasures:
       type: object
@@ -1255,12 +1326,14 @@ components:
           minimum: 0
           maximum: 1
           description: Enable/Disable service
+          default: 1
         interval:
           type: integer
           format: int32
           minimum: 20
           maximum: 43200
           description: Measures send interval in minutes
+          default: 60
         mask:
           type: integer
           format: int32
@@ -1280,18 +1353,21 @@ components:
                         b11: [mic] Audio noise in dBSPL measured by the microphone\n\n
                         b12: [acc] Acceleration on x, y and z coordinates\n\n
                         b13 to b31: reserved\n\n
-                        E.g. 272 means 'overtemperature' and 'RTC error' conditions detected\n\n" 
+                        E.g. 272 means 'overtemperature' and 'RTC error' conditions detected\n\n"
+          default: 2047
         dest_port:
           type: integer
           format: int32
           minimum: 1058
           maximum: 47808
           description: Destination port to be send
+          default: 5683
 
         dest_ipv6:
           type: string
           description: "Destination Ipv6 address to be send \n\n
                         Format: 2001:0DB8:AD1F:25E2:CADE:CAFE:F0CA:84C1\n\n"
+          default: "2001:0DB8:AD1F:25E2:CADE:CAFE:F0CA:84C1"
 
     configMeasuresEvents:
       type: object
@@ -1302,22 +1378,26 @@ components:
           minimum: 0
           maximum: 1
           description: Enable/Disable service
+          default: 1
         interval:
           type: integer
           format: int32
           minimum: 360
           maximum: 1440
           description: Events send interval in minutes
+          default: 720
         dest_port:
           type: integer
           format: int32
           minimum: 1058
           maximum: 47808
           description: Destination port to be send
+          default: 5683
         dest_ipv6:
           type: string
           description: "Destination Ipv6 address to be send \n\n
                         Format: 2001:0DB8:AD1F:25E2:CADE:CAFE:F0CA:84C1\n\n"
+          default: "2001:0DB8:AD1F:25E2:CADE:CAFE:F0CA:84C1"
 
     configEnergyCal:
       type: object
@@ -1328,60 +1408,70 @@ components:
             minimum: 0
             #maximum: 65535
             description: Active power gain (Current Channel A)
+            default: 4194304
           Awattos:
             type: integer
             format: int32
             minimum: 0
             #maximum: 65535
             description: Active power offset correction (Current Channel A)
+            default: 0
           Avargain:
             type: integer
             format: int32
             minimum: 0
             #maximum: 65535
             description: Reactive power gain (Current Channel A)
+            default: 4194304
           Avaros:
             type: integer
             format: int32
             minimum: 0
             #maximum: 65535
             description: Reactive power offset correction (Current Channel A)
+            default: 0
           Avagain:
             type: integer
             format: int32
             minimum: 0
             #maximum: 65535
             description: Apparent power gain (Current Channel A)
+            default: 4194304
           Avaos:
             type: integer
             format: int32
             minimum: 0
             #maximum: 65535
             description: Apparent power offset correction (Current Channel A)
+            default: 0
           NoLoad:
             type: integer
             format: int32
             minimum: 0
             #maximum: 65535
             description: Active power no-load level
+            default: 1000
           I_SHUNT_CONSTANT:
             type: integer
             format: int32
             minimum: 0
             #maximum: 65535
             description: Constant for calculate current rms
+            default: 1000
           V_CONSTANT:
             type: integer
             format: int32
             minimum: 0
             #maximum: 65535
             description: Constant for calculate voltage rms
+            default: 1000
           POWER_CONSTANT:
             type: integer
             format: int32
             minimum: 0
             #maximum: 65535
             description: Constant for calculate power rms
+            default: 1000
 
     configAutoCal:
       type: object
@@ -1392,18 +1482,21 @@ components:
             minimum: 0
             #maximum: 65535
             description: Voltage in centivolts
+            default: 22000
           current:
             type: integer
             format: int32
             minimum: 0
             #maximum: 65535
             description: Current in milliamperes
+            default: 500
           power_factor:
             type: integer
             format: int32
             minimum: 0
             #maximum: 65535
             description: Power factor
+            default: 950
           status:
             type: integer
             format: int8
@@ -1415,6 +1508,7 @@ components:
                         STOPPED: 2 \n\n
                         FAIL: 3 \n\n
                         NOT_CALIBRATED: 4\n\n"
+            default: 0
 
     configAutoCalPut:
       type: object
@@ -1425,18 +1519,21 @@ components:
             minimum: 0
             #maximum: 65535
             description: Voltage in centivolts
+            default: 22000
           current:
             type: integer
             format: int32
             minimum: 0
             #maximum: 65535
             description: Current in milliamperes
+            default: 500
           power_factor:
             type: integer
             format: int32
             minimum: 0
             #maximum: 65535
             description: Power factor
+            default: 950
 
     configActions:
       type: object
@@ -1452,6 +1549,7 @@ components:
                         Under Voltage: Turn off relay\n\n
                         Over Current: Turn off relay\n\n
                         Over Temperature: Turn off relay\n\n"
+          default: 1
 
     readMeasures:
       type: array
@@ -1463,90 +1561,105 @@ components:
             minimum: 0
             maximum: 1
             description: Lamp state (see /lamp/control)
+            default: 1
           dim:
             type: integer
             format: int8
             minimum: 0
             maximum: 100
             description: Dimmer value in percentage (see /lamp/control)
+            default: 80
           active:
             type: integer
             format: int32
             #minimum: 0
             #maximum: 65535
             description: Accummulated active energy in centi watts-hour
+            default: 150000
           reactive:
             type: integer
             format: int32
             #minimum: 0
             #maximum: 65535
             description: Accummulated reactive energy in centi volt-amperes reactive hour
+            default: 25000
           u_rms:
             type: integer
             format: int16
             minimum: 0
             maximum: 65535
             description: Line voltage RMS in centivolts
+            default: 22000
           i_rms:
             type: integer
             format: int16
             minimum: 0
             maximum: 65535
             description: Line current RMS in milliamperes
+            default: 450
           p_active:
             type: integer
             format: int16
             minimum: -32768
             maximum: 32768
             description: Line mean active power in watts
+            default: 95
           p_reactive:
             type: integer
             format: int16
             minimum: -32768
             maximum: 32768
             description: Line mean reactive power in volt-amperes reactive
+            default: 15
           power_factor:
             type: integer
             format: int16
             minimum: -1000
             maximum: 1000
             description: Line power factor (multiplied by 1000)
+            default: 950
           acc_x:
             type: integer
             format: int16
             minimum: -2000
             maximum: 2000
             description: x-axis acceleration in milli-G
+            default: 0
           acc_y:
             type: integer
             format: int16
             minimum: -2000
             maximum: 2000
             description: y-axis acceleration in milli-G
+            default: 0
           acc_z:
             type: integer
             format: int16
             minimum: -2000
             maximum: 2000
             description: z-axis acceleration in milli-G
+            default: 1000
           lux_current:
             type: integer
             format: int32
             minimum: 0
             maximum: 8386560
             description: Current iluminance in centilux
+            default: 5000
           tmp_current:
             type: integer
             format: int8
             minimum: -40
             maximum: 85
             description: Current system temperature in degree Celsius
+            default: 35
           meas:
             type: integer
             format: int32
             #minimum: 0
             #maximum: 65535
             description: Mean sound pressure level in dBSPL
+            default: 45
 
     readEvents:
       type: array
@@ -1570,7 +1683,8 @@ components:
                         ON_DAY = 9 (Lamp on at the day)\n\n
                         OFF_DARK = 10 (Lamp off low luminosity)\n\n
                         ON_LIGHT = 11 (Lamp on at high luminosity)\n\n
-                        BLINK = 12 (Lamp blinking)\n\n" 
+                        BLINK = 12 (Lamp blinking)\n\n"
+            default: 5 
 
     storedMeasures:
       type: object
@@ -1581,6 +1695,7 @@ components:
           minimum: 0
           maximum: 255
           description: Number of not transmitted measures stored in NVM
+          default: 12
 
     storedEvents:
       type: object
@@ -1591,12 +1706,14 @@ components:
           minimum: 0
           maximum: 255
           description: Number of stored events in current transmission interval
+          default: 5
         stored_events_packets:
           type: integer
           format: int8
           minimum: 0
           maximum: 255
           description: Number of not transmitted packets with events that happended before the current transmission interval
+          default: 2
 
 
     transmitMeasures:
@@ -1608,3 +1725,4 @@ components:
           minimum: 0
           maximum: 1
           description: Start transmission of stored meas in NVM
+          default: 1
